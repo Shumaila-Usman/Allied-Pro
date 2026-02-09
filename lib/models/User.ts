@@ -29,7 +29,6 @@ const UserSchema = new Schema<IUser>(
     id: {
       type: String,
       required: true,
-      unique: true,
     },
     firstName: {
       type: String,
@@ -42,7 +41,6 @@ const UserSchema = new Schema<IUser>(
     email: {
       type: String,
       required: true,
-      unique: true,
       lowercase: true,
       trim: true,
     },
@@ -77,9 +75,9 @@ const UserSchema = new Schema<IUser>(
   }
 )
 
-// Index for email lookup
-UserSchema.index({ email: 1 })
-UserSchema.index({ id: 1 })
+// Indexes
+UserSchema.index({ email: 1 }, { unique: true })
+UserSchema.index({ id: 1 }, { unique: true })
 
 const User: Model<IUser> = mongoose.models.User || mongoose.model<IUser>('User', UserSchema)
 

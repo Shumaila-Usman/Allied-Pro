@@ -12,6 +12,7 @@ export interface IProduct extends Document {
   stock: number
   category: Types.ObjectId // must point to LEAF category only
   isActive: boolean
+  sku?: string
   createdAt: Date
   updatedAt: Date
 }
@@ -47,6 +48,9 @@ const ProductSchema = new Schema<IProduct>(
     isActive: {
       type: Boolean,
       default: true,
+    },
+    sku: {
+      type: String,
     },
   },
   {

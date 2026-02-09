@@ -19,7 +19,6 @@ const CategorySchema = new Schema<ICategory>(
     slug: {
       type: String,
       required: true,
-      unique: true,
     },
     parent: {
       type: Schema.Types.ObjectId,
@@ -38,7 +37,7 @@ const CategorySchema = new Schema<ICategory>(
 )
 
 // Indexes
-CategorySchema.index({ slug: 1 })
+CategorySchema.index({ slug: 1 }, { unique: true })
 CategorySchema.index({ parent: 1 })
 CategorySchema.index({ level: 1 })
 

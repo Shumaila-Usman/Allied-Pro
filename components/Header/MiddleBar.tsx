@@ -360,10 +360,10 @@ export default function MiddleBar() {
                     <>
                       <div className="flex items-center space-x-3 mb-4">
                         <div className="w-12 h-12 gradient-primary rounded-full flex items-center justify-center text-white font-bold">
-                          {user?.name.charAt(0).toUpperCase()}
+                          {user?.name?.charAt(0).toUpperCase() || 'U'}
                         </div>
                         <div>
-                          <p className="font-semibold text-gray-900">Hi, {user?.name}!</p>
+                          <p className="font-semibold text-gray-900">Hi, {user?.name || 'User'}!</p>
                           {user?.role === 'dealer' && (
                             <p className="text-xs text-gray-500">Dealer ID: {user.dealerId}</p>
                           )}

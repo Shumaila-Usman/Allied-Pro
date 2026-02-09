@@ -123,17 +123,20 @@ export async function POST(request: NextRequest) {
       stock: stock || 0,
       category: categoryId,
       isActive: true,
+      sku: sku,
     })
 
     const populatedProduct = await Product.findById(newProduct._id)
       .populate('category', 'name slug level')
       .lean()
-      if (!populatedProduct) {
-        return NextResponse.json(
-          { error: 'Product creation failed' },
-          { status: 500 }
-        )
-      }
+    
+    if (!populatedProduct) {
+      return NextResponse.json(
+        { error: 'Product creation failed' },
+        { status: 500 }
+      )
+    }
+    
     // Transform to match frontend format
     const transformedProduct = {
       id: populatedProduct._id.toString(),
@@ -189,18 +192,21 @@ export async function PUT(request: NextRequest) {
     if (updates.stock !== undefined) product.stock = updates.stock
     if (updates.images !== undefined) product.images = updates.images
     if (updates.isActive !== undefined) product.isActive = updates.isActive
+    if (updates.sku !== undefined) product.sku = updates.sku
 
     await product.save()
 
     const updatedProduct = await Product.findById(productId)
       .populate('category', 'name slug level')
       .lean()
-      if (!updatedProduct) {
-        return NextResponse.json(
-          { error: 'Updated product not found' },
-          { status: 404 }
-        )
-      }
+    
+    if (!updatedProduct) {
+      return NextResponse.json(
+        { error: 'Updated product not found' },
+        { status: 404 }
+      )
+    }
+    
     // Transform to match frontend format
     const transformedProduct = {
       id: updatedProduct._id.toString(),

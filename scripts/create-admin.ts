@@ -1,5 +1,5 @@
 import bcrypt from 'bcryptjs'
-import { getUsers, saveUsers, UserData } from '../lib/db'
+import { findUserByEmail, addUser, UserData } from '../lib/db'
 
 async function createAdmin() {
   const email = 'admin@acbs.com'
@@ -7,10 +7,8 @@ async function createAdmin() {
   const firstName = 'Admin'
   const lastName = 'User'
 
-  const users = getUsers()
-  
   // Check if admin already exists
-  const existingAdmin = users.find(u => u.email === email)
+  const existingAdmin = await findUserByEmail(email)
   if (existingAdmin) {
     console.log('Admin user already exists!')
     console.log(`Email: ${email}`)
@@ -32,8 +30,7 @@ async function createAdmin() {
     createdAt: new Date().toISOString(),
   }
 
-  users.push(adminUser)
-  saveUsers(users)
+  await addUser(adminUser)
 
   console.log('✅ Admin user created successfully!')
   console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━')

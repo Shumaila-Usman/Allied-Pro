@@ -50,7 +50,6 @@ const OrderSchema = new Schema<IOrder>(
     orderNumber: {
       type: String,
       required: true,
-      unique: true,
     },
     userId: {
       type: String,
@@ -126,7 +125,7 @@ const OrderSchema = new Schema<IOrder>(
 // Indexes
 OrderSchema.index({ userEmail: 1 })
 OrderSchema.index({ userId: 1 })
-OrderSchema.index({ orderNumber: 1 })
+OrderSchema.index({ orderNumber: 1 }, { unique: true })
 OrderSchema.index({ createdAt: -1 })
 
 const Order: Model<IOrder> = mongoose.models.Order || mongoose.model<IOrder>('Order', OrderSchema)

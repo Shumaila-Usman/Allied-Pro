@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import bcrypt from 'bcryptjs'
-import { findUserByEmail, updateUser, getUsers, saveUsers } from '@/lib/db'
+import { findUserByEmail, updateUser } from '@/lib/db'
 
 export async function POST(request: NextRequest) {
   try {

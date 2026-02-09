@@ -68,6 +68,13 @@ export async function POST(request: NextRequest) {
 
     const createdOrder = await Order.findById(order._id).lean()
 
+    if (!createdOrder) {
+      return NextResponse.json(
+        { error: 'Order creation failed' },
+        { status: 500 }
+      )
+    }
+
     return NextResponse.json(
       {
         message: 'Order created successfully',

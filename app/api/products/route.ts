@@ -2,10 +2,49 @@ import { NextRequest, NextResponse } from 'next/server'
 import connectDB from '@/lib/mongodb'
 import Product from '@/lib/models/Product'
 import Category from '@/lib/models/Category'
+import mongoose from 'mongoose'
 
 export async function GET(request: NextRequest) {
   try {
     await connectDB()
+    
+    // Helper function to resolve all leaf categories for a root category
+    const resolveRootCategoryLeafs = async (rootCategory: any, query: any) => {
+      // Get all level 1 children
+      const level1Children = await Category.find({ parent: rootCategory._id }).lean()
+      console.log('Level 1 children:', level1Children.length)
+      
+      const leafCategories: mongoose.Types.ObjectId[] = []
+      
+      // Check each level 1 child
+      for (const level1Child of level1Children) {
+        // Check if level 1 child itself is a leaf (no children)
+        const hasLevel1Children = await Category.findOne({ parent: level1Child._id })
+        if (!hasLevel1Children) {
+          leafCategories.push(level1Child._id)
+        } else {
+          // Get level 2 children (or deeper)
+          const level2Children = await Category.find({ parent: level1Child._id }).lean()
+          for (const level2Child of level2Children) {
+            const hasLevel2Children = await Category.findOne({ parent: level2Child._id })
+            if (!hasLevel2Children) {
+              leafCategories.push(level2Child._id)
+            }
+          }
+        }
+      }
+      
+      console.log('Leaf categories found:', leafCategories.length)
+      
+      // IMPORTANT: Only apply category filter if we have leaf categories
+      if (leafCategories.length > 0) {
+        query.category = { $in: leafCategories }
+        console.log('Resolved category filter (leaf descendants):', leafCategories.map((id: any) => id.toString()))
+      } else {
+        console.log('WARNING: No leaf categories found - NOT applying category filter')
+        // Don't set query.category at all if empty
+      }
+    }
     
     // STEP 1: Log database and collection info
     const mongoose = require('mongoose')
@@ -783,44 +822,6 @@ export async function GET(request: NextRequest) {
         }
       }
       console.log('================================')
-    }
-    
-    // Helper function to resolve all leaf categories for a root category
-    async function resolveRootCategoryLeafs(rootCategory: any, query: any) {
-      // Get all level 1 children
-      const level1Children = await Category.find({ parent: rootCategory._id }).lean()
-      console.log('Level 1 children:', level1Children.length)
-      
-      const leafCategories: mongoose.Types.ObjectId[] = []
-      
-      // Check each level 1 child
-      for (const level1Child of level1Children) {
-        // Check if level 1 child itself is a leaf (no children)
-        const hasLevel1Children = await Category.findOne({ parent: level1Child._id })
-        if (!hasLevel1Children) {
-          leafCategories.push(level1Child._id)
-        } else {
-          // Get level 2 children (or deeper)
-          const level2Children = await Category.find({ parent: level1Child._id }).lean()
-          for (const level2Child of level2Children) {
-            const hasLevel2Children = await Category.findOne({ parent: level2Child._id })
-            if (!hasLevel2Children) {
-              leafCategories.push(level2Child._id)
-            }
-          }
-        }
-      }
-      
-      console.log('Leaf categories found:', leafCategories.length)
-      
-      // IMPORTANT: Only apply category filter if we have leaf categories
-      if (leafCategories.length > 0) {
-        query.category = { $in: leafCategories }
-        console.log('Resolved category filter (leaf descendants):', leafCategories.map((id: any) => id.toString()))
-      } else {
-        console.log('WARNING: No leaf categories found - NOT applying category filter')
-        // Don't set query.category at all if empty
-      }
     }
 
     // Check if we have no filters at all - if so, use simple query

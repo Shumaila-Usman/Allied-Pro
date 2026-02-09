@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -15,6 +15,26 @@ export default function CartPage() {
   const { cartItems, removeFromCart, updateCartQuantity, getCartTotal } = useCart()
   const { isDealer } = useAuth()
   const [isProcessing, setIsProcessing] = useState(false)
+  const [topPadding, setTopPadding] = useState(176) // Default padding
+
+  useEffect(() => {
+    const calculatePadding = () => {
+      const header = document.getElementById('main-header')
+      const nav = document.getElementById('main-nav')
+      if (header && nav) {
+        const totalHeight = header.offsetHeight + nav.offsetHeight
+        setTopPadding(totalHeight)
+      }
+    }
+
+    calculatePadding()
+    window.addEventListener('resize', calculatePadding)
+    setTimeout(calculatePadding, 100)
+
+    return () => {
+      window.removeEventListener('resize', calculatePadding)
+    }
+  }, [])
 
   // Calculate totals - use cost for dealers if available
   const calculateItemTotal = (item: any) => {
@@ -43,7 +63,7 @@ export default function CartPage() {
       <Header />
       <MainNav />
 
-      <div className="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12 w-full">
+      <div className="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12 w-full" style={{ paddingTop: `${topPadding + 48}px` }}>
         <h1 className="text-3xl md:text-4xl font-bold mb-8 bg-gradient-to-r from-[#C8A2C8] to-[#87CEEB] bg-clip-text text-transparent">
           Shopping Cart
         </h1>
@@ -230,7 +250,7 @@ export default function CartPage() {
 
             {/* Order Summary */}
             <div className="lg:col-span-1">
-              <div className="bg-white rounded-xl shadow-lg p-6 sticky top-24">
+              <div className="bg-white rounded-xl shadow-lg p-6 sticky" style={{ top: `${topPadding + 24}px` }}>
                 <h2 className="text-2xl font-bold text-gray-900 mb-6 bg-gradient-to-r from-[#C8A2C8] to-[#87CEEB] bg-clip-text text-transparent">
                   Order Summary
                 </h2>

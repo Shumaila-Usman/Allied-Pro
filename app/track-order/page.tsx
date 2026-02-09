@@ -127,8 +127,13 @@ export default function TrackOrderPage() {
     }
   }
 
+  useEffect(() => {
+    if (!isLoggedIn || !isDealer) {
+      router.push('/sign-in')
+    }
+  }, [isLoggedIn, isDealer, router])
+
   if (!isLoggedIn || !isDealer) {
-    router.push('/sign-in')
     return null
   }
 
