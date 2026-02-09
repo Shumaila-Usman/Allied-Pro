@@ -128,7 +128,12 @@ export async function POST(request: NextRequest) {
     const populatedProduct = await Product.findById(newProduct._id)
       .populate('category', 'name slug level')
       .lean()
-
+      if (!populatedProduct) {
+        return NextResponse.json(
+          { error: 'Product creation failed' },
+          { status: 500 }
+        )
+      }
     // Transform to match frontend format
     const transformedProduct = {
       id: populatedProduct._id.toString(),
@@ -190,7 +195,12 @@ export async function PUT(request: NextRequest) {
     const updatedProduct = await Product.findById(productId)
       .populate('category', 'name slug level')
       .lean()
-
+      if (!updatedProduct) {
+        return NextResponse.json(
+          { error: 'Updated product not found' },
+          { status: 404 }
+        )
+      }
     // Transform to match frontend format
     const transformedProduct = {
       id: updatedProduct._id.toString(),
