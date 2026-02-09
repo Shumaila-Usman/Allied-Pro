@@ -1,0 +1,362 @@
+[
+  {
+    "id": "skincare",
+    "name": "SKINCARE",
+    "slug": "skincare",
+    "subcategories": [
+      {
+        "id": "skincare-by-category",
+        "name": "By Category",
+        "slug": "by-category",
+        "parentId": "skincare",
+        "secondSubcategories": [
+          {
+            "id": "face-masks",
+            "name": "Face Masks",
+            "slug": "face-masks",
+            "parentId": "skincare-by-category"
+          },
+          {
+            "id": "eye-care",
+            "name": "Eye Care",
+            "slug": "eye-care",
+            "parentId": "skincare-by-category"
+          },
+          {
+            "id": "tools-accessories",
+            "name": "Tools & Accessories",
+            "slug": "tools-accessories",
+            "parentId": "skincare-by-category"
+          },
+          {
+            "id": "massage-contouring",
+            "name": "Massage & Contouring",
+            "slug": "massage-contouring",
+            "parentId": "skincare-by-category"
+          }
+        ]
+      },
+      {
+        "id": "skincare-by-concern",
+        "name": "By Concern",
+        "slug": "by-concern",
+        "parentId": "skincare",
+        "secondSubcategories": [
+          {
+            "id": "redness",
+            "name": "Redness",
+            "slug": "redness",
+            "parentId": "skincare-by-concern"
+          },
+          {
+            "id": "anti-aging-firming",
+            "name": "Anti-Aging / Firming",
+            "slug": "anti-aging-firming",
+            "parentId": "skincare-by-concern"
+          },
+          {
+            "id": "dryness",
+            "name": "Dryness",
+            "slug": "dryness",
+            "parentId": "skincare-by-concern"
+          }
+        ]
+      },
+      {
+        "id": "skincare-by-skin-type",
+        "name": "By Skin Type",
+        "slug": "by-skin-type",
+        "parentId": "skincare",
+        "secondSubcategories": [
+          {
+            "id": "normal-all-skin-types",
+            "name": "Normal / All Skin Types",
+            "slug": "normal-all-skin-types",
+            "parentId": "skincare-by-skin-type"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "spa-products",
+    "name": "SPA PRODUCTS",
+    "slug": "spa-products",
+    "subcategories": [
+      {
+        "id": "treatment-products",
+        "name": "Treatment Products (Waxing & Paraffin)",
+        "slug": "treatment-products",
+        "parentId": "spa-products"
+      },
+      {
+        "id": "body-wraps-spa-creams",
+        "name": "Body Wraps & Spa Creams",
+        "slug": "body-wraps-spa-creams",
+        "parentId": "spa-products"
+      },
+      {
+        "id": "hot-stones",
+        "name": "Hot Stones",
+        "slug": "hot-stones",
+        "parentId": "spa-products"
+      },
+      {
+        "id": "spa-accessories",
+        "name": "Spa Accessories",
+        "slug": "spa-accessories",
+        "parentId": "spa-products",
+        "secondSubcategories": [
+          {
+            "id": "towels-robes-linens",
+            "name": "Towels, Robes & Linens",
+            "slug": "towels-robes-linens",
+            "parentId": "spa-accessories"
+          },
+          {
+            "id": "slippers-disposables",
+            "name": "Slippers & Disposables",
+            "slug": "slippers-disposables",
+            "parentId": "spa-accessories"
+          },
+          {
+            "id": "small-tools-disposable-sundries",
+            "name": "Small Tools & Disposable Sundries",
+            "slug": "small-tools-disposable-sundries",
+            "parentId": "spa-accessories"
+          }
+        ]
+      },
+      {
+        "id": "warmers-hot-towel-cabinets",
+        "name": "Warmers & Hot Towel Cabinets",
+        "slug": "warmers-hot-towel-cabinets",
+        "parentId": "spa-products"
+      }
+    ]
+  },
+  {
+    "id": "nail-products",
+    "name": "NAIL PRODUCTS",
+    "slug": "nail-products",
+    "subcategories": [
+      {
+        "id": "nail-care",
+        "name": "Nail Care (Cuticle & Treatments)",
+        "slug": "nail-care",
+        "parentId": "nail-products"
+      },
+      {
+        "id": "nail-files-buffers",
+        "name": "Nail Files & Buffers",
+        "slug": "nail-files-buffers",
+        "parentId": "nail-products"
+      },
+      {
+        "id": "nail-art",
+        "name": "Nail Art",
+        "slug": "nail-art",
+        "parentId": "nail-products"
+      },
+      {
+        "id": "tools-equipment",
+        "name": "Tools & Equipment",
+        "slug": "tools-equipment",
+        "parentId": "nail-products",
+        "secondSubcategories": [
+          {
+            "id": "pedicure-tools",
+            "name": "Pedicure Tools (Exfoliation & Care)",
+            "slug": "pedicure-tools",
+            "parentId": "tools-equipment"
+          },
+          {
+            "id": "stations-storage",
+            "name": "Stations & Storage",
+            "slug": "stations-storage",
+            "parentId": "tools-equipment"
+          },
+          {
+            "id": "manicure-pedicure-accessories",
+            "name": "Manicure & Pedicure Accessories",
+            "slug": "manicure-pedicure-accessories",
+            "parentId": "tools-equipment"
+          }
+        ]
+      },
+      {
+        "id": "consumables-disposables",
+        "name": "Consumables & Disposables",
+        "slug": "consumables-disposables",
+        "parentId": "nail-products"
+      }
+    ]
+  },
+  {
+    "id": "equipment",
+    "name": "EQUIPMENT",
+    "slug": "equipment",
+    "subcategories": [
+      {
+        "id": "facial-equipment",
+        "name": "Facial Equipment",
+        "slug": "facial-equipment",
+        "parentId": "equipment"
+      },
+      {
+        "id": "styling-equipment",
+        "name": "Styling Equipment",
+        "slug": "styling-equipment",
+        "parentId": "equipment"
+      },
+      {
+        "id": "salon-equipment",
+        "name": "Salon Equipment (Trolleys & Carts)",
+        "slug": "salon-equipment",
+        "parentId": "equipment"
+      },
+      {
+        "id": "equipment-accessories",
+        "name": "Equipment Accessories (Stands & Bulbs)",
+        "slug": "equipment-accessories",
+        "parentId": "equipment"
+      }
+    ]
+  },
+  {
+    "id": "implements",
+    "name": "IMPLEMENTS",
+    "slug": "implements",
+    "subcategories": [
+      {
+        "id": "hair-tools",
+        "name": "Hair Tools",
+        "slug": "hair-tools",
+        "parentId": "implements"
+      },
+      {
+        "id": "scissors-shears",
+        "name": "Scissors & Shears (Nail & Cuticle)",
+        "slug": "scissors-shears",
+        "parentId": "implements"
+      },
+      {
+        "id": "skin-tools",
+        "name": "Skin Tools (Tweezers & Extraction)",
+        "slug": "skin-tools",
+        "parentId": "implements"
+      },
+      {
+        "id": "nail-pushers-implements",
+        "name": "Nail Pushers & Implements",
+        "slug": "nail-pushers-implements",
+        "parentId": "implements"
+      },
+      {
+        "id": "sterilization-safety",
+        "name": "Sterilization & Safety",
+        "slug": "sterilization-safety",
+        "parentId": "implements"
+      },
+      {
+        "id": "disposables",
+        "name": "Disposables",
+        "slug": "disposables",
+        "parentId": "implements",
+        "secondSubcategories": [
+          {
+            "id": "bowls",
+            "name": "Bowls",
+            "slug": "bowls",
+            "parentId": "disposables"
+          },
+          {
+            "id": "medical-treatment-disposables",
+            "name": "Medical & Treatment Disposables",
+            "slug": "medical-treatment-disposables",
+            "parentId": "disposables"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "furniture",
+    "name": "FURNITURE",
+    "slug": "furniture",
+    "subcategories": [
+      {
+        "id": "facial-bed-multipurpose",
+        "name": "Facial Bed Multipurpose",
+        "slug": "facial-bed-multipurpose",
+        "parentId": "furniture"
+      },
+      {
+        "id": "facial-massage-bed",
+        "name": "Facial Massage Bed",
+        "slug": "facial-massage-bed",
+        "parentId": "furniture"
+      },
+      {
+        "id": "portable-massage-bed",
+        "name": "Portable Massage Bed",
+        "slug": "portable-massage-bed",
+        "parentId": "furniture"
+      },
+      {
+        "id": "wooden-trolley",
+        "name": "Wooden Trolley with 2 Draws",
+        "slug": "wooden-trolley",
+        "parentId": "furniture"
+      },
+      {
+        "id": "spa-salon-metal-trolley",
+        "name": "SPA SALON METAL TROLLEY",
+        "slug": "spa-salon-metal-trolley",
+        "parentId": "furniture"
+      },
+      {
+        "id": "facial-beauty-spa-salon-glass-trolly",
+        "name": "FACIAL BEAUTY SPA, SALON GLASS TROLLY WITH 4 SHELVES",
+        "slug": "facial-beauty-spa-salon-glass-trolly",
+        "parentId": "furniture"
+      },
+      {
+        "id": "salon-spa-color-rolling-tray",
+        "name": "Salon Spa Color rolling Tray with accessories holder Cart",
+        "slug": "salon-spa-color-rolling-tray",
+        "parentId": "furniture"
+      },
+      {
+        "id": "multi-use-spa-salon-trolly",
+        "name": "MULTI USE SPA, SALON TROLY",
+        "slug": "multi-use-spa-salon-trolly",
+        "parentId": "furniture"
+      },
+      {
+        "id": "seller-salon-trolly",
+        "name": "#1 SELLER SALON TROLLY WITH DRAWS & ACCESSORIES HOLDER",
+        "slug": "seller-salon-trolly",
+        "parentId": "furniture"
+      },
+      {
+        "id": "portable-manicure-table",
+        "name": "Portable Manicure Table Folable Legs",
+        "slug": "portable-manicure-table",
+        "parentId": "furniture"
+      },
+      {
+        "id": "spa-salon-adjustable-stool",
+        "name": "SPA - SALON ADJUSTABLE STOOL",
+        "slug": "spa-salon-adjustable-stool",
+        "parentId": "furniture"
+      },
+      {
+        "id": "pedicure-foot-rest",
+        "name": "Pedicure Foot Rest",
+        "slug": "pedicure-foot-rest",
+        "parentId": "furniture"
+      }
+    ]
+  }
+]

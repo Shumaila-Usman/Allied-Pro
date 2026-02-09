@@ -1,0 +1,2537 @@
+[
+  {
+    "id": "prod-1769825615127-az9zista2",
+    "name": "Hyaluronic Acid Gel Mask (30ml/500ml)",
+    "description": "Promotes healthier and supple skin.",
+    "price": 25.99,
+    "cost": 18.192999999999998,
+    "images": [
+      "/products/hyaluronic-acid-gel-mask-(30ml/500ml)-1.jpg"
+    ],
+    "categoryId": "skincare",
+    "subcategoryId": "skincare-by-category",
+    "secondSubcategoryId": "face-masks",
+    "stock": 100,
+    "sku": "SKU-HYA-2493",
+    "createdAt": "2026-01-31T02:13:35.127Z",
+    "updatedAt": "2026-01-31T02:13:35.130Z"
+  },
+  {
+    "id": "prod-1769825615130-qsnsfmkf3",
+    "name": "Golden Firming Gel Mask (30ml/500ml)",
+    "description": "Improves skin tone and adds radiance.",
+    "price": 28.99,
+    "cost": 20.293,
+    "images": [
+      "/products/golden-firming-gel-mask-(30ml/500ml)-1.jpg"
+    ],
+    "categoryId": "skincare",
+    "subcategoryId": "skincare-by-category",
+    "secondSubcategoryId": "face-masks",
+    "stock": 100,
+    "sku": "SKU-GOL-4313",
+    "createdAt": "2026-01-31T02:13:35.130Z",
+    "updatedAt": "2026-01-31T02:13:35.130Z"
+  },
+  {
+    "id": "prod-1769825615130-bmm2eeqrw",
+    "name": "Compressed Dry Sheet Masks",
+    "description": "Individually packed; great for travel.",
+    "price": 12.99,
+    "cost": 9.093,
+    "images": [
+      "/products/compressed-dry-sheet-masks-1.jpg"
+    ],
+    "categoryId": "skincare",
+    "subcategoryId": "skincare-by-category",
+    "secondSubcategoryId": "face-masks",
+    "stock": 100,
+    "sku": "SKU-COM-5917",
+    "createdAt": "2026-01-31T02:13:35.130Z",
+    "updatedAt": "2026-01-31T02:13:35.131Z"
+  },
+  {
+    "id": "prod-1769825615131-7v7vkte2b",
+    "name": "Nonwoven Dry Sheet Mask",
+    "description": "Available in white or black for multi-use.",
+    "price": 8.99,
+    "cost": 6.293,
+    "images": [
+      "/products/nonwoven-dry-sheet-mask-1.jpg"
+    ],
+    "categoryId": "skincare",
+    "subcategoryId": "skincare-by-category",
+    "secondSubcategoryId": "face-masks",
+    "stock": 100,
+    "sku": "SKU-NON-7736",
+    "createdAt": "2026-01-31T02:13:35.131Z",
+    "updatedAt": "2026-01-31T02:13:35.138Z"
+  },
+  {
+    "id": "prod-1769825615138-q9xud6lz1",
+    "name": "Nonwoven Dry Under Eye Pad",
+    "description": "For multi-use.",
+    "price": 6.99,
+    "cost": 4.893,
+    "images": [
+      "/products/nonwoven-dry-under-eye-pad-1.jpg"
+    ],
+    "categoryId": "skincare",
+    "subcategoryId": "skincare-by-category",
+    "secondSubcategoryId": "eye-care",
+    "stock": 100,
+    "sku": "SKU-NON-3409",
+    "createdAt": "2026-01-31T02:13:35.138Z",
+    "updatedAt": "2026-01-31T02:13:35.138Z"
+  },
+  {
+    "id": "prod-1769825615138-lc33ffdkh",
+    "name": "Under-Eye Press / Disc (Electric Jade)",
+    "description": "Specifically for de-puffing the eye area.",
+    "price": 19.99,
+    "cost": 13.992999999999999,
+    "images": [
+      "/products/under-eye-press-/-disc-(electric-jade)-1.jpg"
+    ],
+    "categoryId": "skincare",
+    "subcategoryId": "skincare-by-category",
+    "secondSubcategoryId": "eye-care",
+    "stock": 100,
+    "sku": "SKU-UND-7992",
+    "createdAt": "2026-01-31T02:13:35.138Z",
+    "updatedAt": "2026-01-31T02:13:35.138Z"
+  },
+  {
+    "id": "prod-1769825615138-3ctc240qu",
+    "name": "Cellulose Sponge",
+    "description": "Lightly exfoliates; suitable for all skin types.",
+    "price": 4.99,
+    "cost": 3.493,
+    "images": [
+      "/products/cellulose-sponge-1.jpg"
+    ],
+    "categoryId": "skincare",
+    "subcategoryId": "skincare-by-category",
+    "secondSubcategoryId": "tools-accessories",
+    "stock": 100,
+    "sku": "SKU-CEL-6765",
+    "createdAt": "2026-01-31T02:13:35.138Z",
+    "updatedAt": "2026-01-31T02:13:35.138Z"
+  },
+  {
+    "id": "prod-1769825615138-a7zohq63d",
+    "name": "Facial Brush (Synthetic/Natural)",
+    "description": "Used for exfoliation.",
+    "price": 9.99,
+    "cost": 6.992999999999999,
+    "images": [
+      "/products/facial-brush-(synthetic/natural)-1.jpg"
+    ],
+    "categoryId": "skincare",
+    "subcategoryId": "skincare-by-category",
+    "secondSubcategoryId": "tools-accessories",
+    "stock": 100,
+    "sku": "SKU-FAC-2845",
+    "createdAt": "2026-01-31T02:13:35.138Z",
+    "updatedAt": "2026-01-31T02:13:35.141Z"
+  },
+  {
+    "id": "prod-1769825615142-a2tt7n028",
+    "name": "Ice Globes",
+    "description": "Calms skin and stimulates circulation.",
+    "price": 24.99,
+    "cost": 17.493,
+    "images": [
+      "/products/ice-globes-1.jpg"
+    ],
+    "categoryId": "skincare",
+    "subcategoryId": "skincare-by-category",
+    "secondSubcategoryId": "tools-accessories",
+    "stock": 100,
+    "sku": "SKU-ICE-5352",
+    "createdAt": "2026-01-31T02:13:35.142Z",
+    "updatedAt": "2026-01-31T02:13:35.142Z"
+  },
+  {
+    "id": "prod-1769825615144-o776qfs48",
+    "name": "Disposable Headbands",
+    "description": "Professional/Treatment use.",
+    "price": 3.99,
+    "cost": 2.793,
+    "images": [
+      "/products/disposable-headbands-1.jpg"
+    ],
+    "categoryId": "skincare",
+    "subcategoryId": "skincare-by-category",
+    "secondSubcategoryId": "tools-accessories",
+    "stock": 100,
+    "sku": "SKU-DIS-9159",
+    "createdAt": "2026-01-31T02:13:35.145Z",
+    "updatedAt": "2026-01-31T02:13:35.145Z"
+  },
+  {
+    "id": "prod-1769825615145-667jw9552",
+    "name": "Mixing Bowl Set",
+    "description": "For mask preparation.",
+    "price": 14.99,
+    "cost": 10.493,
+    "images": [
+      "/products/mixing-bowl-set-1.jpg"
+    ],
+    "categoryId": "skincare",
+    "subcategoryId": "skincare-by-category",
+    "secondSubcategoryId": "tools-accessories",
+    "stock": 100,
+    "sku": "SKU-MIX-7871",
+    "createdAt": "2026-01-31T02:13:35.145Z",
+    "updatedAt": "2026-01-31T02:13:35.145Z"
+  },
+  {
+    "id": "prod-1769825615145-8qh0g1on8",
+    "name": "Gua Sha Stone (Dolphin)",
+    "description": "For contouring jawlines and cheekbones.",
+    "price": 18.99,
+    "cost": 13.292999999999997,
+    "images": [
+      "/products/gua-sha-stone-(dolphin)-1.jpg"
+    ],
+    "categoryId": "skincare",
+    "subcategoryId": "skincare-by-category",
+    "secondSubcategoryId": "massage-contouring",
+    "stock": 100,
+    "sku": "SKU-GUA-870",
+    "createdAt": "2026-01-31T02:13:35.145Z",
+    "updatedAt": "2026-01-31T02:13:35.145Z"
+  },
+  {
+    "id": "prod-1769825615145-lqlm37771",
+    "name": "Gua Sha Stone (Concave)",
+    "description": "Multi-purpose (nose, fingers, toes).",
+    "price": 16.99,
+    "cost": 11.892999999999999,
+    "images": [
+      "/products/gua-sha-stone-(concave)-1.jpg"
+    ],
+    "categoryId": "skincare",
+    "subcategoryId": "skincare-by-category",
+    "secondSubcategoryId": "massage-contouring",
+    "stock": 100,
+    "sku": "SKU-GUA-8817",
+    "createdAt": "2026-01-31T02:13:35.145Z",
+    "updatedAt": "2026-01-31T02:13:35.145Z"
+  },
+  {
+    "id": "prod-1769825615145-oa54brnmq",
+    "name": "Gua Sha Stone (S Shaped)",
+    "description": "Multi-purpose (hands, feet, back, neck).",
+    "price": 17.99,
+    "cost": 12.592999999999998,
+    "images": [
+      "/products/gua-sha-stone-(s-shaped)-1.jpg"
+    ],
+    "categoryId": "skincare",
+    "subcategoryId": "skincare-by-category",
+    "secondSubcategoryId": "massage-contouring",
+    "stock": 100,
+    "sku": "SKU-GUA-1813",
+    "createdAt": "2026-01-31T02:13:35.145Z",
+    "updatedAt": "2026-01-31T02:13:35.145Z"
+  },
+  {
+    "id": "prod-1769825615145-22c7dfm5w",
+    "name": "Jade Roller (Green, Rose Quartz, White)",
+    "description": "Toning and lifting effect.",
+    "price": 22.99,
+    "cost": 16.092999999999996,
+    "images": [
+      "/products/jade-roller-(green,-rose-quartz,-white)-1.jpg"
+    ],
+    "categoryId": "skincare",
+    "subcategoryId": "skincare-by-category",
+    "secondSubcategoryId": "massage-contouring",
+    "stock": 100,
+    "sku": "SKU-JAD-9329",
+    "createdAt": "2026-01-31T02:13:35.145Z",
+    "updatedAt": "2026-01-31T02:13:35.145Z"
+  },
+  {
+    "id": "prod-1769825615145-evx8a4sc2",
+    "name": "2-in-1 Electric Jade Roller",
+    "description": "Vibrating roller for circulation with 2 attachment heads.",
+    "price": 45.99,
+    "cost": 32.193,
+    "images": [
+      "/products/2-in-1-electric-jade-roller-1.jpg"
+    ],
+    "categoryId": "skincare",
+    "subcategoryId": "skincare-by-category",
+    "secondSubcategoryId": "massage-contouring",
+    "stock": 100,
+    "sku": "SKU-2-I-6006",
+    "createdAt": "2026-01-31T02:13:35.145Z",
+    "updatedAt": "2026-01-31T02:13:35.145Z"
+  },
+  {
+    "id": "prod-1769825615145-d145urhry",
+    "name": "T/U Electric Jade Roller",
+    "description": "For lymphatic drainage on forehead, cheeks, and jaw.",
+    "price": 39.99,
+    "cost": 27.993,
+    "images": [
+      "/products/t/u-electric-jade-roller-1.jpg"
+    ],
+    "categoryId": "skincare",
+    "subcategoryId": "skincare-by-category",
+    "secondSubcategoryId": "massage-contouring",
+    "stock": 100,
+    "sku": "SKU-T/U-2383",
+    "createdAt": "2026-01-31T02:13:35.145Z",
+    "updatedAt": "2026-01-31T02:13:35.145Z"
+  },
+  {
+    "id": "prod-1769825615145-elzw2i8ln",
+    "name": "Ice Globes (Redness)",
+    "description": "Specifically designed to eliminate redness and calm skin.",
+    "price": 24.99,
+    "cost": 17.493,
+    "images": [
+      "/products/ice-globes-(redness)-1.jpg"
+    ],
+    "categoryId": "skincare",
+    "subcategoryId": "skincare-by-concern",
+    "secondSubcategoryId": "redness",
+    "stock": 100,
+    "sku": "SKU-ICE-7654",
+    "createdAt": "2026-01-31T02:13:35.145Z",
+    "updatedAt": "2026-01-31T02:13:35.145Z"
+  },
+  {
+    "id": "prod-1769825615145-5ecxsw68g",
+    "name": "Golden Firming Gel Mask (Anti-Aging)",
+    "description": "Focuses on radiance and skin tone.",
+    "price": 28.99,
+    "cost": 20.293,
+    "images": [
+      "/products/golden-firming-gel-mask-(anti-aging)-1.jpg"
+    ],
+    "categoryId": "skincare",
+    "subcategoryId": "skincare-by-concern",
+    "secondSubcategoryId": "anti-aging-firming",
+    "stock": 100,
+    "sku": "SKU-GOL-1816",
+    "createdAt": "2026-01-31T02:13:35.145Z",
+    "updatedAt": "2026-01-31T02:13:35.145Z"
+  },
+  {
+    "id": "prod-1769825615145-oglabc4u3",
+    "name": "Jade Roller / Gua Sha (Anti-Aging)",
+    "description": "Assists with lifting, toning, and contouring.",
+    "price": 22.99,
+    "cost": 16.092999999999996,
+    "images": [
+      "/products/jade-roller-/-gua-sha-(anti-aging)-1.jpg"
+    ],
+    "categoryId": "skincare",
+    "subcategoryId": "skincare-by-concern",
+    "secondSubcategoryId": "anti-aging-firming",
+    "stock": 100,
+    "sku": "SKU-JAD-2167",
+    "createdAt": "2026-01-31T02:13:35.145Z",
+    "updatedAt": "2026-01-31T02:13:35.145Z"
+  },
+  {
+    "id": "prod-1769825615145-vjgrfryqg",
+    "name": "Hyaluronic Acid Gel Mask (Dryness)",
+    "description": "Focuses on suppleness and hydration.",
+    "price": 25.99,
+    "cost": 18.192999999999998,
+    "images": [
+      "/products/hyaluronic-acid-gel-mask-(dryness)-1.jpg"
+    ],
+    "categoryId": "skincare",
+    "subcategoryId": "skincare-by-concern",
+    "secondSubcategoryId": "dryness",
+    "stock": 100,
+    "sku": "SKU-HYA-2070",
+    "createdAt": "2026-01-31T02:13:35.145Z",
+    "updatedAt": "2026-01-31T02:13:35.145Z"
+  },
+  {
+    "id": "prod-1769825615145-gxaq5vpda",
+    "name": "Cellulose Sponge (All Skin Types)",
+    "description": "Explicitly listed as able to use with any skin type.",
+    "price": 4.99,
+    "cost": 3.493,
+    "images": [
+      "/products/cellulose-sponge-(all-skin-types)-1.jpg"
+    ],
+    "categoryId": "skincare",
+    "subcategoryId": "skincare-by-skin-type",
+    "secondSubcategoryId": "normal-all-skin-types",
+    "stock": 100,
+    "sku": "SKU-CEL-9092",
+    "createdAt": "2026-01-31T02:13:35.145Z",
+    "updatedAt": "2026-01-31T02:13:35.145Z"
+  },
+  {
+    "id": "prod-1769825615145-saetb769m",
+    "name": "Compressed Dry Sheet Masks (Universal)",
+    "description": "Universal application.",
+    "price": 12.99,
+    "cost": 9.093,
+    "images": [
+      "/products/compressed-dry-sheet-masks-(universal)-1.jpg"
+    ],
+    "categoryId": "skincare",
+    "subcategoryId": "skincare-by-skin-type",
+    "secondSubcategoryId": "normal-all-skin-types",
+    "stock": 100,
+    "sku": "SKU-COM-2603",
+    "createdAt": "2026-01-31T02:13:35.145Z",
+    "updatedAt": "2026-01-31T02:13:35.145Z"
+  },
+  {
+    "id": "prod-1769825615145-c0iizr0y3",
+    "name": "SilkRoma Depilatory Honey Wax",
+    "description": "Soft wax for coarse/curly hair.",
+    "price": 18.99,
+    "cost": 13.292999999999997,
+    "images": [
+      "/products/silkroma-depilatory-honey-wax-1.jpg"
+    ],
+    "categoryId": "spa-products",
+    "subcategoryId": "treatment-products",
+    "stock": 100,
+    "sku": "SKU-SIL-4791",
+    "createdAt": "2026-01-31T02:13:35.145Z",
+    "updatedAt": "2026-01-31T02:13:35.145Z"
+  },
+  {
+    "id": "prod-1769825615145-o61rofnnv",
+    "name": "SilkRoma Depilatory Cream Wax",
+    "description": "Low heat; best for sensitive skin.",
+    "price": 19.99,
+    "cost": 13.992999999999999,
+    "images": [
+      "/products/silkroma-depilatory-cream-wax-1.jpg"
+    ],
+    "categoryId": "spa-products",
+    "subcategoryId": "treatment-products",
+    "stock": 100,
+    "sku": "SKU-SIL-4265",
+    "createdAt": "2026-01-31T02:13:35.145Z",
+    "updatedAt": "2026-01-31T02:13:35.145Z"
+  },
+  {
+    "id": "prod-1769825615145-akpjlruqv",
+    "name": "SilkRoma Depilatory Zinc Wax",
+    "description": "Soothing; for fine to medium hair.",
+    "price": 17.99,
+    "cost": 12.592999999999998,
+    "images": [
+      "/products/silkroma-depilatory-zinc-wax-1.jpg"
+    ],
+    "categoryId": "spa-products",
+    "subcategoryId": "treatment-products",
+    "stock": 100,
+    "sku": "SKU-SIL-3947",
+    "createdAt": "2026-01-31T02:13:35.145Z",
+    "updatedAt": "2026-01-31T02:13:35.145Z"
+  },
+  {
+    "id": "prod-1769825615145-1cy8l0z0y",
+    "name": "Roma Azulene Wax",
+    "description": "Reduces redness and inflammation.",
+    "price": 20.99,
+    "cost": 14.692999999999998,
+    "images": [
+      "/products/roma-azulene-wax-1.jpg"
+    ],
+    "categoryId": "spa-products",
+    "subcategoryId": "treatment-products",
+    "stock": 100,
+    "sku": "SKU-ROM-4607",
+    "createdAt": "2026-01-31T02:13:35.145Z",
+    "updatedAt": "2026-01-31T02:13:35.145Z"
+  },
+  {
+    "id": "prod-1769825615145-mrqq0hv69",
+    "name": "Roll-on Wax (Pink, Honey, Azulene, Banana)",
+    "description": "Water-soluble.",
+    "price": 15.99,
+    "cost": 11.193,
+    "images": [
+      "/products/roll-on-wax-(pink,-honey,-azulene,-banana)-1.jpg"
+    ],
+    "categoryId": "spa-products",
+    "subcategoryId": "treatment-products",
+    "stock": 100,
+    "sku": "SKU-ROL-3896",
+    "createdAt": "2026-01-31T02:13:35.145Z",
+    "updatedAt": "2026-01-31T02:13:35.145Z"
+  },
+  {
+    "id": "prod-1769825615145-o6x0bvqic",
+    "name": "Epilating Cotton Roll",
+    "description": "Premium quality fabric (Hard, Soft, Medium).",
+    "price": 8.99,
+    "cost": 6.293,
+    "images": [
+      "/products/epilating-cotton-roll-1.jpg"
+    ],
+    "categoryId": "spa-products",
+    "subcategoryId": "treatment-products",
+    "stock": 100,
+    "sku": "SKU-EPI-5243",
+    "createdAt": "2026-01-31T02:13:35.145Z",
+    "updatedAt": "2026-01-31T02:13:35.145Z"
+  },
+  {
+    "id": "prod-1769825615145-6zqescvb3",
+    "name": "Pre-Cut Waxing Strips",
+    "description": "High-quality nonwoven material.",
+    "price": 6.99,
+    "cost": 4.893,
+    "images": [
+      "/products/pre-cut-waxing-strips-1.jpg"
+    ],
+    "categoryId": "spa-products",
+    "subcategoryId": "treatment-products",
+    "stock": 100,
+    "sku": "SKU-PRE-5157",
+    "createdAt": "2026-01-31T02:13:35.145Z",
+    "updatedAt": "2026-01-31T02:13:35.145Z"
+  },
+  {
+    "id": "prod-1769825615145-pnt7yqatw",
+    "name": "Paraffin Hand & Foot Liners",
+    "description": "Plastic disposable liners.",
+    "price": 4.99,
+    "cost": 3.493,
+    "images": [
+      "/products/paraffin-hand-&-foot-liners-1.jpg"
+    ],
+    "categoryId": "spa-products",
+    "subcategoryId": "treatment-products",
+    "stock": 100,
+    "sku": "SKU-PAR-6264",
+    "createdAt": "2026-01-31T02:13:35.146Z",
+    "updatedAt": "2026-01-31T02:13:35.146Z"
+  },
+  {
+    "id": "prod-1769825615146-m9xf3w0oq",
+    "name": "Terry Booties or Mitts",
+    "description": "Insulated for paraffin wax therapy.",
+    "price": 12.99,
+    "cost": 9.093,
+    "images": [
+      "/products/terry-booties-or-mitts-1.jpg"
+    ],
+    "categoryId": "spa-products",
+    "subcategoryId": "treatment-products",
+    "stock": 100,
+    "sku": "SKU-TER-4378",
+    "createdAt": "2026-01-31T02:13:35.146Z",
+    "updatedAt": "2026-01-31T02:13:35.146Z"
+  },
+  {
+    "id": "prod-1769825615146-bzrkifubb",
+    "name": "Paraffin Brush",
+    "description": "Reusable; for block or pellet paraffin.",
+    "price": 9.99,
+    "cost": 6.992999999999999,
+    "images": [
+      "/products/paraffin-brush-1.jpg"
+    ],
+    "categoryId": "spa-products",
+    "subcategoryId": "treatment-products",
+    "stock": 100,
+    "sku": "SKU-PAR-1570",
+    "createdAt": "2026-01-31T02:13:35.146Z",
+    "updatedAt": "2026-01-31T02:13:35.146Z"
+  },
+  {
+    "id": "prod-1769825615146-uv17yjkpq",
+    "name": "Body Shrink Roll",
+    "description": "Used for body treatments.",
+    "price": 14.99,
+    "cost": 10.493,
+    "images": [
+      "/products/body-shrink-roll-1.jpg"
+    ],
+    "categoryId": "spa-products",
+    "subcategoryId": "body-wraps-spa-creams",
+    "stock": 100,
+    "sku": "SKU-BOD-2067",
+    "createdAt": "2026-01-31T02:13:35.146Z",
+    "updatedAt": "2026-01-31T02:13:35.146Z"
+  },
+  {
+    "id": "prod-1769825615146-bg9kyxlkk",
+    "name": "Thermal Foil Sheet Blanket",
+    "description": "Heat reflective for treatments.",
+    "price": 19.99,
+    "cost": 13.992999999999999,
+    "images": [
+      "/products/thermal-foil-sheet-blanket-1.jpg"
+    ],
+    "categoryId": "spa-products",
+    "subcategoryId": "body-wraps-spa-creams",
+    "stock": 100,
+    "sku": "SKU-THE-3395",
+    "createdAt": "2026-01-31T02:13:35.146Z",
+    "updatedAt": "2026-01-31T02:13:35.146Z"
+  },
+  {
+    "id": "prod-1769825615146-6rnxtcvkc",
+    "name": "Body Brush (Large/Small)",
+    "description": "For dry brushing and exfoliating.",
+    "price": 11.99,
+    "cost": 8.392999999999999,
+    "images": [
+      "/products/body-brush-(large/small)-1.jpg"
+    ],
+    "categoryId": "spa-products",
+    "subcategoryId": "body-wraps-spa-creams",
+    "stock": 100,
+    "sku": "SKU-BOD-6444",
+    "createdAt": "2026-01-31T02:13:35.146Z",
+    "updatedAt": "2026-01-31T02:13:35.146Z"
+  },
+  {
+    "id": "prod-1769825615146-afolirb5a",
+    "name": "Exfoliating Gloves",
+    "description": "Excellent for skin exfoliation.",
+    "price": 7.99,
+    "cost": 5.593,
+    "images": [
+      "/products/exfoliating-gloves-1.jpg"
+    ],
+    "categoryId": "spa-products",
+    "subcategoryId": "body-wraps-spa-creams",
+    "stock": 100,
+    "sku": "SKU-EXF-6238",
+    "createdAt": "2026-01-31T02:13:35.146Z",
+    "updatedAt": "2026-01-31T02:13:35.146Z"
+  },
+  {
+    "id": "prod-1769825615146-hldzdg3vs",
+    "name": "Hot Stones",
+    "description": "Basalt stones, smooth and flat.",
+    "price": 29.99,
+    "cost": 20.993,
+    "images": [
+      "/products/hot-stones-1.jpg"
+    ],
+    "categoryId": "spa-products",
+    "subcategoryId": "hot-stones",
+    "stock": 100,
+    "sku": "SKU-HOT-6766",
+    "createdAt": "2026-01-31T02:13:35.146Z",
+    "updatedAt": "2026-01-31T02:13:35.146Z"
+  },
+  {
+    "id": "prod-1769825615146-ld8s2xyme",
+    "name": "Towels (Various Sizes)",
+    "description": "Various sizes, high quality.",
+    "price": 12.99,
+    "cost": 9.093,
+    "images": [
+      "/products/towels-(various-sizes)-1.jpg"
+    ],
+    "categoryId": "spa-products",
+    "subcategoryId": "spa-accessories",
+    "secondSubcategoryId": "towels-robes-linens",
+    "stock": 100,
+    "sku": "SKU-TOW-7721",
+    "createdAt": "2026-01-31T02:13:35.146Z",
+    "updatedAt": "2026-01-31T02:13:35.146Z"
+  },
+  {
+    "id": "prod-1769825615146-tx4ikiq29",
+    "name": "Pedicure Disposable Towels",
+    "description": "High quality and disposable.",
+    "price": 5.99,
+    "cost": 4.193,
+    "images": [
+      "/products/pedicure-disposable-towels-1.jpg"
+    ],
+    "categoryId": "spa-products",
+    "subcategoryId": "spa-accessories",
+    "secondSubcategoryId": "towels-robes-linens",
+    "stock": 100,
+    "sku": "SKU-PED-557",
+    "createdAt": "2026-01-31T02:13:35.146Z",
+    "updatedAt": "2026-01-31T02:13:35.146Z"
+  },
+  {
+    "id": "prod-1769825615146-55d5yavg2",
+    "name": "Terry Gown Wrap",
+    "description": "Absorbent with Velcro strap.",
+    "price": 24.99,
+    "cost": 17.493,
+    "images": [
+      "/products/terry-gown-wrap-1.jpg"
+    ],
+    "categoryId": "spa-products",
+    "subcategoryId": "spa-accessories",
+    "secondSubcategoryId": "towels-robes-linens",
+    "stock": 100,
+    "sku": "SKU-TER-6399",
+    "createdAt": "2026-01-31T02:13:35.146Z",
+    "updatedAt": "2026-01-31T02:13:35.146Z"
+  },
+  {
+    "id": "prod-1769825615146-710zeebdw",
+    "name": "Terry Headbands",
+    "description": "Soft and thick with Velcro.",
+    "price": 6.99,
+    "cost": 4.893,
+    "images": [
+      "/products/terry-headbands-1.jpg"
+    ],
+    "categoryId": "spa-products",
+    "subcategoryId": "spa-accessories",
+    "secondSubcategoryId": "towels-robes-linens",
+    "stock": 100,
+    "sku": "SKU-TER-7024",
+    "createdAt": "2026-01-31T02:13:35.146Z",
+    "updatedAt": "2026-01-31T02:13:35.146Z"
+  },
+  {
+    "id": "prod-1769825615146-vvymvuc5e",
+    "name": "Cotton Flat Sheets",
+    "description": "Breathable fabric.",
+    "price": 18.99,
+    "cost": 13.292999999999997,
+    "images": [
+      "/products/cotton-flat-sheets-1.jpg"
+    ],
+    "categoryId": "spa-products",
+    "subcategoryId": "spa-accessories",
+    "secondSubcategoryId": "towels-robes-linens",
+    "stock": 100,
+    "sku": "SKU-COT-4369",
+    "createdAt": "2026-01-31T02:13:35.146Z",
+    "updatedAt": "2026-01-31T02:13:35.146Z"
+  },
+  {
+    "id": "prod-1769825615146-1ynh6arb0",
+    "name": "Terry Fitted Bed Sheet",
+    "description": "Available with or without face hole.",
+    "price": 22.99,
+    "cost": 16.092999999999996,
+    "images": [
+      "/products/terry-fitted-bed-sheet-1.jpg"
+    ],
+    "categoryId": "spa-products",
+    "subcategoryId": "spa-accessories",
+    "secondSubcategoryId": "towels-robes-linens",
+    "stock": 100,
+    "sku": "SKU-TER-4631",
+    "createdAt": "2026-01-31T02:13:35.146Z",
+    "updatedAt": "2026-01-31T02:13:35.146Z"
+  },
+  {
+    "id": "prod-1769825615146-n2y06tvyo",
+    "name": "Jersey Fitted Bed Sheet",
+    "description": "Light and comfortable.",
+    "price": 19.99,
+    "cost": 13.992999999999999,
+    "images": [
+      "/products/jersey-fitted-bed-sheet-1.jpg"
+    ],
+    "categoryId": "spa-products",
+    "subcategoryId": "spa-accessories",
+    "secondSubcategoryId": "towels-robes-linens",
+    "stock": 100,
+    "sku": "SKU-JER-3014",
+    "createdAt": "2026-01-31T02:13:35.146Z",
+    "updatedAt": "2026-01-31T02:13:35.146Z"
+  },
+  {
+    "id": "prod-1769825615146-q3rhqq06a",
+    "name": "Soft Cotton Thermal Weave Blanket",
+    "description": "Denser, hypoallergenic feel.",
+    "price": 34.99,
+    "cost": 24.493,
+    "images": [
+      "/products/soft-cotton-thermal-weave-blanket-1.jpg"
+    ],
+    "categoryId": "spa-products",
+    "subcategoryId": "spa-accessories",
+    "secondSubcategoryId": "towels-robes-linens",
+    "stock": 100,
+    "sku": "SKU-SOF-1088",
+    "createdAt": "2026-01-31T02:13:35.146Z",
+    "updatedAt": "2026-01-31T02:13:35.146Z"
+  },
+  {
+    "id": "prod-1769825615146-xaeilnv2i",
+    "name": "Waffle Blanket",
+    "description": "Great for client use.",
+    "price": 28.99,
+    "cost": 20.293,
+    "images": [
+      "/products/waffle-blanket-1.jpg"
+    ],
+    "categoryId": "spa-products",
+    "subcategoryId": "spa-accessories",
+    "secondSubcategoryId": "towels-robes-linens",
+    "stock": 100,
+    "sku": "SKU-WAF-6683",
+    "createdAt": "2026-01-31T02:13:35.146Z",
+    "updatedAt": "2026-01-31T02:13:35.146Z"
+  },
+  {
+    "id": "prod-1769825615146-sz02w601a",
+    "name": "Disposable Bouffant Cap / Shower Cap",
+    "description": "For product protection.",
+    "price": 2.99,
+    "cost": 2.093,
+    "images": [
+      "/products/disposable-bouffant-cap-/-shower-cap-1.jpg"
+    ],
+    "categoryId": "spa-products",
+    "subcategoryId": "spa-accessories",
+    "secondSubcategoryId": "slippers-disposables",
+    "stock": 100,
+    "sku": "SKU-DIS-6449",
+    "createdAt": "2026-01-31T02:13:35.146Z",
+    "updatedAt": "2026-01-31T02:13:35.146Z"
+  },
+  {
+    "id": "prod-1769825615146-nqhqsf7tr",
+    "name": "G-String Panties / Nonwoven Shorts",
+    "description": "Skin-friendly and hygienic.",
+    "price": 3.99,
+    "cost": 2.793,
+    "images": [
+      "/products/g-string-panties-/-nonwoven-shorts-1.jpg"
+    ],
+    "categoryId": "spa-products",
+    "subcategoryId": "spa-accessories",
+    "secondSubcategoryId": "slippers-disposables",
+    "stock": 100,
+    "sku": "SKU-G-S-3782",
+    "createdAt": "2026-01-31T02:13:35.146Z",
+    "updatedAt": "2026-01-31T02:13:35.146Z"
+  },
+  {
+    "id": "prod-1769825615146-nm6ktniul",
+    "name": "Nonwoven Disposable Gown, Bra, or Underwear",
+    "description": "Soft and hygienic.",
+    "price": 4.99,
+    "cost": 3.493,
+    "images": [
+      "/products/nonwoven-disposable-gown,-bra,-or-underwear-1.jpg"
+    ],
+    "categoryId": "spa-products",
+    "subcategoryId": "spa-accessories",
+    "secondSubcategoryId": "slippers-disposables",
+    "stock": 100,
+    "sku": "SKU-NON-7178",
+    "createdAt": "2026-01-31T02:13:35.146Z",
+    "updatedAt": "2026-01-31T02:13:35.146Z"
+  },
+  {
+    "id": "prod-1769825615146-mbyqw1xya",
+    "name": "Nonwoven Body Sheet Roll / Pre-cut Sheets",
+    "description": "For salon/spa beds.",
+    "price": 7.99,
+    "cost": 5.593,
+    "images": [
+      "/products/nonwoven-body-sheet-roll-/-pre-cut-sheets-1.jpg"
+    ],
+    "categoryId": "spa-products",
+    "subcategoryId": "spa-accessories",
+    "secondSubcategoryId": "slippers-disposables",
+    "stock": 100,
+    "sku": "SKU-NON-1785",
+    "createdAt": "2026-01-31T02:13:35.147Z",
+    "updatedAt": "2026-01-31T02:13:35.147Z"
+  },
+  {
+    "id": "prod-1769825615147-fvtczpez8",
+    "name": "Washable Cotton Fitted Face Cover",
+    "description": "For massage tables.",
+    "price": 8.99,
+    "cost": 6.293,
+    "images": [
+      "/products/washable-cotton-fitted-face-cover-1.jpg"
+    ],
+    "categoryId": "spa-products",
+    "subcategoryId": "spa-accessories",
+    "secondSubcategoryId": "slippers-disposables",
+    "stock": 100,
+    "sku": "SKU-WAS-9517",
+    "createdAt": "2026-01-31T02:13:35.147Z",
+    "updatedAt": "2026-01-31T02:13:35.147Z"
+  },
+  {
+    "id": "prod-1769825615147-g1vramv8v",
+    "name": "Spatulas (Plastic, Small Angled, Wooden, Stainless Steel)",
+    "description": "Various types for different uses.",
+    "price": 5.99,
+    "cost": 4.193,
+    "images": [
+      "/products/spatulas-(plastic,-small-angled,-wooden,-stainless-steel)-1.jpg"
+    ],
+    "categoryId": "spa-products",
+    "subcategoryId": "spa-accessories",
+    "secondSubcategoryId": "small-tools-disposable-sundries",
+    "stock": 100,
+    "sku": "SKU-SPA-4037",
+    "createdAt": "2026-01-31T02:13:35.147Z",
+    "updatedAt": "2026-01-31T02:13:35.147Z"
+  },
+  {
+    "id": "prod-1769825615147-wo3hqcxg1",
+    "name": "Brushes (Fan Brush, White/Clear Mask Brushes)",
+    "description": "For mask application.",
+    "price": 8.99,
+    "cost": 6.293,
+    "images": [
+      "/products/brushes-(fan-brush,-white/clear-mask-brushes)-1.jpg"
+    ],
+    "categoryId": "spa-products",
+    "subcategoryId": "spa-accessories",
+    "secondSubcategoryId": "small-tools-disposable-sundries",
+    "stock": 100,
+    "sku": "SKU-BRU-2382",
+    "createdAt": "2026-01-31T02:13:35.147Z",
+    "updatedAt": "2026-01-31T02:13:35.147Z"
+  },
+  {
+    "id": "prod-1769825615147-ppj2jsv7u",
+    "name": "Glass Dappen Dish",
+    "description": "For mixing substances.",
+    "price": 6.99,
+    "cost": 4.893,
+    "images": [
+      "/products/glass-dappen-dish-1.jpg"
+    ],
+    "categoryId": "spa-products",
+    "subcategoryId": "spa-accessories",
+    "secondSubcategoryId": "small-tools-disposable-sundries",
+    "stock": 100,
+    "sku": "SKU-GLA-1843",
+    "createdAt": "2026-01-31T02:13:35.147Z",
+    "updatedAt": "2026-01-31T02:13:35.147Z"
+  },
+  {
+    "id": "prod-1769825615147-5mugn7y39",
+    "name": "Mixing Palette",
+    "description": "For blending colors.",
+    "price": 7.99,
+    "cost": 5.593,
+    "images": [
+      "/products/mixing-palette-1.jpg"
+    ],
+    "categoryId": "spa-products",
+    "subcategoryId": "spa-accessories",
+    "secondSubcategoryId": "small-tools-disposable-sundries",
+    "stock": 100,
+    "sku": "SKU-MIX-7343",
+    "createdAt": "2026-01-31T02:13:35.147Z",
+    "updatedAt": "2026-01-31T02:13:35.147Z"
+  },
+  {
+    "id": "prod-1769825615147-ubtbsfliy",
+    "name": "Cosmetic Applicators (Mascara wands, Brow wands, Eyeshadow wands, Lip brushes)",
+    "description": "Various applicators for different uses.",
+    "price": 4.99,
+    "cost": 3.493,
+    "images": [
+      "/products/cosmetic-applicators-(mascara-wands,-brow-wands,-eyeshadow-wands,-lip-brushes)-1.jpg"
+    ],
+    "categoryId": "spa-products",
+    "subcategoryId": "spa-accessories",
+    "secondSubcategoryId": "small-tools-disposable-sundries",
+    "stock": 100,
+    "sku": "SKU-COS-9509",
+    "createdAt": "2026-01-31T02:13:35.147Z",
+    "updatedAt": "2026-01-31T02:13:35.147Z"
+  },
+  {
+    "id": "prod-1769825615147-02e7xglah",
+    "name": "Cotton Swabs",
+    "description": "Essential for treatments.",
+    "price": 3.99,
+    "cost": 2.793,
+    "images": [
+      "/products/cotton-swabs-1.jpg"
+    ],
+    "categoryId": "spa-products",
+    "subcategoryId": "spa-accessories",
+    "secondSubcategoryId": "small-tools-disposable-sundries",
+    "stock": 100,
+    "sku": "SKU-COT-6355",
+    "createdAt": "2026-01-31T02:13:35.147Z",
+    "updatedAt": "2026-01-31T02:13:35.147Z"
+  },
+  {
+    "id": "prod-1769825615147-a4kkvz49s",
+    "name": "Gauze (Various Sizes)",
+    "description": "For various treatments.",
+    "price": 5.99,
+    "cost": 4.193,
+    "images": [
+      "/products/gauze-(various-sizes)-1.jpg"
+    ],
+    "categoryId": "spa-products",
+    "subcategoryId": "spa-accessories",
+    "secondSubcategoryId": "small-tools-disposable-sundries",
+    "stock": 100,
+    "sku": "SKU-GAU-9445",
+    "createdAt": "2026-01-31T02:13:35.147Z",
+    "updatedAt": "2026-01-31T02:13:35.147Z"
+  },
+  {
+    "id": "prod-1769825615147-kqdhfhixb",
+    "name": "Cosmetic Wedges",
+    "description": "For makeup and treatments.",
+    "price": 4.99,
+    "cost": 3.493,
+    "images": [
+      "/products/cosmetic-wedges-1.jpg"
+    ],
+    "categoryId": "spa-products",
+    "subcategoryId": "spa-accessories",
+    "secondSubcategoryId": "small-tools-disposable-sundries",
+    "stock": 100,
+    "sku": "SKU-COS-588",
+    "createdAt": "2026-01-31T02:13:35.147Z",
+    "updatedAt": "2026-01-31T02:13:35.147Z"
+  },
+  {
+    "id": "prod-1769825615147-29vazazgx",
+    "name": "Examination Paper (Crepe/Smooth)",
+    "description": "For treatments.",
+    "price": 6.99,
+    "cost": 4.893,
+    "images": [
+      "/products/examination-paper-(crepe/smooth)-1.jpg"
+    ],
+    "categoryId": "spa-products",
+    "subcategoryId": "spa-accessories",
+    "secondSubcategoryId": "small-tools-disposable-sundries",
+    "stock": 100,
+    "sku": "SKU-EXA-1832",
+    "createdAt": "2026-01-31T02:13:35.147Z",
+    "updatedAt": "2026-01-31T02:13:35.147Z"
+  },
+  {
+    "id": "prod-1769825615147-whwq24yt6",
+    "name": "Neck Paper Roll",
+    "description": "For treatments.",
+    "price": 5.99,
+    "cost": 4.193,
+    "images": [
+      "/products/neck-paper-roll-1.jpg"
+    ],
+    "categoryId": "spa-products",
+    "subcategoryId": "spa-accessories",
+    "secondSubcategoryId": "small-tools-disposable-sundries",
+    "stock": 100,
+    "sku": "SKU-NEC-1",
+    "createdAt": "2026-01-31T02:13:35.147Z",
+    "updatedAt": "2026-01-31T02:13:35.147Z"
+  },
+  {
+    "id": "prod-1769825615147-vd8ch2dix",
+    "name": "Double or Single Metal Wax Heater",
+    "description": "Quick heating with lid/pot.",
+    "price": 89.99,
+    "cost": 62.992999999999995,
+    "images": [
+      "/products/double-or-single-metal-wax-heater-1.jpg"
+    ],
+    "categoryId": "spa-products",
+    "subcategoryId": "warmers-hot-towel-cabinets",
+    "stock": 100,
+    "sku": "SKU-DOU-5003",
+    "createdAt": "2026-01-31T02:13:35.147Z",
+    "updatedAt": "2026-01-31T02:13:35.147Z"
+  },
+  {
+    "id": "prod-1769825615147-lyjb3o4ru",
+    "name": "Paraffin Heater",
+    "description": "Designed for melting paraffin wax.",
+    "price": 79.99,
+    "cost": 55.992999999999995,
+    "images": [
+      "/products/paraffin-heater-1.jpg"
+    ],
+    "categoryId": "spa-products",
+    "subcategoryId": "warmers-hot-towel-cabinets",
+    "stock": 100,
+    "sku": "SKU-PAR-4754",
+    "createdAt": "2026-01-31T02:13:35.147Z",
+    "updatedAt": "2026-01-31T02:13:35.147Z"
+  },
+  {
+    "id": "prod-1769825615147-zl0f0n1ya",
+    "name": "Hot Stone Heater (18q / 6q)",
+    "description": "Large or small with adjustable temperature.",
+    "price": 129.99,
+    "cost": 90.993,
+    "images": [
+      "/products/hot-stone-heater-(18q-/-6q)-1.jpg"
+    ],
+    "categoryId": "spa-products",
+    "subcategoryId": "warmers-hot-towel-cabinets",
+    "stock": 100,
+    "sku": "SKU-HOT-2081",
+    "createdAt": "2026-01-31T02:13:35.147Z",
+    "updatedAt": "2026-01-31T02:13:35.147Z"
+  },
+  {
+    "id": "prod-1769825615147-s5acy9jv0",
+    "name": "Square/Round Warmer Coolers",
+    "description": "Heavy paper collars to prevent wax spills.",
+    "price": 24.99,
+    "cost": 17.493,
+    "images": [
+      "/products/square/round-warmer-coolers-1.jpg"
+    ],
+    "categoryId": "spa-products",
+    "subcategoryId": "warmers-hot-towel-cabinets",
+    "stock": 100,
+    "sku": "SKU-SQU-7857",
+    "createdAt": "2026-01-31T02:13:35.147Z",
+    "updatedAt": "2026-01-31T02:13:35.147Z"
+  },
+  {
+    "id": "prod-1769825615147-tkymg76ez",
+    "name": "Argan Oil Hand Mask",
+    "description": "1 pair of gloves for moisturizing.",
+    "price": 12.99,
+    "cost": 9.093,
+    "images": [
+      "/products/argan-oil-hand-mask-1.jpg"
+    ],
+    "categoryId": "nail-products",
+    "subcategoryId": "nail-care",
+    "stock": 100,
+    "sku": "SKU-ARG-6372",
+    "createdAt": "2026-01-31T02:13:35.147Z",
+    "updatedAt": "2026-01-31T02:13:35.147Z"
+  },
+  {
+    "id": "prod-1769825615147-hotlo5slc",
+    "name": "Honey & Almond Hand Mask",
+    "description": "1 pair of gloves for moisturizing.",
+    "price": 12.99,
+    "cost": 9.093,
+    "images": [
+      "/products/honey-&-almond-hand-mask-1.jpg"
+    ],
+    "categoryId": "nail-products",
+    "subcategoryId": "nail-care",
+    "stock": 100,
+    "sku": "SKU-HON-3636",
+    "createdAt": "2026-01-31T02:13:35.147Z",
+    "updatedAt": "2026-01-31T02:13:35.147Z"
+  },
+  {
+    "id": "prod-1769825615147-w68gz8c34",
+    "name": "Teatree Exfoliating Foot Mask",
+    "description": "Anti-inflammatory and antibacterial booties.",
+    "price": 14.99,
+    "cost": 10.493,
+    "images": [
+      "/products/teatree-exfoliating-foot-mask-1.jpg"
+    ],
+    "categoryId": "nail-products",
+    "subcategoryId": "nail-care",
+    "stock": 100,
+    "sku": "SKU-TEA-294",
+    "createdAt": "2026-01-31T02:13:35.147Z",
+    "updatedAt": "2026-01-31T02:13:35.147Z"
+  },
+  {
+    "id": "prod-1769825615147-qptjlekmg",
+    "name": "Lavender Exfoliating Foot Mask",
+    "description": "Moisturizing booties.",
+    "price": 14.99,
+    "cost": 10.493,
+    "images": [
+      "/products/lavender-exfoliating-foot-mask-1.jpg"
+    ],
+    "categoryId": "nail-products",
+    "subcategoryId": "nail-care",
+    "stock": 100,
+    "sku": "SKU-LAV-7995",
+    "createdAt": "2026-01-31T02:13:35.147Z",
+    "updatedAt": "2026-01-31T02:13:35.147Z"
+  },
+  {
+    "id": "prod-1769825615147-6tjss1c3v",
+    "name": "Argan Oil Moisturizing Foot Mask",
+    "description": "Moisturizing treatment.",
+    "price": 13.99,
+    "cost": 9.793,
+    "images": [
+      "/products/argan-oil-moisturizing-foot-mask-1.jpg"
+    ],
+    "categoryId": "nail-products",
+    "subcategoryId": "nail-care",
+    "stock": 100,
+    "sku": "SKU-ARG-4452",
+    "createdAt": "2026-01-31T02:13:35.147Z",
+    "updatedAt": "2026-01-31T02:13:35.147Z"
+  },
+  {
+    "id": "prod-1769825615147-fyzfpj2wn",
+    "name": "Hindu Stone",
+    "description": "Specifically for cuticle care.",
+    "price": 6.99,
+    "cost": 4.893,
+    "images": [
+      "/products/hindu-stone-1.jpg"
+    ],
+    "categoryId": "nail-products",
+    "subcategoryId": "nail-care",
+    "stock": 100,
+    "sku": "SKU-HIN-6509",
+    "createdAt": "2026-01-31T02:13:35.147Z",
+    "updatedAt": "2026-01-31T02:13:35.147Z"
+  },
+  {
+    "id": "prod-1769825615147-ey5qshbq0",
+    "name": "Wooden Manicure Stick",
+    "description": "Disposable, various sizes.",
+    "price": 3.99,
+    "cost": 2.793,
+    "images": [
+      "/products/wooden-manicure-stick-1.jpg"
+    ],
+    "categoryId": "nail-products",
+    "subcategoryId": "nail-care",
+    "stock": 100,
+    "sku": "SKU-WOO-7871",
+    "createdAt": "2026-01-31T02:13:35.147Z",
+    "updatedAt": "2026-01-31T02:13:35.147Z"
+  },
+  {
+    "id": "prod-1769825615147-knnhuu6vu",
+    "name": "Nail Files (Various Kinds and Grits)",
+    "description": "Various kinds and grits.",
+    "price": 4.99,
+    "cost": 3.493,
+    "images": [
+      "/products/nail-files-(various-kinds-and-grits)-1.jpg"
+    ],
+    "categoryId": "nail-products",
+    "subcategoryId": "nail-files-buffers",
+    "stock": 100,
+    "sku": "SKU-NAI-4310",
+    "createdAt": "2026-01-31T02:13:35.147Z",
+    "updatedAt": "2026-01-31T02:13:35.147Z"
+  },
+  {
+    "id": "prod-1769825615147-cq9fzgggt",
+    "name": "Zebra Files (Straight or Curve)",
+    "description": "Available in different grits.",
+    "price": 5.99,
+    "cost": 4.193,
+    "images": [
+      "/products/zebra-files-(straight-or-curve)-1.jpg"
+    ],
+    "categoryId": "nail-products",
+    "subcategoryId": "nail-files-buffers",
+    "stock": 100,
+    "sku": "SKU-ZEB-2059",
+    "createdAt": "2026-01-31T02:13:35.147Z",
+    "updatedAt": "2026-01-31T02:13:35.147Z"
+  },
+  {
+    "id": "prod-1769825615147-fx66ugdbw",
+    "name": "Nail Buffers (Blue, Orange, or Purple)",
+    "description": "Various color options.",
+    "price": 4.99,
+    "cost": 3.493,
+    "images": [
+      "/products/nail-buffers-(blue,-orange,-or-purple)-1.jpg"
+    ],
+    "categoryId": "nail-products",
+    "subcategoryId": "nail-files-buffers",
+    "stock": 100,
+    "sku": "SKU-NAI-6313",
+    "createdAt": "2026-01-31T02:13:35.147Z",
+    "updatedAt": "2026-01-31T02:13:35.147Z"
+  },
+  {
+    "id": "prod-1769825615147-7ncngw84d",
+    "name": "4-Way Nail Buffer",
+    "description": "Multi-sided for various finishes.",
+    "price": 6.99,
+    "cost": 4.893,
+    "images": [
+      "/products/4-way-nail-buffer-1.jpg"
+    ],
+    "categoryId": "nail-products",
+    "subcategoryId": "nail-files-buffers",
+    "stock": 100,
+    "sku": "SKU-4-W-590",
+    "createdAt": "2026-01-31T02:13:35.147Z",
+    "updatedAt": "2026-01-31T02:13:35.147Z"
+  },
+  {
+    "id": "prod-1769825615147-83xsjaa06",
+    "name": "Glass Nail File (Large or Small)",
+    "description": "High-quality glass in various colors.",
+    "price": 8.99,
+    "cost": 6.293,
+    "images": [
+      "/products/glass-nail-file-(large-or-small)-1.jpg"
+    ],
+    "categoryId": "nail-products",
+    "subcategoryId": "nail-files-buffers",
+    "stock": 100,
+    "sku": "SKU-GLA-1956",
+    "createdAt": "2026-01-31T02:13:35.147Z",
+    "updatedAt": "2026-01-31T02:13:35.147Z"
+  },
+  {
+    "id": "prod-1769825615147-wvlnvq28z",
+    "name": "Mini Buffers (Pink or White)",
+    "description": "Various packaging options.",
+    "price": 3.99,
+    "cost": 2.793,
+    "images": [
+      "/products/mini-buffers-(pink-or-white)-1.jpg"
+    ],
+    "categoryId": "nail-products",
+    "subcategoryId": "nail-files-buffers",
+    "stock": 100,
+    "sku": "SKU-MIN-9536",
+    "createdAt": "2026-01-31T02:13:35.147Z",
+    "updatedAt": "2026-01-31T02:13:35.147Z"
+  },
+  {
+    "id": "prod-1769825615154-fy5sr30jd",
+    "name": "Nail Art Tool",
+    "description": "Double-sided dotting tool.",
+    "price": 5.99,
+    "cost": 4.193,
+    "images": [
+      "/products/nail-art-tool-1.jpg"
+    ],
+    "categoryId": "nail-products",
+    "subcategoryId": "nail-art",
+    "stock": 100,
+    "sku": "SKU-NAI-2942",
+    "createdAt": "2026-01-31T02:13:35.155Z",
+    "updatedAt": "2026-01-31T02:13:35.155Z"
+  },
+  {
+    "id": "prod-1769825615155-0lpckodra",
+    "name": "Nail Art Tip Display (18 or 64-tip)",
+    "description": "Available in 18 or 64-tip versions.",
+    "price": 12.99,
+    "cost": 9.093,
+    "images": [
+      "/products/nail-art-tip-display-(18-or-64-tip)-1.jpg"
+    ],
+    "categoryId": "nail-products",
+    "subcategoryId": "nail-art",
+    "stock": 100,
+    "sku": "SKU-NAI-8608",
+    "createdAt": "2026-01-31T02:13:35.155Z",
+    "updatedAt": "2026-01-31T02:13:35.155Z"
+  },
+  {
+    "id": "prod-1769825615155-vvnj7c5px",
+    "name": "Nail-Tip Wheel",
+    "description": "Various sizes and colors for displaying designs.",
+    "price": 9.99,
+    "cost": 6.992999999999999,
+    "images": [
+      "/products/nail-tip-wheel-1.jpg"
+    ],
+    "categoryId": "nail-products",
+    "subcategoryId": "nail-art",
+    "stock": 100,
+    "sku": "SKU-NAI-6412",
+    "createdAt": "2026-01-31T02:13:35.155Z",
+    "updatedAt": "2026-01-31T02:13:35.155Z"
+  },
+  {
+    "id": "prod-1769825615155-1w70caj05",
+    "name": "2-Sided Callus Remover Foot File",
+    "description": "Fine and coarse sand finishes.",
+    "price": 8.99,
+    "cost": 6.293,
+    "images": [
+      "/products/2-sided-callus-remover-foot-file-1.jpg"
+    ],
+    "categoryId": "nail-products",
+    "subcategoryId": "tools-equipment",
+    "secondSubcategoryId": "pedicure-tools",
+    "stock": 100,
+    "sku": "SKU-2-S-2580",
+    "createdAt": "2026-01-31T02:13:35.155Z",
+    "updatedAt": "2026-01-31T02:13:35.155Z"
+  },
+  {
+    "id": "prod-1769825615155-86jgmoh2h",
+    "name": "SilkB Micro-plane Colossal Foot File",
+    "description": "Professional grade for callused skin.",
+    "price": 12.99,
+    "cost": 9.093,
+    "images": [
+      "/products/silkb-micro-plane-colossal-foot-file-1.jpg"
+    ],
+    "categoryId": "nail-products",
+    "subcategoryId": "tools-equipment",
+    "secondSubcategoryId": "pedicure-tools",
+    "stock": 100,
+    "sku": "SKU-SIL-9309",
+    "createdAt": "2026-01-31T02:13:35.155Z",
+    "updatedAt": "2026-01-31T02:13:35.155Z"
+  },
+  {
+    "id": "prod-1769825615155-bvhdkafzq",
+    "name": "Stainless Steel Pedicure Foot File",
+    "description": "Professional quality; easy to sanitize.",
+    "price": 14.99,
+    "cost": 10.493,
+    "images": [
+      "/products/stainless-steel-pedicure-foot-file-1.jpg"
+    ],
+    "categoryId": "nail-products",
+    "subcategoryId": "tools-equipment",
+    "secondSubcategoryId": "pedicure-tools",
+    "stock": 100,
+    "sku": "SKU-STA-2549",
+    "createdAt": "2026-01-31T02:13:35.155Z",
+    "updatedAt": "2026-01-31T02:13:35.155Z"
+  },
+  {
+    "id": "prod-1769825615155-xjpdxm0bq",
+    "name": "Pumice Stone",
+    "description": "Abrasive stone for exfoliating heels.",
+    "price": 5.99,
+    "cost": 4.193,
+    "images": [
+      "/products/pumice-stone-1.jpg"
+    ],
+    "categoryId": "nail-products",
+    "subcategoryId": "tools-equipment",
+    "secondSubcategoryId": "pedicure-tools",
+    "stock": 100,
+    "sku": "SKU-PUM-6569",
+    "createdAt": "2026-01-31T02:13:35.155Z",
+    "updatedAt": "2026-01-31T02:13:35.155Z"
+  },
+  {
+    "id": "prod-1769825615155-jgqg1kmho",
+    "name": "Pumice Stone with Brush",
+    "description": "Dual-action smoothing and cleaning.",
+    "price": 7.99,
+    "cost": 5.593,
+    "images": [
+      "/products/pumice-stone-with-brush-1.jpg"
+    ],
+    "categoryId": "nail-products",
+    "subcategoryId": "tools-equipment",
+    "secondSubcategoryId": "pedicure-tools",
+    "stock": 100,
+    "sku": "SKU-PUM-8880",
+    "createdAt": "2026-01-31T02:13:35.155Z",
+    "updatedAt": "2026-01-31T02:13:35.155Z"
+  },
+  {
+    "id": "prod-1769825615155-8wm2pt54w",
+    "name": "Pedicure File Stickers",
+    "description": "Replacement grits for files.",
+    "price": 4.99,
+    "cost": 3.493,
+    "images": [
+      "/products/pedicure-file-stickers-1.jpg"
+    ],
+    "categoryId": "nail-products",
+    "subcategoryId": "tools-equipment",
+    "secondSubcategoryId": "pedicure-tools",
+    "stock": 100,
+    "sku": "SKU-PED-9970",
+    "createdAt": "2026-01-31T02:13:35.155Z",
+    "updatedAt": "2026-01-31T02:13:35.155Z"
+  },
+  {
+    "id": "prod-1769825615155-2y1qzaio6",
+    "name": "2-Sided Pedicure File",
+    "description": "Standard manual file.",
+    "price": 6.99,
+    "cost": 4.893,
+    "images": [
+      "/products/2-sided-pedicure-file-1.jpg"
+    ],
+    "categoryId": "nail-products",
+    "subcategoryId": "tools-equipment",
+    "secondSubcategoryId": "pedicure-tools",
+    "stock": 100,
+    "sku": "SKU-2-S-989",
+    "createdAt": "2026-01-31T02:13:35.156Z",
+    "updatedAt": "2026-01-31T02:13:35.156Z"
+  },
+  {
+    "id": "prod-1769825615156-ntue9ieu5",
+    "name": "Nail Polish Table or Wall Rack",
+    "description": "High-quality storage for bottles.",
+    "price": 34.99,
+    "cost": 24.493,
+    "images": [
+      "/products/nail-polish-table-or-wall-rack-1.jpg"
+    ],
+    "categoryId": "nail-products",
+    "subcategoryId": "tools-equipment",
+    "secondSubcategoryId": "stations-storage",
+    "stock": 100,
+    "sku": "SKU-NAI-4967",
+    "createdAt": "2026-01-31T02:13:35.156Z",
+    "updatedAt": "2026-01-31T02:13:35.156Z"
+  },
+  {
+    "id": "prod-1769825615156-absj6mmh5",
+    "name": "Nail Bit Holder (48 holes)",
+    "description": "Storage for drill bits.",
+    "price": 18.99,
+    "cost": 13.292999999999997,
+    "images": [
+      "/products/nail-bit-holder-(48-holes)-1.jpg"
+    ],
+    "categoryId": "nail-products",
+    "subcategoryId": "tools-equipment",
+    "secondSubcategoryId": "stations-storage",
+    "stock": 100,
+    "sku": "SKU-NAI-5433",
+    "createdAt": "2026-01-31T02:13:35.156Z",
+    "updatedAt": "2026-01-31T02:13:35.156Z"
+  },
+  {
+    "id": "prod-1769825615156-kjxdmvdnq",
+    "name": "Empty Storage Container",
+    "description": "Multi-use high-quality storage.",
+    "price": 12.99,
+    "cost": 9.093,
+    "images": [
+      "/products/empty-storage-container-1.jpg"
+    ],
+    "categoryId": "nail-products",
+    "subcategoryId": "tools-equipment",
+    "secondSubcategoryId": "stations-storage",
+    "stock": 100,
+    "sku": "SKU-EMP-417",
+    "createdAt": "2026-01-31T02:13:35.156Z",
+    "updatedAt": "2026-01-31T02:13:35.156Z"
+  },
+  {
+    "id": "prod-1769825615156-a1ik7nh91",
+    "name": "Manicure Hand Rest",
+    "description": "Portable support for manicures.",
+    "price": 14.99,
+    "cost": 10.493,
+    "images": [
+      "/products/manicure-hand-rest-1.jpg"
+    ],
+    "categoryId": "nail-products",
+    "subcategoryId": "tools-equipment",
+    "secondSubcategoryId": "stations-storage",
+    "stock": 100,
+    "sku": "SKU-MAN-8879",
+    "createdAt": "2026-01-31T02:13:35.156Z",
+    "updatedAt": "2026-01-31T02:13:35.156Z"
+  },
+  {
+    "id": "prod-1769825615156-su1cesga4",
+    "name": "Practise Hand",
+    "description": "High-quality tool for training.",
+    "price": 89.99,
+    "cost": 62.992999999999995,
+    "images": [
+      "/products/practise-hand-1.jpg"
+    ],
+    "categoryId": "nail-products",
+    "subcategoryId": "tools-equipment",
+    "secondSubcategoryId": "stations-storage",
+    "stock": 100,
+    "sku": "SKU-PRA-2775",
+    "createdAt": "2026-01-31T02:13:35.156Z",
+    "updatedAt": "2026-01-31T02:13:35.156Z"
+  },
+  {
+    "id": "prod-1769825615156-b6fm7bcn9",
+    "name": "Nail-Tip Box (Numbered)",
+    "description": "Organized storage for tips.",
+    "price": 8.99,
+    "cost": 6.293,
+    "images": [
+      "/products/nail-tip-box-(numbered)-1.jpg"
+    ],
+    "categoryId": "nail-products",
+    "subcategoryId": "tools-equipment",
+    "secondSubcategoryId": "stations-storage",
+    "stock": 100,
+    "sku": "SKU-NAI-3045",
+    "createdAt": "2026-01-31T02:13:35.156Z",
+    "updatedAt": "2026-01-31T02:13:35.156Z"
+  },
+  {
+    "id": "prod-1769825615156-fv7p1r60g",
+    "name": "Manicure Bowls (5-finger well molded, Classic, or with Lid)",
+    "description": "Various styles available.",
+    "price": 9.99,
+    "cost": 6.992999999999999,
+    "images": [
+      "/products/manicure-bowls-(5-finger-well-molded,-classic,-or-with-lid)-1.jpg"
+    ],
+    "categoryId": "nail-products",
+    "subcategoryId": "tools-equipment",
+    "secondSubcategoryId": "manicure-pedicure-accessories",
+    "stock": 100,
+    "sku": "SKU-MAN-8356",
+    "createdAt": "2026-01-31T02:13:35.156Z",
+    "updatedAt": "2026-01-31T02:13:35.156Z"
+  },
+  {
+    "id": "prod-1769825615156-omap5cziw",
+    "name": "Stainless Steel Pedicure Bowl",
+    "description": "Professional and easy to clean.",
+    "price": 24.99,
+    "cost": 17.493,
+    "images": [
+      "/products/stainless-steel-pedicure-bowl-1.jpg"
+    ],
+    "categoryId": "nail-products",
+    "subcategoryId": "tools-equipment",
+    "secondSubcategoryId": "manicure-pedicure-accessories",
+    "stock": 100,
+    "sku": "SKU-STA-1515",
+    "createdAt": "2026-01-31T02:13:35.156Z",
+    "updatedAt": "2026-01-31T02:13:35.156Z"
+  },
+  {
+    "id": "prod-1769825615156-7ynici7ja",
+    "name": "Pedicure Bowl Liners",
+    "description": "Disposable for hygiene.",
+    "price": 4.99,
+    "cost": 3.493,
+    "images": [
+      "/products/pedicure-bowl-liners-1.jpg"
+    ],
+    "categoryId": "nail-products",
+    "subcategoryId": "tools-equipment",
+    "secondSubcategoryId": "manicure-pedicure-accessories",
+    "stock": 100,
+    "sku": "SKU-PED-9046",
+    "createdAt": "2026-01-31T02:13:35.156Z",
+    "updatedAt": "2026-01-31T02:13:35.156Z"
+  },
+  {
+    "id": "prod-1769825615156-gt6vk1bet",
+    "name": "Nail Brushes (Handle or Long Handle)",
+    "description": "For cleaning residue.",
+    "price": 5.99,
+    "cost": 4.193,
+    "images": [
+      "/products/nail-brushes-(handle-or-long-handle)-1.jpg"
+    ],
+    "categoryId": "nail-products",
+    "subcategoryId": "tools-equipment",
+    "secondSubcategoryId": "manicure-pedicure-accessories",
+    "stock": 100,
+    "sku": "SKU-NAI-6991",
+    "createdAt": "2026-01-31T02:13:35.156Z",
+    "updatedAt": "2026-01-31T02:13:35.156Z"
+  },
+  {
+    "id": "prod-1769825615156-4by9qbh2v",
+    "name": "Toe Separators",
+    "description": "Lightweight and firm.",
+    "price": 3.99,
+    "cost": 2.793,
+    "images": [
+      "/products/toe-separators-1.jpg"
+    ],
+    "categoryId": "nail-products",
+    "subcategoryId": "tools-equipment",
+    "secondSubcategoryId": "manicure-pedicure-accessories",
+    "stock": 100,
+    "sku": "SKU-TOE-2765",
+    "createdAt": "2026-01-31T02:13:35.156Z",
+    "updatedAt": "2026-01-31T02:13:35.156Z"
+  },
+  {
+    "id": "prod-1769825615156-8goougosj",
+    "name": "Nail Cap Clips",
+    "description": "Used for soaking off gel polish.",
+    "price": 4.99,
+    "cost": 3.493,
+    "images": [
+      "/products/nail-cap-clips-1.jpg"
+    ],
+    "categoryId": "nail-products",
+    "subcategoryId": "tools-equipment",
+    "secondSubcategoryId": "manicure-pedicure-accessories",
+    "stock": 100,
+    "sku": "SKU-NAI-3916",
+    "createdAt": "2026-01-31T02:13:35.156Z",
+    "updatedAt": "2026-01-31T02:13:35.156Z"
+  },
+  {
+    "id": "prod-1769825615156-00zh3xv51",
+    "name": "Pump Bottles (2oz, 4oz, 8oz)",
+    "description": "For dispensing liquids like acetone or alcohol.",
+    "price": 6.99,
+    "cost": 4.893,
+    "images": [
+      "/products/pump-bottles-(2oz,-4oz,-8oz)-1.jpg"
+    ],
+    "categoryId": "nail-products",
+    "subcategoryId": "tools-equipment",
+    "secondSubcategoryId": "manicure-pedicure-accessories",
+    "stock": 100,
+    "sku": "SKU-PUM-8667",
+    "createdAt": "2026-01-31T02:13:35.156Z",
+    "updatedAt": "2026-01-31T02:13:35.156Z"
+  },
+  {
+    "id": "prod-1769825615156-fdhes3prx",
+    "name": "Nail Forms",
+    "description": "Available in two styles for extension.",
+    "price": 7.99,
+    "cost": 5.593,
+    "images": [
+      "/products/nail-forms-1.jpg"
+    ],
+    "categoryId": "nail-products",
+    "subcategoryId": "tools-equipment",
+    "secondSubcategoryId": "manicure-pedicure-accessories",
+    "stock": 100,
+    "sku": "SKU-NAI-349",
+    "createdAt": "2026-01-31T02:13:35.156Z",
+    "updatedAt": "2026-01-31T02:13:35.157Z"
+  },
+  {
+    "id": "prod-1769825615157-ubpfimh0z",
+    "name": "Nail Wipes (High-Quality or Ultra-Fine)",
+    "description": "Lint-free for prep and cleaning.",
+    "price": 5.99,
+    "cost": 4.193,
+    "images": [
+      "/products/nail-wipes-(high-quality-or-ultra-fine)-1.jpg"
+    ],
+    "categoryId": "nail-products",
+    "subcategoryId": "consumables-disposables",
+    "stock": 100,
+    "sku": "SKU-NAI-7808",
+    "createdAt": "2026-01-31T02:13:35.157Z",
+    "updatedAt": "2026-01-31T02:13:35.157Z"
+  },
+  {
+    "id": "prod-1769825615157-8ba53oqxa",
+    "name": "Ultra-Fine Makeup Wipes",
+    "description": "Dry wipes that foam when wet.",
+    "price": 6.99,
+    "cost": 4.893,
+    "images": [
+      "/products/ultra-fine-makeup-wipes-1.jpg"
+    ],
+    "categoryId": "nail-products",
+    "subcategoryId": "consumables-disposables",
+    "stock": 100,
+    "sku": "SKU-ULT-1289",
+    "createdAt": "2026-01-31T02:13:35.157Z",
+    "updatedAt": "2026-01-31T02:13:35.157Z"
+  },
+  {
+    "id": "prod-1769825615157-5dg70nj63",
+    "name": "Makeup Cotton / Cotton Pads",
+    "description": "For touch-ups and product removal.",
+    "price": 4.99,
+    "cost": 3.493,
+    "images": [
+      "/products/makeup-cotton-/-cotton-pads-1.jpg"
+    ],
+    "categoryId": "nail-products",
+    "subcategoryId": "consumables-disposables",
+    "stock": 100,
+    "sku": "SKU-MAK-1060",
+    "createdAt": "2026-01-31T02:13:35.157Z",
+    "updatedAt": "2026-01-31T02:13:35.157Z"
+  },
+  {
+    "id": "prod-1769825615157-9awj1cjrd",
+    "name": "Pedicure Slippers (Foam, Paper, & Terry)",
+    "description": "Various types and colors.",
+    "price": 3.99,
+    "cost": 2.793,
+    "images": [
+      "/products/pedicure-slippers-(foam,-paper,-&-terry)-1.jpg"
+    ],
+    "categoryId": "nail-products",
+    "subcategoryId": "consumables-disposables",
+    "stock": 100,
+    "sku": "SKU-PED-5457",
+    "createdAt": "2026-01-31T02:13:35.157Z",
+    "updatedAt": "2026-01-31T02:13:35.157Z"
+  },
+  {
+    "id": "prod-1769825615157-d04gzjx2v",
+    "name": "Ionic Facial Steamer",
+    "description": "Features ozone function with adjustable height.",
+    "price": 199.99,
+    "cost": 139.993,
+    "images": [
+      "/products/ionic-facial-steamer-1.jpg"
+    ],
+    "categoryId": "equipment",
+    "subcategoryId": "facial-equipment",
+    "stock": 100,
+    "sku": "SKU-ION-6412",
+    "createdAt": "2026-01-31T02:13:35.158Z",
+    "updatedAt": "2026-01-31T02:13:35.158Z"
+  },
+  {
+    "id": "prod-1769825615158-ls1447z19",
+    "name": "Portable Facial Steamer",
+    "description": "Table-top design for face treatments.",
+    "price": 149.99,
+    "cost": 104.993,
+    "images": [
+      "/products/portable-facial-steamer-1.jpg"
+    ],
+    "categoryId": "equipment",
+    "subcategoryId": "facial-equipment",
+    "stock": 100,
+    "sku": "SKU-POR-397",
+    "createdAt": "2026-01-31T02:13:35.158Z",
+    "updatedAt": "2026-01-31T02:13:35.158Z"
+  },
+  {
+    "id": "prod-1769825615159-bxhqcrpck",
+    "name": "Magnifying Lamp (3d or 5d)",
+    "description": "Tabletop clamp with modifiable spring arm.",
+    "price": 89.99,
+    "cost": 62.992999999999995,
+    "images": [
+      "/products/magnifying-lamp-(3d-or-5d)-1.jpg"
+    ],
+    "categoryId": "equipment",
+    "subcategoryId": "facial-equipment",
+    "stock": 100,
+    "sku": "SKU-MAG-7478",
+    "createdAt": "2026-01-31T02:13:35.159Z",
+    "updatedAt": "2026-01-31T02:13:35.159Z"
+  },
+  {
+    "id": "prod-1769825615159-2imn9qp7y",
+    "name": "Magnifying Lamp (3d or 5d) SMD",
+    "description": "High-efficiency lamp with SMD light.",
+    "price": 99.99,
+    "cost": 69.993,
+    "images": [
+      "/products/magnifying-lamp-(3d-or-5d)-smd-1.jpg"
+    ],
+    "categoryId": "equipment",
+    "subcategoryId": "facial-equipment",
+    "stock": 100,
+    "sku": "SKU-MAG-4677",
+    "createdAt": "2026-01-31T02:13:35.159Z",
+    "updatedAt": "2026-01-31T02:13:35.159Z"
+  },
+  {
+    "id": "prod-1769825615159-cp43mfsud",
+    "name": "2-in-1 Portable Steamer",
+    "description": "Table-top unit for both Hair and Face steaming.",
+    "price": 179.99,
+    "cost": 125.993,
+    "images": [
+      "/products/2-in-1-portable-steamer-1.jpg"
+    ],
+    "categoryId": "equipment",
+    "subcategoryId": "facial-equipment",
+    "stock": 100,
+    "sku": "SKU-2-I-33",
+    "createdAt": "2026-01-31T02:13:35.159Z",
+    "updatedAt": "2026-01-31T02:13:35.159Z"
+  },
+  {
+    "id": "prod-1769825615159-1nzejjqov",
+    "name": "2-in-1 Portable Steamer (Styling)",
+    "description": "Dual-purpose Hair and Face steamer.",
+    "price": 179.99,
+    "cost": 125.993,
+    "images": [
+      "/products/2-in-1-portable-steamer-(styling)-1.jpg"
+    ],
+    "categoryId": "equipment",
+    "subcategoryId": "styling-equipment",
+    "stock": 100,
+    "sku": "SKU-2-I-4609",
+    "createdAt": "2026-01-31T02:13:35.159Z",
+    "updatedAt": "2026-01-31T02:13:35.159Z"
+  },
+  {
+    "id": "prod-1769825615159-3l15ag780",
+    "name": "Professional Salon/Spa Trolley (HST 145)",
+    "description": "Aluminum instrument tray with adjustable top.",
+    "price": 249.99,
+    "cost": 174.993,
+    "images": [
+      "/products/professional-salon/spa-trolley-(hst-145)-1.jpg"
+    ],
+    "categoryId": "equipment",
+    "subcategoryId": "salon-equipment",
+    "stock": 100,
+    "sku": "SKU-PRO-1874",
+    "createdAt": "2026-01-31T02:13:35.159Z",
+    "updatedAt": "2026-01-31T02:13:35.159Z"
+  },
+  {
+    "id": "prod-1769825615159-jegzxccej",
+    "name": "Economical Hair Salon Trolley",
+    "description": "Includes 5 removable trays and wheels.",
+    "price": 189.99,
+    "cost": 132.993,
+    "images": [
+      "/products/economical-hair-salon-trolley-1.jpg"
+    ],
+    "categoryId": "equipment",
+    "subcategoryId": "salon-equipment",
+    "stock": 100,
+    "sku": "SKU-ECO-9374",
+    "createdAt": "2026-01-31T02:13:35.159Z",
+    "updatedAt": "2026-01-31T02:13:35.159Z"
+  },
+  {
+    "id": "prod-1769825615159-nv2aha2rj",
+    "name": "Salon/Spa Rolling Tray Trolley",
+    "description": "Stainless steel stand with aluminum star base and built-in mechanical timer.",
+    "price": 299.99,
+    "cost": 209.993,
+    "images": [
+      "/products/salon/spa-rolling-tray-trolley-1.jpg"
+    ],
+    "categoryId": "equipment",
+    "subcategoryId": "salon-equipment",
+    "stock": 100,
+    "sku": "SKU-SAL-3624",
+    "createdAt": "2026-01-31T02:13:35.159Z",
+    "updatedAt": "2026-01-31T02:13:35.159Z"
+  },
+  {
+    "id": "prod-1769825615159-7qlwegig8",
+    "name": "Metal and Glass Trolley",
+    "description": "Professional aesthetic, great for spa environments.",
+    "price": 349.99,
+    "cost": 244.993,
+    "images": [
+      "/products/metal-and-glass-trolley-1.jpg"
+    ],
+    "categoryId": "equipment",
+    "subcategoryId": "salon-equipment",
+    "stock": 100,
+    "sku": "SKU-MET-5408",
+    "createdAt": "2026-01-31T02:13:35.159Z",
+    "updatedAt": "2026-01-31T02:13:35.159Z"
+  },
+  {
+    "id": "prod-1769825615159-c8a7yjii7",
+    "name": "Magnifying Lamp Stand (4WH)",
+    "description": "Sturdy 4-wheel floor stand.",
+    "price": 79.99,
+    "cost": 55.992999999999995,
+    "images": [
+      "/products/magnifying-lamp-stand-(4wh)-1.jpg"
+    ],
+    "categoryId": "equipment",
+    "subcategoryId": "equipment-accessories",
+    "stock": 100,
+    "sku": "SKU-MAG-5590",
+    "createdAt": "2026-01-31T02:13:35.159Z",
+    "updatedAt": "2026-01-31T02:13:35.159Z"
+  },
+  {
+    "id": "prod-1769825615159-v0b1jhpi4",
+    "name": "Magnifying Lamp Stand (5WH)",
+    "description": "Sturdy 5-wheel floor stand.",
+    "price": 89.99,
+    "cost": 62.992999999999995,
+    "images": [
+      "/products/magnifying-lamp-stand-(5wh)-1.jpg"
+    ],
+    "categoryId": "equipment",
+    "subcategoryId": "equipment-accessories",
+    "stock": 100,
+    "sku": "SKU-MAG-6379",
+    "createdAt": "2026-01-31T02:13:35.159Z",
+    "updatedAt": "2026-01-31T02:13:35.159Z"
+  },
+  {
+    "id": "prod-1769825615159-oqe7oepy9",
+    "name": "Magnifying Lamp Stand (Round)",
+    "description": "Heavy-duty, sturdy lamp stand.",
+    "price": 94.99,
+    "cost": 66.493,
+    "images": [
+      "/products/magnifying-lamp-stand-(round)-1.jpg"
+    ],
+    "categoryId": "equipment",
+    "subcategoryId": "equipment-accessories",
+    "stock": 100,
+    "sku": "SKU-MAG-4570",
+    "createdAt": "2026-01-31T02:13:35.159Z",
+    "updatedAt": "2026-01-31T02:13:35.159Z"
+  },
+  {
+    "id": "prod-1769825615159-qw1pwhm6b",
+    "name": "Bulbs (T4, T5, T9, UV)",
+    "description": "Replacement bulbs for professional equipment.",
+    "price": 12.99,
+    "cost": 9.093,
+    "images": [
+      "/products/bulbs-(t4,-t5,-t9,-uv)-1.jpg"
+    ],
+    "categoryId": "equipment",
+    "subcategoryId": "equipment-accessories",
+    "stock": 100,
+    "sku": "SKU-BUL-3381",
+    "createdAt": "2026-01-31T02:13:35.159Z",
+    "updatedAt": "2026-01-31T02:13:35.159Z"
+  },
+  {
+    "id": "prod-1769825615159-375bii7xs",
+    "name": "Professional Barber Scissors",
+    "description": "Includes a leather kit.",
+    "price": 49.99,
+    "cost": 34.993,
+    "images": [
+      "/products/professional-barber-scissors-1.jpg"
+    ],
+    "categoryId": "implements",
+    "subcategoryId": "hair-tools",
+    "stock": 100,
+    "sku": "SKU-PRO-5228",
+    "createdAt": "2026-01-31T02:13:35.159Z",
+    "updatedAt": "2026-01-31T02:13:35.159Z"
+  },
+  {
+    "id": "prod-1769825615160-ygt0eg04p",
+    "name": "Safety Scissors",
+    "description": "General-purpose professional use.",
+    "price": 12.99,
+    "cost": 9.093,
+    "images": [
+      "/products/safety-scissors-1.jpg"
+    ],
+    "categoryId": "implements",
+    "subcategoryId": "hair-tools",
+    "stock": 100,
+    "sku": "SKU-SAF-5913",
+    "createdAt": "2026-01-31T02:13:35.160Z",
+    "updatedAt": "2026-01-31T02:13:35.160Z"
+  },
+  {
+    "id": "prod-1769825615160-vpjpj8zov",
+    "name": "Cuticle Scissors (Curved or Straight)",
+    "description": "For precision grooming.",
+    "price": 14.99,
+    "cost": 10.493,
+    "images": [
+      "/products/cuticle-scissors-(curved-or-straight)-1.jpg"
+    ],
+    "categoryId": "implements",
+    "subcategoryId": "scissors-shears",
+    "stock": 100,
+    "sku": "SKU-CUT-2967",
+    "createdAt": "2026-01-31T02:13:35.160Z",
+    "updatedAt": "2026-01-31T02:13:35.160Z"
+  },
+  {
+    "id": "prod-1769825615160-soh1veepc",
+    "name": "Cuticle Cutter",
+    "description": "For professional cuticle maintenance.",
+    "price": 11.99,
+    "cost": 8.392999999999999,
+    "images": [
+      "/products/cuticle-cutter-1.jpg"
+    ],
+    "categoryId": "implements",
+    "subcategoryId": "scissors-shears",
+    "stock": 100,
+    "sku": "SKU-CUT-1475",
+    "createdAt": "2026-01-31T02:13:35.160Z",
+    "updatedAt": "2026-01-31T02:13:35.160Z"
+  },
+  {
+    "id": "prod-1769825615160-iny2aas08",
+    "name": "Ingrown Nail Cutter",
+    "description": "Specifically designed for ingrown treatments.",
+    "price": 16.99,
+    "cost": 11.892999999999999,
+    "images": [
+      "/products/ingrown-nail-cutter-1.jpg"
+    ],
+    "categoryId": "implements",
+    "subcategoryId": "scissors-shears",
+    "stock": 100,
+    "sku": "SKU-ING-4639",
+    "createdAt": "2026-01-31T02:13:35.160Z",
+    "updatedAt": "2026-01-31T02:13:35.160Z"
+  },
+  {
+    "id": "prod-1769825615160-s72csnntk",
+    "name": "Toe-nail Cutter (Standard & Heavy)",
+    "description": "For thick or standard toenails.",
+    "price": 9.99,
+    "cost": 6.992999999999999,
+    "images": [
+      "/products/toe-nail-cutter-(standard-&-heavy)-1.jpg"
+    ],
+    "categoryId": "implements",
+    "subcategoryId": "scissors-shears",
+    "stock": 100,
+    "sku": "SKU-TOE-953",
+    "createdAt": "2026-01-31T02:13:35.160Z",
+    "updatedAt": "2026-01-31T02:13:35.160Z"
+  },
+  {
+    "id": "prod-1769825615160-4spnncx4t",
+    "name": "Tweezers (Full Range)",
+    "description": "Includes Flat Tip, Slant Tip, Slant/Point, Waxing, Short Point, and Extra Long Tip.",
+    "price": 8.99,
+    "cost": 6.293,
+    "images": [
+      "/products/tweezers-(full-range)-1.jpg"
+    ],
+    "categoryId": "implements",
+    "subcategoryId": "skin-tools",
+    "stock": 100,
+    "sku": "SKU-TWE-4895",
+    "createdAt": "2026-01-31T02:13:35.160Z",
+    "updatedAt": "2026-01-31T02:13:35.160Z"
+  },
+  {
+    "id": "prod-1769825615160-kebnsm3jl",
+    "name": "Ingrown Hair Tweezers",
+    "description": "Available in standard and Fine Hair versions.",
+    "price": 12.99,
+    "cost": 9.093,
+    "images": [
+      "/products/ingrown-hair-tweezers-1.jpg"
+    ],
+    "categoryId": "implements",
+    "subcategoryId": "skin-tools",
+    "stock": 100,
+    "sku": "SKU-ING-6118",
+    "createdAt": "2026-01-31T02:13:35.160Z",
+    "updatedAt": "2026-01-31T02:13:35.160Z"
+  },
+  {
+    "id": "prod-1769825615160-ii4czz3e6",
+    "name": "Eyelash Tweezers",
+    "description": "For lash application/maintenance.",
+    "price": 9.99,
+    "cost": 6.992999999999999,
+    "images": [
+      "/products/eyelash-tweezers-1.jpg"
+    ],
+    "categoryId": "implements",
+    "subcategoryId": "skin-tools",
+    "stock": 100,
+    "sku": "SKU-EYE-5807",
+    "createdAt": "2026-01-31T02:13:35.160Z",
+    "updatedAt": "2026-01-31T02:13:35.160Z"
+  },
+  {
+    "id": "prod-1769825615160-z7n8c6txh",
+    "name": "Ingrown Nail File",
+    "description": "For corrective nail treatments.",
+    "price": 7.99,
+    "cost": 5.593,
+    "images": [
+      "/products/ingrown-nail-file-1.jpg"
+    ],
+    "categoryId": "implements",
+    "subcategoryId": "skin-tools",
+    "stock": 100,
+    "sku": "SKU-ING-7673",
+    "createdAt": "2026-01-31T02:13:35.160Z",
+    "updatedAt": "2026-01-31T02:13:35.160Z"
+  },
+  {
+    "id": "prod-1769825615160-y88653k6e",
+    "name": "Nail Pushers (Full Variety)",
+    "description": "Includes Flat/Arrow, Flat-Dual Ended, Pterygium/Round, and Round Tip.",
+    "price": 6.99,
+    "cost": 4.893,
+    "images": [
+      "/products/nail-pushers-(full-variety)-1.jpg"
+    ],
+    "categoryId": "implements",
+    "subcategoryId": "nail-pushers-implements",
+    "stock": 100,
+    "sku": "SKU-NAI-653",
+    "createdAt": "2026-01-31T02:13:35.160Z",
+    "updatedAt": "2026-01-31T02:13:35.160Z"
+  },
+  {
+    "id": "prod-1769825615160-5grfrlqnc",
+    "name": "Instrument Picker",
+    "description": "For safe handling of tools.",
+    "price": 4.99,
+    "cost": 3.493,
+    "images": [
+      "/products/instrument-picker-1.jpg"
+    ],
+    "categoryId": "implements",
+    "subcategoryId": "sterilization-safety",
+    "stock": 100,
+    "sku": "SKU-INS-173",
+    "createdAt": "2026-01-31T02:13:35.161Z",
+    "updatedAt": "2026-01-31T02:13:35.161Z"
+  },
+  {
+    "id": "prod-1769825615161-30hv1a0qk",
+    "name": "Sterilization Boxes (IBA/IBF)",
+    "description": "Stainless steel with lids (Round or Flat bottom).",
+    "price": 24.99,
+    "cost": 17.493,
+    "images": [
+      "/products/sterilization-boxes-(iba/ibf)-1.jpg"
+    ],
+    "categoryId": "implements",
+    "subcategoryId": "sterilization-safety",
+    "stock": 100,
+    "sku": "SKU-STE-7852",
+    "createdAt": "2026-01-31T02:13:35.161Z",
+    "updatedAt": "2026-01-31T02:13:35.161Z"
+  },
+  {
+    "id": "prod-1769825615161-2zb97w7lz",
+    "name": "Sterilization Trays",
+    "description": "Available in Plastic or Stainless Steel (with or without covers).",
+    "price": 18.99,
+    "cost": 13.292999999999997,
+    "images": [
+      "/products/sterilization-trays-1.jpg"
+    ],
+    "categoryId": "implements",
+    "subcategoryId": "sterilization-safety",
+    "stock": 100,
+    "sku": "SKU-STE-6399",
+    "createdAt": "2026-01-31T02:13:35.161Z",
+    "updatedAt": "2026-01-31T02:13:35.161Z"
+  },
+  {
+    "id": "prod-1769825615161-2tf76fza1",
+    "name": "Sterilization Jar",
+    "description": "Available in Small and Large.",
+    "price": 14.99,
+    "cost": 10.493,
+    "images": [
+      "/products/sterilization-jar-1.jpg"
+    ],
+    "categoryId": "implements",
+    "subcategoryId": "sterilization-safety",
+    "stock": 100,
+    "sku": "SKU-STE-4412",
+    "createdAt": "2026-01-31T02:13:35.161Z",
+    "updatedAt": "2026-01-31T02:13:35.161Z"
+  },
+  {
+    "id": "prod-1769825615161-e09ypz13q",
+    "name": "Stainless Steel Scaler Tray",
+    "description": "For organizing hand instruments.",
+    "price": 19.99,
+    "cost": 13.992999999999999,
+    "images": [
+      "/products/stainless-steel-scaler-tray-1.jpg"
+    ],
+    "categoryId": "implements",
+    "subcategoryId": "sterilization-safety",
+    "stock": 100,
+    "sku": "SKU-STA-5908",
+    "createdAt": "2026-01-31T02:13:35.161Z",
+    "updatedAt": "2026-01-31T02:13:35.161Z"
+  },
+  {
+    "id": "prod-1769825615161-s9fo26zj7",
+    "name": "Sharps Container (Small & Large)",
+    "description": "For safe disposal of needles/blades.",
+    "price": 12.99,
+    "cost": 9.093,
+    "images": [
+      "/products/sharps-container-(small-&-large)-1.jpg"
+    ],
+    "categoryId": "implements",
+    "subcategoryId": "sterilization-safety",
+    "stock": 100,
+    "sku": "SKU-SHA-5281",
+    "createdAt": "2026-01-31T02:13:35.161Z",
+    "updatedAt": "2026-01-31T02:13:35.161Z"
+  },
+  {
+    "id": "prod-1769825615161-rw4nve9uk",
+    "name": "Stainless Steel Kidney Bowl",
+    "description": "Professional-grade 4x8\" bowl.",
+    "price": 16.99,
+    "cost": 11.892999999999999,
+    "images": [
+      "/products/stainless-steel-kidney-bowl-1.jpg"
+    ],
+    "categoryId": "implements",
+    "subcategoryId": "disposables",
+    "secondSubcategoryId": "bowls",
+    "stock": 100,
+    "sku": "SKU-STA-884",
+    "createdAt": "2026-01-31T02:13:35.161Z",
+    "updatedAt": "2026-01-31T02:13:35.161Z"
+  },
+  {
+    "id": "prod-1769825615161-yj49qbfb7",
+    "name": "Cotton Crepe Bandages",
+    "description": "9\" width, 5m length.",
+    "price": 8.99,
+    "cost": 6.293,
+    "images": [
+      "/products/cotton-crepe-bandages-1.jpg"
+    ],
+    "categoryId": "implements",
+    "subcategoryId": "disposables",
+    "secondSubcategoryId": "medical-treatment-disposables",
+    "stock": 100,
+    "sku": "SKU-COT-1935",
+    "createdAt": "2026-01-31T02:13:35.161Z",
+    "updatedAt": "2026-01-31T02:13:35.161Z"
+  },
+  {
+    "id": "prod-1769825615161-eu1e5kzc0",
+    "name": "Elastic Bandages",
+    "description": "9\" width, 5m length.",
+    "price": 9.99,
+    "cost": 6.992999999999999,
+    "images": [
+      "/products/elastic-bandages-1.jpg"
+    ],
+    "categoryId": "implements",
+    "subcategoryId": "disposables",
+    "secondSubcategoryId": "medical-treatment-disposables",
+    "stock": 100,
+    "sku": "SKU-ELA-8220",
+    "createdAt": "2026-01-31T02:13:35.161Z",
+    "updatedAt": "2026-01-31T02:13:35.161Z"
+  },
+  {
+    "id": "prod-1769825615161-tbpb8gueo",
+    "name": "FMB2 FACIAL MASSAGE BED",
+    "description": "Facial Massage Bed White / Black.",
+    "price": 599.99,
+    "cost": 419.993,
+    "images": [
+      "/products/fmb2-facial-massage-bed-1.jpg"
+    ],
+    "categoryId": "furniture",
+    "subcategoryId": "facial-bed-multipurpose",
+    "stock": 100,
+    "sku": "SKU-FMB-3249",
+    "createdAt": "2026-01-31T02:13:35.161Z",
+    "updatedAt": "2026-01-31T02:13:35.161Z"
+  },
+  {
+    "id": "prod-1769825615161-1rfbf7v40",
+    "name": "FACIAL MASSAGE BED WHITE / BLACK",
+    "description": "Professional facial massage bed.",
+    "price": 649.99,
+    "cost": 454.993,
+    "images": [
+      "/products/facial-massage-bed-white-/-black-1.jpg"
+    ],
+    "categoryId": "furniture",
+    "subcategoryId": "facial-massage-bed",
+    "stock": 100,
+    "sku": "SKU-FAC-1632",
+    "createdAt": "2026-01-31T02:13:35.161Z",
+    "updatedAt": "2026-01-31T02:13:35.161Z"
+  },
+  {
+    "id": "prod-1769825615161-d8xnn8wst",
+    "name": "PMB Portable Massage Bed",
+    "description": "Portable massage bed for mobile services.",
+    "price": 299.99,
+    "cost": 209.993,
+    "images": [
+      "/products/pmb-portable-massage-bed-1.jpg"
+    ],
+    "categoryId": "furniture",
+    "subcategoryId": "portable-massage-bed",
+    "stock": 100,
+    "sku": "SKU-PMB-8743",
+    "createdAt": "2026-01-31T02:13:35.161Z",
+    "updatedAt": "2026-01-31T02:13:35.161Z"
+  },
+  {
+    "id": "prod-1769825615161-e94l14ta6",
+    "name": "BT-02 Wooden Trolley with 2 Draws",
+    "description": "Wooden trolley with 2 drawers.",
+    "price": 199.99,
+    "cost": 139.993,
+    "images": [
+      "/products/bt-02-wooden-trolley-with-2-draws-1.jpg"
+    ],
+    "categoryId": "furniture",
+    "subcategoryId": "wooden-trolley",
+    "stock": 100,
+    "sku": "SKU-BT--7668",
+    "createdAt": "2026-01-31T02:13:35.161Z",
+    "updatedAt": "2026-01-31T02:13:35.161Z"
+  },
+  {
+    "id": "prod-1769825615161-d20lmuybl",
+    "name": "BT-021 SPA SALON METAL TROLLEY",
+    "description": "Professional metal trolley for spa/salon.",
+    "price": 249.99,
+    "cost": 174.993,
+    "images": [
+      "/products/bt-021-spa-salon-metal-trolley-1.jpg"
+    ],
+    "categoryId": "furniture",
+    "subcategoryId": "spa-salon-metal-trolley",
+    "stock": 100,
+    "sku": "SKU-BT--358",
+    "createdAt": "2026-01-31T02:13:35.161Z",
+    "updatedAt": "2026-01-31T02:13:35.161Z"
+  },
+  {
+    "id": "prod-1769825615161-slzxwgn9x",
+    "name": "BT-018 FACIAL BEAUTY SPA, SALON GLASS TROLLY WITH 4 SHELVES",
+    "description": "Glass trolley with 4 shelves.",
+    "price": 349.99,
+    "cost": 244.993,
+    "images": [
+      "/products/bt-018-facial-beauty-spa,-salon-glass-trolly-with-4-shelves-1.jpg"
+    ],
+    "categoryId": "furniture",
+    "subcategoryId": "facial-beauty-spa-salon-glass-trolly",
+    "stock": 100,
+    "sku": "SKU-BT--1762",
+    "createdAt": "2026-01-31T02:13:35.161Z",
+    "updatedAt": "2026-01-31T02:13:35.161Z"
+  },
+  {
+    "id": "prod-1769825615161-c5orbgeag",
+    "name": "Salon Spa Color rolling Tray with accessories holder Cart",
+    "description": "Color rolling tray with accessories holder.",
+    "price": 179.99,
+    "cost": 125.993,
+    "images": [
+      "/products/salon-spa-color-rolling-tray-with-accessories-holder-cart-1.jpg"
+    ],
+    "categoryId": "furniture",
+    "subcategoryId": "salon-spa-color-rolling-tray",
+    "stock": 100,
+    "sku": "SKU-SAL-7895",
+    "createdAt": "2026-01-31T02:13:35.161Z",
+    "updatedAt": "2026-01-31T02:13:35.161Z"
+  },
+  {
+    "id": "prod-1769825615161-e1h1gpvbz",
+    "name": "HST-11 MULTI USE SPA, SALON TROLY",
+    "description": "Multi-use spa/salon trolley.",
+    "price": 229.99,
+    "cost": 160.993,
+    "images": [
+      "/products/hst-11-multi-use-spa,-salon-troly-1.jpg"
+    ],
+    "categoryId": "furniture",
+    "subcategoryId": "multi-use-spa-salon-trolly",
+    "stock": 100,
+    "sku": "SKU-HST-7969",
+    "createdAt": "2026-01-31T02:13:35.161Z",
+    "updatedAt": "2026-01-31T02:13:35.161Z"
+  },
+  {
+    "id": "prod-1769825615161-myqk9xqt1",
+    "name": "HST-35 #1 SELLER SALON TROLLY WITH DRAWS & ACCESSORIES HOLDER",
+    "description": "#1 seller salon trolley with drawers and accessories holder.",
+    "price": 279.99,
+    "cost": 195.993,
+    "images": [
+      "/products/hst-35-#1-seller-salon-trolly-with-draws-&-accessories-holder-1.jpg"
+    ],
+    "categoryId": "furniture",
+    "subcategoryId": "seller-salon-trolly",
+    "stock": 100,
+    "sku": "SKU-HST-4112",
+    "createdAt": "2026-01-31T02:13:35.161Z",
+    "updatedAt": "2026-01-31T02:13:35.161Z"
+  },
+  {
+    "id": "prod-1769825615161-ytb78y77c",
+    "name": "PMT Portable Manicure Table Folable Legs",
+    "description": "Portable manicure table with foldable legs.",
+    "price": 199.99,
+    "cost": 139.993,
+    "images": [
+      "/products/pmt-portable-manicure-table-folable-legs-1.jpg"
+    ],
+    "categoryId": "furniture",
+    "subcategoryId": "portable-manicure-table",
+    "stock": 100,
+    "sku": "SKU-PMT-8307",
+    "createdAt": "2026-01-31T02:13:35.161Z",
+    "updatedAt": "2026-01-31T02:13:35.161Z"
+  },
+  {
+    "id": "prod-1769825615161-mqrmimnue",
+    "name": "BS-01 SPA - SALON ADJUSTABLE STOOL WHITE / BLACK",
+    "description": "Adjustable stool for spa/salon.",
+    "price": 89.99,
+    "cost": 62.992999999999995,
+    "images": [
+      "/products/bs-01-spa---salon-adjustable-stool-white-/-black-1.jpg"
+    ],
+    "categoryId": "furniture",
+    "subcategoryId": "spa-salon-adjustable-stool",
+    "stock": 100,
+    "sku": "SKU-BS--8765",
+    "createdAt": "2026-01-31T02:13:35.162Z",
+    "updatedAt": "2026-01-31T02:13:35.162Z"
+  },
+  {
+    "id": "prod-1769825615162-2aopq8p5g",
+    "name": "BS-02 SPA - SALON ADJUSTABLE STOOL WHITE / BLACK",
+    "description": "Adjustable stool variant 2.",
+    "price": 94.99,
+    "cost": 66.493,
+    "images": [
+      "/products/bs-02-spa---salon-adjustable-stool-white-/-black-1.jpg"
+    ],
+    "categoryId": "furniture",
+    "subcategoryId": "spa-salon-adjustable-stool",
+    "stock": 100,
+    "sku": "SKU-BS--184",
+    "createdAt": "2026-01-31T02:13:35.162Z",
+    "updatedAt": "2026-01-31T02:13:35.162Z"
+  },
+  {
+    "id": "prod-1769825615162-7bxl0uvmz",
+    "name": "MP-01 Pedicure Foot Rest",
+    "description": "Pedicure foot rest.",
+    "price": 79.99,
+    "cost": 55.992999999999995,
+    "images": [
+      "/products/mp-01-pedicure-foot-rest-1.jpg"
+    ],
+    "categoryId": "furniture",
+    "subcategoryId": "pedicure-foot-rest",
+    "stock": 100,
+    "sku": "SKU-MP--9816",
+    "createdAt": "2026-01-31T02:13:35.162Z",
+    "updatedAt": "2026-01-31T02:13:35.162Z"
+  }
+]
