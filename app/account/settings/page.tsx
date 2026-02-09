@@ -6,7 +6,16 @@ import { useRouter } from 'next/navigation'
 import Header from '@/components/Header'
 import MainNav from '@/components/MainNav'
 import Footer from '@/components/Footer'
-
+type EditData = {
+  firstName?: string
+  lastName?: string
+  phoneNumber?: string
+  companyName?: string
+  businessAddress?: string
+  city?: string
+  province?: string
+  postalCode?: string
+}
 export default function AccountSettingsPage() {
   const { user, isLoggedIn } = useAuth()
   const router = useRouter()
@@ -39,7 +48,7 @@ const [confirmPassword, setConfirmPassword] = useState('')
   const [showCodeModal, setShowCodeModal] = useState(false)
   const [generatedCode, setGeneratedCode] = useState<string>('')
   const [isEditing, setIsEditing] = useState(false)
-  const [editData, setEditData] = useState({
+  const [editData, setEditData] = useState<EditData>({
     firstName: '',
     lastName: '',
     phoneNumber: '',
@@ -174,10 +183,11 @@ const [confirmPassword, setConfirmPassword] = useState('')
     setSuccess(null)
     // Reset edit data to current user details
     setEditData({
-      firstName: userDetails?.firstName || '',
-      lastName: userDetails?.lastName || '',
+      firstName: userDetails?.firstName || user?.firstName || '',
+      lastName: userDetails?.lastName || user?.lastName || '',
       phoneNumber: userDetails?.phoneNumber || '',
     })
+    
   }
 
   const validatePassword = (password: string, confirmPassword: string) => {
@@ -416,8 +426,10 @@ const [confirmPassword, setConfirmPassword] = useState('')
                   placeholder="Phone Number"
                 />
               ) : (
-                <p className="text-lg font-medium text-gray-900">{userDetails?.phoneNumber || user?.phoneNumber || 'N/A'}</p>
-              )}
+                <p className="text-lg font-medium text-gray-900">
+  {userDetails?.phoneNumber || 'N/A'}
+</p>
+                )}
             </div>
             {userDetails?.companyName && (
               <div className="bg-gray-50 rounded-lg p-4 border border-gray-200">
