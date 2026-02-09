@@ -2,12 +2,19 @@ export type UserRole = 'admin' | 'normal' | 'dealer' | null
 
 export interface User {
   id: string
-  firstName: string
-  lastName: string
-  name: string // Full name (firstName + lastName)
+  firstName?: string
+  lastName?: string
+  name?: string
   email: string
   role: UserRole
   dealerId?: string
+  phoneNumber?: string
+  companyName?: string
+  businessAddress?: string
+  city?: string
+  province?: string
+  postalCode?: string
+  country?: string
   createdAt?: string
 }
 
