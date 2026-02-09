@@ -43,6 +43,11 @@ export default function AccountSettingsPage() {
     firstName: '',
     lastName: '',
     phoneNumber: '',
+    companyName: '',
+    businessAddress: '',
+    city: '',
+    province: '',
+    postalCode: '',
   })
   const [topPadding, setTopPadding] = useState(176) // Default padding
 
