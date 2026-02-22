@@ -20,6 +20,10 @@ export default function AccountSettingsPage() {
   const { user, isLoggedIn } = useAuth()
   const router = useRouter()
   const [showChangePassword, setShowChangePassword] = useState(false)
+
+  useEffect(() => {
+    document.title = 'Account Settings - Allied Concept Beauty Supplies'
+  }, [])
   const [showForgotPassword, setShowForgotPassword] = useState(false)
   const [verificationCode, setVerificationCode] = useState('')
   const [codeSent, setCodeSent] = useState(false)
@@ -335,22 +339,22 @@ const [confirmPassword, setConfirmPassword] = useState('')
       <Header />
       <MainNav />
       
-      <div className="flex-1 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12 w-full" style={{ paddingTop: `${topPadding + 48}px` }}>
-        <div className="mb-8">
-          <h1 className="text-4xl font-bold text-gray-900 mb-2">Account Settings</h1>
-          <p className="text-gray-600">Manage your account information and security settings</p>
+      <div className="flex-1 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-12 w-full" style={{ paddingTop: `${topPadding + 24}px` }}>
+        <div className="mb-6 sm:mb-8">
+          <h1 className="text-2xl sm:text-4xl font-bold text-gray-900 mb-2">Account Settings</h1>
+          <p className="text-sm sm:text-base text-gray-600">Manage your account information and security settings</p>
         </div>
 
         {/* Account Details */}
-        <div className="bg-white rounded-2xl shadow-xl p-8 mb-6 border border-gray-200">
-          <div className="flex items-center justify-between mb-6">
+        <div className="bg-white rounded-xl sm:rounded-2xl shadow-xl p-4 sm:p-8 mb-4 sm:mb-6 border border-gray-200">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 sm:mb-6 gap-3">
             <div className="flex items-center gap-3">
-              <div className="w-12 h-12 bg-gradient-to-r from-[#87CEEB] to-[#C8A2C8] rounded-full flex items-center justify-center">
-                <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-r from-[#87CEEB] to-[#C8A2C8] rounded-full flex items-center justify-center flex-shrink-0">
+                <svg className="w-5 h-5 sm:w-6 sm:h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                 </svg>
               </div>
-              <h2 className="text-2xl font-semibold text-gray-900">Account Information</h2>
+              <h2 className="text-xl sm:text-2xl font-semibold text-gray-900">Account Information</h2>
             </div>
             {!isEditing && (
               <button
@@ -363,9 +367,9 @@ const [confirmPassword, setConfirmPassword] = useState('')
                   })
                   setIsEditing(true)
                 }}
-                className="bg-gradient-to-r from-[#87CEEB] to-[#C8A2C8] text-white px-6 py-2 rounded-lg font-semibold hover:opacity-90 transition-opacity duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 flex items-center gap-2"
+                className="bg-gradient-to-r from-[#87CEEB] to-[#C8A2C8] text-white px-4 sm:px-6 py-2 rounded-lg font-semibold hover:opacity-90 transition-opacity duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 flex items-center justify-center gap-2 text-sm sm:text-base"
               >
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                 </svg>
                 Edit
@@ -384,49 +388,49 @@ const [confirmPassword, setConfirmPassword] = useState('')
             </div>
           )}
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="bg-gray-50 rounded-lg p-4 border border-gray-200">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+            <div className="bg-gray-50 rounded-lg p-3 sm:p-4 border border-gray-200">
               <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">First Name</label>
               {isEditing ? (
                 <input
                   type="text"
                   value={editData.firstName}
                   onChange={(e) => setEditData({ ...editData, firstName: e.target.value })}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-400 bg-white"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-400 bg-white text-sm sm:text-base"
                 />
               ) : (
-                <p className="text-lg font-medium text-gray-900">{userDetails?.firstName || user?.firstName || 'N/A'}</p>
+                <p className="text-base sm:text-lg font-medium text-gray-900">{userDetails?.firstName || user?.firstName || 'N/A'}</p>
               )}
             </div>
-            <div className="bg-gray-50 rounded-lg p-4 border border-gray-200">
+            <div className="bg-gray-50 rounded-lg p-3 sm:p-4 border border-gray-200">
               <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">Last Name</label>
               {isEditing ? (
                 <input
                   type="text"
                   value={editData.lastName}
                   onChange={(e) => setEditData({ ...editData, lastName: e.target.value })}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-400 bg-white"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-400 bg-white text-sm sm:text-base"
                 />
               ) : (
-                <p className="text-lg font-medium text-gray-900">{userDetails?.lastName || user?.lastName || 'N/A'}</p>
+                <p className="text-base sm:text-lg font-medium text-gray-900">{userDetails?.lastName || user?.lastName || 'N/A'}</p>
               )}
             </div>
-            <div className="bg-gray-50 rounded-lg p-4 border border-gray-200 md:col-span-2">
+            <div className="bg-gray-50 rounded-lg p-3 sm:p-4 border border-gray-200 md:col-span-2">
               <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">Email Address</label>
-              <p className="text-lg font-medium text-gray-900">{user?.email || 'N/A'}</p>
+              <p className="text-base sm:text-lg font-medium text-gray-900 break-words">{user?.email || 'N/A'}</p>
             </div>
-            <div className="bg-gray-50 rounded-lg p-4 border border-gray-200">
+            <div className="bg-gray-50 rounded-lg p-3 sm:p-4 border border-gray-200">
               <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">Phone Number</label>
               {isEditing ? (
                 <input
                   type="tel"
                   value={editData.phoneNumber}
                   onChange={(e) => setEditData({ ...editData, phoneNumber: e.target.value })}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-400 bg-white"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-400 bg-white text-sm sm:text-base"
                   placeholder="Phone Number"
                 />
               ) : (
-                <p className="text-lg font-medium text-gray-900">
+                <p className="text-base sm:text-lg font-medium text-gray-900">
   {userDetails?.phoneNumber || 'N/A'}
 </p>
                 )}
@@ -482,18 +486,18 @@ const [confirmPassword, setConfirmPassword] = useState('')
           </div>
 
           {isEditing && (
-            <div className="flex gap-4 mt-6 pt-6 border-t border-gray-200">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mt-4 sm:mt-6 pt-4 sm:pt-6 border-t border-gray-200">
               <button
                 onClick={handleSaveChanges}
                 disabled={isLoading}
-                className="bg-gradient-to-r from-[#87CEEB] to-[#C8A2C8] text-white px-6 py-2 rounded-lg font-semibold hover:opacity-90 transition-opacity duration-300 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
+                className="bg-gradient-to-r from-[#87CEEB] to-[#C8A2C8] text-white px-6 py-2.5 rounded-lg font-semibold hover:opacity-90 transition-opacity duration-300 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed text-sm sm:text-base"
               >
                 {isLoading ? 'Saving...' : 'Save Changes'}
               </button>
               <button
                 onClick={handleCancelEdit}
                 disabled={isLoading}
-                className="bg-gray-200 text-gray-700 px-6 py-2 rounded-lg font-semibold hover:bg-gray-300 transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="bg-gray-200 text-gray-700 px-6 py-2.5 rounded-lg font-semibold hover:bg-gray-300 transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed text-sm sm:text-base"
               >
                 Cancel
               </button>
@@ -502,25 +506,25 @@ const [confirmPassword, setConfirmPassword] = useState('')
         </div>
 
         {/* Change Password Section */}
-        <div className="bg-white rounded-2xl shadow-xl p-8 border border-gray-200">
-          <div className="flex items-center justify-between mb-6">
+        <div className="bg-white rounded-xl sm:rounded-2xl shadow-xl p-4 sm:p-8 border border-gray-200">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 sm:mb-6 gap-3">
             <div className="flex items-center gap-3">
-              <div className="w-12 h-12 bg-gradient-to-r from-[#87CEEB] to-[#C8A2C8] rounded-full flex items-center justify-center shadow-lg">
-                <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-r from-[#87CEEB] to-[#C8A2C8] rounded-full flex items-center justify-center shadow-lg flex-shrink-0">
+                <svg className="w-5 h-5 sm:w-6 sm:h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                 </svg>
               </div>
               <div>
-                <h2 className="text-2xl font-semibold text-gray-900">Password</h2>
+                <h2 className="text-xl sm:text-2xl font-semibold text-gray-900">Password</h2>
                 {lastPasswordChange && (
-                  <p className="text-sm text-gray-500 mt-1">Last changed: {new Date(lastPasswordChange).toLocaleDateString()}</p>
+                  <p className="text-xs sm:text-sm text-gray-500 mt-1">Last changed: {new Date(lastPasswordChange).toLocaleDateString()}</p>
                 )}
               </div>
             </div>
             {!showChangePassword && (
               <button
                 onClick={() => setShowChangePassword(true)}
-                className="bg-gradient-to-r from-[#87CEEB] to-[#C8A2C8] text-white px-8 py-3 rounded-lg font-semibold hover:opacity-90 transition-opacity duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
+                className="bg-gradient-to-r from-[#87CEEB] to-[#C8A2C8] text-white px-6 sm:px-8 py-2.5 sm:py-3 rounded-lg font-semibold hover:opacity-90 transition-opacity duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 text-sm sm:text-base w-full sm:w-auto"
               >
                 Change Password
               </button>
@@ -708,11 +712,11 @@ const [confirmPassword, setConfirmPassword] = useState('')
                 </>
               ) : null}
 
-              <div className="flex gap-4">
+              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
                 <button
                   type="submit"
                   disabled={isLoading}
-                  className="bg-gradient-to-r from-[#87CEEB] to-[#C8A2C8] text-white px-6 py-2 rounded-lg font-medium hover:opacity-90 transition-opacity duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="bg-gradient-to-r from-[#87CEEB] to-[#C8A2C8] text-white px-6 py-2.5 rounded-lg font-medium hover:opacity-90 transition-opacity duration-300 disabled:opacity-50 disabled:cursor-not-allowed text-sm sm:text-base"
                 >
                   {isLoading ? 'Updating...' : 'Update Password'}
                 </button>
@@ -732,7 +736,7 @@ const [confirmPassword, setConfirmPassword] = useState('')
                     sessionStorage.removeItem('verificationCode')
                     sessionStorage.removeItem('verificationEmail')
                   }}
-                  className="bg-gray-200 text-gray-700 px-6 py-2 rounded-lg font-medium hover:bg-gray-300 transition-colors duration-300"
+                  className="bg-gray-200 text-gray-700 px-6 py-2.5 rounded-lg font-medium hover:bg-gray-300 transition-colors duration-300 text-sm sm:text-base"
                 >
                   Cancel
                 </button>

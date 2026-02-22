@@ -30,6 +30,10 @@ export default function RecentSearchesPage() {
   const [topPadding, setTopPadding] = useState(176) // Default padding
 
   useEffect(() => {
+    document.title = 'Recent Searches - Allied Concept Beauty Supplies'
+  }, [])
+
+  useEffect(() => {
     const calculatePadding = () => {
       const header = document.getElementById('main-header')
       const nav = document.getElementById('main-nav')

@@ -11,6 +11,10 @@ export default function EducationalModulePage() {
   const [topPadding, setTopPadding] = useState(176)
 
   useEffect(() => {
+    document.title = 'Educational Module - Allied Concept Beauty Supplies'
+  }, [])
+
+  useEffect(() => {
     const calculatePadding = () => {
       const header = document.getElementById('main-header')
       const nav = document.getElementById('main-nav')
@@ -28,26 +32,6 @@ export default function EducationalModulePage() {
       window.removeEventListener('resize', calculatePadding)
     }
   }, [])
-  const courses = [
-    {
-      id: '1',
-      title: 'Foundation Female Cutting Course',
-      description: 'Foundation Female Cutting Course, a program meticulously crafted to enhance your foundational knowledge in hair cutting and styling, preparing you for a successful career as a Hairstylist. Here are the details:',
-      image: '/educational/female-cutting.jpg',
-    },
-    {
-      id: '2',
-      title: 'Foundation Color Course',
-      description: 'Our Foundation Color Course is meticulously designed to provide you with hands-on experience and the confidence needed to excel in working with clients. Explore course',
-      image: '/educational/color-course.jpg',
-    },
-    {
-      id: '3',
-      title: 'Men Cut Course',
-      description: 'Aimed at elevating your foundational knowledge in men\'s haircutting and equipping you with versatile skills tailored for diverse clientele. Explore course',
-      image: '/educational/men-cut.jpg',
-    },
-  ]
 
   return (
     <div className="min-h-screen bg-white flex flex-col">
@@ -71,100 +55,70 @@ export default function EducationalModulePage() {
             OUR EDUCATION & TRAINING
           </h2>
           <p className="text-gray-700 leading-relaxed text-lg max-w-4xl mx-auto">
-            At our core, learning is what we do. Our training, certification courses and workshops are designed to be salon work and salon results. Whether you are at the beginning of your career or the end, we are here to assist you to study, become better and proceed with life comfortably.
+            At the heart of what we do is learning for beauty professionals. Our salon training programs, hands-on workshops, and certification courses are designed to deliver real salon results. Whether you're starting your career in beauty or looking to advance your professional skills, we are here to guide you, help you grow, and support your journey to becoming a qualified beauty expert.
           </p>
-        </div>
-
-        {/* Course Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20">
-          {courses.map((course) => (
-            <div key={course.id} className="bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-200 hover:shadow-2xl transition-shadow duration-300">
-              <div className="relative w-full h-80 bg-gray-100">
-                <Image
-                  src={course.image}
-                  alt={course.title}
-                  fill
-                  className="object-contain"
-                />
-              </div>
-              <div className="p-6 text-center">
-                <h3 className="text-2xl font-bold mb-4 bg-gradient-to-r from-[#C8A2C8] to-[#87CEEB] bg-clip-text text-transparent">
-                  {course.title}
-                </h3>
-                <p className="text-gray-700 leading-relaxed mb-6">
-                  {course.description}
-                </p>
-                <Link
-                  href={`/educational-module/${course.id}`}
-                  className="inline-block bg-gradient-to-r from-[#87CEEB] to-[#C8A2C8] text-white px-6 py-3 rounded-lg font-semibold hover:opacity-90 transition-opacity duration-300 shadow-lg"
-                >
-                  Explore Course
-                </Link>
-              </div>
-            </div>
-          ))}
         </div>
 
         {/* Training, Workshops, Certifications */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20">
           {/* Training */}
-          <div className="bg-gray-50 rounded-2xl p-8 border border-gray-200 text-center hover:shadow-lg transition-shadow duration-300">
+          <div className="bg-gray-50 rounded-2xl p-8 border border-gray-200 text-center hover:shadow-lg transition-shadow duration-300 flex flex-col">
             <div className="w-16 h-16 bg-gradient-to-r from-[#C8A2C8] to-[#87CEEB] rounded-full flex items-center justify-center mx-auto mb-6">
               <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
               </svg>
             </div>
             <h3 className="text-2xl font-bold mb-4 bg-gradient-to-r from-[#C8A2C8] to-[#87CEEB] bg-clip-text text-transparent">
-              Training
+              1 — Training
             </h3>
-            <p className="text-gray-700 leading-relaxed mb-6">
-              The best way to establish strong salon foundations is through training programs. Such meetings assist you to enhance your ability, dealing with clients and service delivery.
+            <p className="text-gray-700 leading-relaxed mb-6 flex-grow">
+              Build a strong foundation for your salon career with our professional salon training programs. These sessions are hands-on, designed to improve your technical skills, client communication, and service delivery. Perfect for new salon employees or anyone looking to enhance their expertise.
             </p>
             <Link
               href="/educational-module/training"
-              className="inline-block bg-gradient-to-r from-[#87CEEB] to-[#C8A2C8] text-white px-6 py-3 rounded-lg font-semibold hover:opacity-90 transition-opacity duration-300 shadow-lg"
+              className="inline-block bg-gradient-to-r from-[#87CEEB] to-[#C8A2C8] text-white px-6 py-3 rounded-lg font-semibold hover:opacity-90 transition-opacity duration-300 shadow-lg mt-auto"
             >
               View Training
             </Link>
           </div>
 
           {/* Workshops */}
-          <div className="bg-gray-50 rounded-2xl p-8 border border-gray-200 text-center hover:shadow-lg transition-shadow duration-300">
+          <div className="bg-gray-50 rounded-2xl p-8 border border-gray-200 text-center hover:shadow-lg transition-shadow duration-300 flex flex-col">
             <div className="w-16 h-16 bg-gradient-to-r from-[#C8A2C8] to-[#87CEEB] rounded-full flex items-center justify-center mx-auto mb-6">
               <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
               </svg>
             </div>
             <h3 className="text-2xl font-bold mb-4 bg-gradient-to-r from-[#C8A2C8] to-[#87CEEB] bg-clip-text text-transparent">
-              Workshops
+              2 — Workshops
             </h3>
-            <p className="text-gray-700 leading-relaxed mb-6">
-              Workshops are brief, practical sessions devoted to particular beauty treatments. They would be good when you need to master a new skill fast and begin providing it in your salon.
+            <p className="text-gray-700 leading-relaxed mb-6 flex-grow">
+              Our beauty workshops are focused, practical sessions that teach specific treatments efficiently. Ideal for quick skill mastery and for implementing new services in your salon immediately. These workshops help you stay updated with the latest beauty techniques.
             </p>
             <Link
               href="/educational-module/workshops"
-              className="inline-block bg-gradient-to-r from-[#87CEEB] to-[#C8A2C8] text-white px-6 py-3 rounded-lg font-semibold hover:opacity-90 transition-opacity duration-300 shadow-lg"
+              className="inline-block bg-gradient-to-r from-[#87CEEB] to-[#C8A2C8] text-white px-6 py-3 rounded-lg font-semibold hover:opacity-90 transition-opacity duration-300 shadow-lg mt-auto"
             >
               View Workshops
             </Link>
           </div>
 
           {/* Certifications */}
-          <div className="bg-gray-50 rounded-2xl p-8 border border-gray-200 text-center hover:shadow-lg transition-shadow duration-300">
+          <div className="bg-gray-50 rounded-2xl p-8 border border-gray-200 text-center hover:shadow-lg transition-shadow duration-300 flex flex-col">
             <div className="w-16 h-16 bg-gradient-to-r from-[#C8A2C8] to-[#87CEEB] rounded-full flex items-center justify-center mx-auto mb-6">
               <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
               </svg>
             </div>
             <h3 className="text-2xl font-bold mb-4 bg-gradient-to-r from-[#C8A2C8] to-[#87CEEB] bg-clip-text text-transparent">
-              Certifications
+              3 — Certifications
             </h3>
-            <p className="text-gray-700 leading-relaxed mb-6">
-              Certification programs offer a full professional training and an accredited certificate at the end of the program. The courses are ideal to individuals who desire to be qualified specialists.
+            <p className="text-gray-700 leading-relaxed mb-6 flex-grow">
+              Take your career to the next level with our professional certification courses. Each course includes practical training and awards an accredited certificate upon completion. Perfect for anyone aiming to become a certified beauty professional and gain professional recognition in the beauty industry.
             </p>
             <Link
               href="/educational-module/certifications"
-              className="inline-block bg-gradient-to-r from-[#87CEEB] to-[#C8A2C8] text-white px-6 py-3 rounded-lg font-semibold hover:opacity-90 transition-opacity duration-300 shadow-lg"
+              className="inline-block bg-gradient-to-r from-[#87CEEB] to-[#C8A2C8] text-white px-6 py-3 rounded-lg font-semibold hover:opacity-90 transition-opacity duration-300 shadow-lg mt-auto"
             >
               View Certifications
             </Link>
@@ -173,32 +127,106 @@ export default function EducationalModulePage() {
 
         {/* Who Should Attend */}
         <div className="mb-20">
-          <h2 className="text-4xl font-bold mb-8 bg-gradient-to-r from-[#C8A2C8] to-[#87CEEB] bg-clip-text text-transparent text-center">
-            WHO SHOULD ATTEND ?
+          <h2 className="text-4xl md:text-5xl font-bold mb-12 text-center bg-gradient-to-r from-[#C8A2C8] to-[#87CEEB] bg-clip-text text-transparent">
+            WHO SHOULD ATTEND?
           </h2>
-          <div className="bg-gray-50 rounded-2xl p-8 md:p-12 border border-gray-200">
-            <ul className="space-y-4 max-w-3xl mx-auto">
-              <li className="flex items-start">
-                <span className="text-[#87CEEB] mr-4 font-bold text-xl">●</span>
-                <span className="text-gray-700 text-lg">Newcomers in the beauty sector.</span>
-              </li>
-              <li className="flex items-start">
-                <span className="text-[#87CEEB] mr-4 font-bold text-xl">●</span>
-                <span className="text-gray-700 text-lg">Professional employees of the beauty industry that want to update their competencies.</span>
-              </li>
-              <li className="flex items-start">
-                <span className="text-[#87CEEB] mr-4 font-bold text-xl">●</span>
-                <span className="text-gray-700 text-lg">Salon employees who wish to enhance the quality of service.</span>
-              </li>
-              <li className="flex items-start">
-                <span className="text-[#87CEEB] mr-4 font-bold text-xl">●</span>
-                <span className="text-gray-700 text-lg">Salon owners who train their staff or increase the services.</span>
-              </li>
-              <li className="flex items-start">
-                <span className="text-[#87CEEB] mr-4 font-bold text-xl">●</span>
-                <span className="text-gray-700 text-lg">Those who would like to know professional beauty techniques.</span>
-              </li>
-            </ul>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 max-w-7xl mx-auto">
+            {/* Newcomers in the beauty sector - Person icon */}
+            <div className="bg-white rounded-xl p-6 shadow-lg border border-gray-100 flex flex-col items-center text-center hover:shadow-xl transition-shadow">
+              <div className="w-16 h-16 mb-4 flex items-center justify-center">
+                <svg className="w-full h-full" viewBox="0 0 24 24" fill="none">
+                  <defs>
+                    <linearGradient id="gradient1" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stopColor="#C8A2C8" />
+                      <stop offset="100%" stopColor="#87CEEB" />
+                    </linearGradient>
+                  </defs>
+                  <circle cx="12" cy="8" r="4" fill="url(#gradient1)" />
+                  <path d="M6 20c0-3.314 2.686-6 6-6s6 2.686 6 6" stroke="url(#gradient1)" strokeWidth={1.5} strokeLinecap="round" />
+                </svg>
+              </div>
+              <p className="text-gray-800 font-medium leading-tight">
+                Newcomers in the beauty sector.
+              </p>
+            </div>
+
+            {/* Professional employees who want to update their competencies - Circular arrow with star */}
+            <div className="bg-white rounded-xl p-6 shadow-lg border border-gray-100 flex flex-col items-center text-center hover:shadow-xl transition-shadow">
+              <div className="w-16 h-16 mb-4 flex items-center justify-center">
+                <svg className="w-full h-full" viewBox="0 0 24 24" fill="none">
+                  <defs>
+                    <linearGradient id="gradient2" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stopColor="#C8A2C8" />
+                      <stop offset="100%" stopColor="#87CEEB" />
+                    </linearGradient>
+                  </defs>
+                  <circle cx="12" cy="12" r="8" stroke="url(#gradient2)" strokeWidth={1.5} fill="none" />
+                  <path d="M12 4l2 6 6 2-6 2-2 6-2-6-6-2 6-2z" fill="url(#gradient2)" />
+                  <path d="M8 12l4-4m0 8l4-4" stroke="url(#gradient2)" strokeWidth={1.5} strokeLinecap="round" />
+                </svg>
+              </div>
+              <p className="text-gray-800 font-medium leading-tight">
+                Professional employees of the beauty industry who want to update their competencies.
+              </p>
+            </div>
+
+            {/* Salon employees who wish to enhance the quality of service - Hand pointing up with stars */}
+            <div className="bg-white rounded-xl p-6 shadow-lg border border-gray-100 flex flex-col items-center text-center hover:shadow-xl transition-shadow">
+              <div className="w-16 h-16 mb-4 flex items-center justify-center">
+                <svg className="w-full h-full" viewBox="0 0 24 24" fill="none">
+                  <defs>
+                    <linearGradient id="gradient3" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stopColor="#C8A2C8" />
+                      <stop offset="100%" stopColor="#87CEEB" />
+                    </linearGradient>
+                  </defs>
+                  <path d="M12 4v16M8 8l4-4 4 4" stroke="url(#gradient3)" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round" />
+                  <circle cx="8" cy="4" r="1.5" fill="url(#gradient3)" />
+                  <circle cx="12" cy="2" r="1.5" fill="url(#gradient3)" />
+                  <circle cx="16" cy="4" r="1.5" fill="url(#gradient3)" />
+                </svg>
+              </div>
+              <p className="text-gray-800 font-medium leading-tight">
+                Salon employees who wish to enhance the quality of service.
+              </p>
+            </div>
+
+            {/* Salon owners who train their staff or increase the services - Building/storefront icon */}
+            <div className="bg-white rounded-xl p-6 shadow-lg border border-gray-100 flex flex-col items-center text-center hover:shadow-xl transition-shadow">
+              <div className="w-16 h-16 mb-4 flex items-center justify-center">
+                <svg className="w-full h-full" fill="none" viewBox="0 0 24 24" strokeWidth={1.5}>
+                  <defs>
+                    <linearGradient id="gradient4" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stopColor="#C8A2C8" />
+                      <stop offset="100%" stopColor="#87CEEB" />
+                    </linearGradient>
+                  </defs>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3.75h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008z" stroke="url(#gradient4)" />
+                </svg>
+              </div>
+              <p className="text-gray-800 font-medium leading-tight">
+                Salon owners who train their staff or increase the services.
+              </p>
+            </div>
+
+            {/* Those who would like to know professional beauty techniques - Magnifying glass with plus */}
+            <div className="bg-white rounded-xl p-6 shadow-lg border border-gray-100 flex flex-col items-center text-center hover:shadow-xl transition-shadow">
+              <div className="w-16 h-16 mb-4 flex items-center justify-center">
+                <svg className="w-full h-full" fill="none" viewBox="0 0 24 24" strokeWidth={1.5}>
+                  <defs>
+                    <linearGradient id="gradient5" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stopColor="#C8A2C8" />
+                      <stop offset="100%" stopColor="#87CEEB" />
+                    </linearGradient>
+                  </defs>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" stroke="url(#gradient5)" />
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 7.5v6m3-3h-6" strokeWidth={2} stroke="url(#gradient5)" />
+                </svg>
+              </div>
+              <p className="text-gray-800 font-medium leading-tight">
+                Those who would like to know professional beauty techniques.
+              </p>
+            </div>
           </div>
         </div>
 

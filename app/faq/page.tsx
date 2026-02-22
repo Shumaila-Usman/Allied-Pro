@@ -49,6 +49,10 @@ export default function FAQPage() {
   const [topPadding, setTopPadding] = useState(176)
 
   useEffect(() => {
+    document.title = 'FAQs - Allied Concept Beauty Supplies'
+  }, [])
+
+  useEffect(() => {
     const calculatePadding = () => {
       const header = document.getElementById('main-header')
       const nav = document.getElementById('main-nav')

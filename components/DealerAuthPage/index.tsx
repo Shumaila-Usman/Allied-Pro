@@ -275,8 +275,409 @@ export default function DealerAuthPage({ initialMode }: DealerAuthPageProps) {
       <MainNav />
       <div className="flex-1 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8" style={{ paddingTop: `${topPadding + 48}px` }}>
         <div className="max-w-6xl w-full">
-          {/* Container with two forms */}
-          <div className="relative bg-white rounded-2xl shadow-2xl overflow-hidden" style={{ minHeight: '700px', height: registerData.hasSupplier ? '850px' : '700px', transition: 'height 0.3s ease-in-out' }}>
+          {/* Mobile: Simple Form */}
+          <div className="md:hidden w-full max-w-md mx-auto">
+            {error && (
+              <div className="mb-4 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-lg shadow-lg">
+                <p className="text-sm font-medium">{error}</p>
+              </div>
+            )}
+            {isRegisterMode ? (
+              <div className="bg-white rounded-2xl shadow-2xl p-6 max-h-[90vh] overflow-y-auto">
+                <h2 className="text-2xl font-bold text-gray-900 mb-6">Dealer Registration</h2>
+                <form onSubmit={handleRegister} className="space-y-4">
+                  {/* Business Information */}
+                  <div className="border-b border-gray-200 pb-4 mb-4">
+                    <h3 className="text-base font-semibold text-gray-900 mb-3">1 BUSINESS INFORMATION</h3>
+                    <div className="space-y-3">
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">Company Name</label>
+                        <input
+                          type="text"
+                          value={registerData.companyName}
+                          onChange={(e) => setRegisterData({ ...registerData, companyName: e.target.value })}
+                          required
+                          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-400 text-sm"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">Type of Business</label>
+                        <select
+                          value={registerData.businessType}
+                          onChange={(e) => setRegisterData({ ...registerData, businessType: e.target.value, otherBusinessType: e.target.value !== 'Other' ? '' : registerData.otherBusinessType })}
+                          required
+                          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-400 text-sm"
+                        >
+                          <option value="">Select...</option>
+                          {businessTypes.map((type) => (
+                            <option key={type} value={type}>{type}</option>
+                          ))}
+                        </select>
+                        {registerData.businessType === 'Other' && (
+                          <div className="mt-2">
+                            <label className="block text-sm font-medium text-gray-700 mb-1">Please specify</label>
+                            <input
+                              type="text"
+                              value={registerData.otherBusinessType}
+                              onChange={(e) => setRegisterData({ ...registerData, otherBusinessType: e.target.value })}
+                              required
+                              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-400 text-sm"
+                              placeholder="Enter your business type"
+                            />
+                          </div>
+                        )}
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">Business Address</label>
+                        <input
+                          type="text"
+                          value={registerData.businessAddress}
+                          onChange={(e) => setRegisterData({ ...registerData, businessAddress: e.target.value })}
+                          required
+                          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-400 text-sm"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">Province</label>
+                        <select
+                          value={registerData.province}
+                          onChange={(e) => setRegisterData({ ...registerData, province: e.target.value, city: '' })}
+                          required
+                          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-400 text-sm"
+                        >
+                          <option value="">Select...</option>
+                          {provinces.map((province) => (
+                            <option key={province} value={province}>{province}</option>
+                          ))}
+                        </select>
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">City</label>
+                        {registerData.province ? (
+                          <select
+                            value={registerData.city}
+                            onChange={(e) => setRegisterData({ ...registerData, city: e.target.value })}
+                            required
+                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-400 text-sm"
+                          >
+                            <option value="">Select City...</option>
+                            {provinceCities[registerData.province]?.map((city) => (
+                              <option key={city} value={city}>{city}</option>
+                            ))}
+                          </select>
+                        ) : (
+                          <input
+                            type="text"
+                            value={registerData.city}
+                            onChange={(e) => setRegisterData({ ...registerData, city: e.target.value })}
+                            required
+                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-400 text-sm bg-gray-50"
+                            placeholder="Select province first"
+                            disabled
+                          />
+                        )}
+                      </div>
+                      <div className="grid grid-cols-2 gap-3">
+                        <div>
+                          <label className="block text-sm font-medium text-gray-700 mb-1">Postal Code</label>
+                          <input
+                            type="text"
+                            value={registerData.postalCode}
+                            onChange={(e) => setRegisterData({ ...registerData, postalCode: e.target.value })}
+                            required
+                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-400 text-sm"
+                          />
+                        </div>
+                        <div>
+                          <label className="block text-sm font-medium text-gray-700 mb-1">Country</label>
+                          <input
+                            type="text"
+                            value={registerData.country}
+                            readOnly
+                            className="w-full px-4 py-2 border border-gray-300 rounded-lg bg-gray-50 text-sm"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Supplier Information */}
+                  <div className="border-b border-gray-200 pb-4 mb-4">
+                    <h3 className="text-base font-semibold text-gray-900 mb-3">2 SUPPLIER INFORMATION (OPTIONAL)</h3>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">Do you currently have a supplier?</label>
+                      <div className="flex gap-4 mb-3">
+                        <button
+                          type="button"
+                          onClick={() => setRegisterData({ ...registerData, hasSupplier: true, supplierName: registerData.hasSupplier ? registerData.supplierName : '' })}
+                          className={`px-6 py-2 rounded-lg font-medium transition-colors text-sm ${
+                            registerData.hasSupplier
+                              ? 'bg-primary-400 text-white'
+                              : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                          }`}
+                        >
+                          Yes
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => setRegisterData({ ...registerData, hasSupplier: false, supplierName: '' })}
+                          className={`px-6 py-2 rounded-lg font-medium transition-colors text-sm ${
+                            !registerData.hasSupplier
+                              ? 'bg-primary-400 text-white'
+                              : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                          }`}
+                        >
+                          No
+                        </button>
+                      </div>
+                      {registerData.hasSupplier && (
+                        <div>
+                          <label className="block text-sm font-medium text-gray-700 mb-1">Supplier Name</label>
+                          <input
+                            type="text"
+                            value={registerData.supplierName}
+                            onChange={(e) => setRegisterData({ ...registerData, supplierName: e.target.value })}
+                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-400 text-sm"
+                            placeholder="Enter supplier name"
+                          />
+                        </div>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Contact & Login */}
+                  <div>
+                    <h3 className="text-base font-semibold text-gray-900 mb-3">3 CONTACT & LOGIN</h3>
+                    <div className="space-y-3">
+                      <div className="grid grid-cols-2 gap-3">
+                        <div>
+                          <label className="block text-sm font-medium text-gray-700 mb-1">First Name</label>
+                          <input
+                            type="text"
+                            value={registerData.firstName}
+                            onChange={(e) => setRegisterData({ ...registerData, firstName: e.target.value })}
+                            required
+                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-400 text-sm"
+                          />
+                        </div>
+                        <div>
+                          <label className="block text-sm font-medium text-gray-700 mb-1">Last Name</label>
+                          <input
+                            type="text"
+                            value={registerData.lastName}
+                            onChange={(e) => setRegisterData({ ...registerData, lastName: e.target.value })}
+                            required
+                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-400 text-sm"
+                          />
+                        </div>
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
+                        <input
+                          type="tel"
+                          value={registerData.phoneNumber}
+                          onChange={(e) => setRegisterData({ ...registerData, phoneNumber: e.target.value })}
+                          required
+                          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-400 text-sm"
+                          placeholder={registerData.country === 'Canada' ? '(123) 456-7890' : 'Phone Number'}
+                        />
+                        {registerData.country === 'Canada' && registerData.phoneNumber && !validatePhoneNumber(registerData.phoneNumber) && (
+                          <p className="mt-1 text-xs text-red-600">Please enter a valid Canadian phone number</p>
+                        )}
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
+                        <input
+                          type="email"
+                          value={registerData.email}
+                          onChange={(e) => setRegisterData({ ...registerData, email: e.target.value })}
+                          required
+                          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-400 text-sm"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">Password</label>
+                        <div className="relative">
+                          <input
+                            type={showPassword ? 'text' : 'password'}
+                            value={registerData.password}
+                            onChange={(e) => setRegisterData({ ...registerData, password: e.target.value })}
+                            required
+                            className="w-full px-4 py-2 pr-10 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-400 text-sm"
+                          />
+                          <button
+                            type="button"
+                            onClick={() => setShowPassword(!showPassword)}
+                            className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700"
+                          >
+                            {showPassword ? (
+                              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21" />
+                              </svg>
+                            ) : (
+                              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                              </svg>
+                            )}
+                          </button>
+                        </div>
+                        {registerData.password && (
+                          <div className="mt-2 text-xs space-y-1">
+                            <div className={`flex items-center ${passwordErrors.minLength ? 'text-green-600' : 'text-gray-500'}`}>
+                              <span className="mr-2">{passwordErrors.minLength ? '✓' : '○'}</span>
+                              At least 8 characters
+                            </div>
+                            <div className={`flex items-center ${passwordErrors.hasUpperCase ? 'text-green-600' : 'text-gray-500'}`}>
+                              <span className="mr-2">{passwordErrors.hasUpperCase ? '✓' : '○'}</span>
+                              One uppercase letter
+                            </div>
+                            <div className={`flex items-center ${passwordErrors.hasLowerCase ? 'text-green-600' : 'text-gray-500'}`}>
+                              <span className="mr-2">{passwordErrors.hasLowerCase ? '✓' : '○'}</span>
+                              One lowercase letter
+                            </div>
+                            <div className={`flex items-center ${passwordErrors.hasNumber ? 'text-green-600' : 'text-gray-500'}`}>
+                              <span className="mr-2">{passwordErrors.hasNumber ? '✓' : '○'}</span>
+                              One number
+                            </div>
+                            <div className={`flex items-center ${passwordErrors.hasSpecialChar ? 'text-green-600' : 'text-gray-500'}`}>
+                              <span className="mr-2">{passwordErrors.hasSpecialChar ? '✓' : '○'}</span>
+                              One special character
+                            </div>
+                            <div className={`flex items-center ${passwordErrors.matches ? 'text-green-600' : 'text-gray-500'}`}>
+                              <span className="mr-2">{passwordErrors.matches ? '✓' : '○'}</span>
+                              Passwords match
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">Confirm Password</label>
+                        <div className="relative">
+                          <input
+                            type={showConfirmPassword ? 'text' : 'password'}
+                            value={registerData.confirmPassword}
+                            onChange={(e) => setRegisterData({ ...registerData, confirmPassword: e.target.value })}
+                            required
+                            className="w-full px-4 py-2 pr-10 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-400 text-sm"
+                          />
+                          <button
+                            type="button"
+                            onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                            className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700"
+                          >
+                            {showConfirmPassword ? (
+                              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21" />
+                              </svg>
+                            ) : (
+                              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                              </svg>
+                            )}
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <button
+                    type="submit"
+                    disabled={isLoading}
+                    className="w-full bg-gradient-to-r from-[#87CEEB] to-[#C8A2C8] text-white py-3 px-4 rounded-lg font-semibold hover:opacity-90 transition-opacity duration-300 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed mt-4"
+                  >
+                    {isLoading ? 'Registering...' : 'Register'}
+                  </button>
+                </form>
+                <div className="mt-4 text-center">
+                  <p className="text-sm text-gray-600">Already have an account?</p>
+                  <button
+                    onClick={(e) => toggleMode(e)}
+                    className="mt-2 text-primary-400 font-semibold hover:underline"
+                  >
+                    Sign In
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <div className="bg-white rounded-2xl shadow-2xl p-6">
+                <h2 className="text-2xl font-bold text-gray-900 mb-6">Dealer Sign In</h2>
+                <form onSubmit={handleLogin} className="space-y-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
+                    <input
+                      type="email"
+                      value={loginData.email}
+                      onChange={(e) => setLoginData({ ...loginData, email: e.target.value })}
+                      required
+                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-400 text-sm"
+                      placeholder="Email Address"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Dealer ID</label>
+                    <input
+                      type="text"
+                      value={loginData.dealerId}
+                      onChange={(e) => setLoginData({ ...loginData, dealerId: e.target.value })}
+                      required
+                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-400 text-sm"
+                      placeholder="Enter your Dealer ID"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Password</label>
+                    <div className="relative">
+                      <input
+                        type={showLoginPassword ? 'text' : 'password'}
+                        value={loginData.password}
+                        onChange={(e) => setLoginData({ ...loginData, password: e.target.value })}
+                        required
+                        className="w-full px-4 py-2 pr-10 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-400 text-sm"
+                        placeholder="Password"
+                      />
+                      <button
+                        type="button"
+                        onClick={() => setShowLoginPassword(!showLoginPassword)}
+                        className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700"
+                      >
+                        {showLoginPassword ? (
+                          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21" />
+                          </svg>
+                        ) : (
+                          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                          </svg>
+                        )}
+                      </button>
+                    </div>
+                  </div>
+                  <button
+                    type="submit"
+                    disabled={isLoading}
+                    className="w-full bg-gradient-to-r from-[#87CEEB] to-[#C8A2C8] text-white py-3 px-4 rounded-lg font-semibold hover:opacity-90 transition-opacity duration-300 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    {isLoading ? 'Signing In...' : 'Sign In'}
+                  </button>
+                </form>
+                <div className="mt-4 text-center">
+                  <p className="text-sm text-gray-600">Don't have an account?</p>
+                  <button
+                    onClick={(e) => toggleMode(e)}
+                    className="mt-2 text-primary-400 font-semibold hover:underline"
+                  >
+                    Sign Up
+                  </button>
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Desktop: Container with two forms */}
+          <div className="hidden md:block relative bg-white rounded-2xl shadow-2xl overflow-hidden" style={{ minHeight: '700px', height: registerData.hasSupplier ? '850px' : '700px', transition: 'height 0.3s ease-in-out' }}>
             {/* Error Message */}
             {error && (
               <div className="absolute top-4 left-1/2 transform -translate-x-1/2 z-30 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-lg shadow-lg max-w-md">
@@ -666,9 +1067,9 @@ export default function DealerAuthPage({ initialMode }: DealerAuthPageProps) {
                 </form>
               </div>
 
-              {/* Sliding Gradient Overlay */}
+              {/* Sliding Gradient Overlay - Desktop Only */}
               <div 
-                className="absolute inset-y-0 w-1/2 bg-gradient-to-r from-[#87CEEB] to-[#C8A2C8] flex flex-col items-center justify-center p-12 text-white z-10 transition-transform duration-700 ease-in-out overflow-hidden"
+                className="hidden md:flex absolute inset-y-0 w-1/2 bg-gradient-to-r from-[#87CEEB] to-[#C8A2C8] flex-col items-center justify-center p-12 text-white z-10 transition-transform duration-700 ease-in-out overflow-hidden"
                 style={{
                   left: 0,
                   transform: isRegisterMode ? 'translateX(100%)' : 'translateX(0%)',

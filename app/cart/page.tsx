@@ -18,6 +18,10 @@ export default function CartPage() {
   const [topPadding, setTopPadding] = useState(176) // Default padding
 
   useEffect(() => {
+    document.title = 'Cart - Allied Concept Beauty Supplies'
+  }, [])
+
+  useEffect(() => {
     const calculatePadding = () => {
       const header = document.getElementById('main-header')
       const nav = document.getElementById('main-nav')

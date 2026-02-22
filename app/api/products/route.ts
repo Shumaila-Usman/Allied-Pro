@@ -21,28 +21,113 @@ export async function GET(request: NextRequest) {
         // Check if level 1 child itself is a leaf (no children)
         const hasLevel1Children = await Category.findOne({ parent: level1Child._id })
         if (!hasLevel1Children) {
+          // Level 1 child is a leaf - add it
           leafCategories.push(level1Child._id)
+          console.log('  ✅ Level 1 leaf found:', level1Child.name, level1Child._id.toString())
         } else {
           // Get level 2 children (or deeper)
           const level2Children = await Category.find({ parent: level1Child._id }).lean()
+          console.log('  - Level 1 has', level2Children.length, 'children:', level1Child.name)
           for (const level2Child of level2Children) {
             const hasLevel2Children = await Category.findOne({ parent: level2Child._id })
             if (!hasLevel2Children) {
+              // Level 2 child is a leaf - add it
               leafCategories.push(level2Child._id)
+              console.log('    ✅ Level 2 leaf found:', level2Child.name, level2Child._id.toString())
             }
           }
         }
       }
       
-      console.log('Leaf categories found:', leafCategories.length)
+      console.log('Total leaf categories found:', leafCategories.length)
+      console.log('Leaf category names:', leafCategories.map((id: any) => id.toString()).slice(0, 10), '...')
       
       // IMPORTANT: Only apply category filter if we have leaf categories
       if (leafCategories.length > 0) {
+        // First, try new schema
         query.category = { $in: leafCategories }
-        console.log('Resolved category filter (leaf descendants):', leafCategories.map((id: any) => id.toString()))
+        console.log('✅ Applied category filter with', leafCategories.length, 'leaf categories')
+        
+        // Verify products exist with these categories (new schema)
+        const productCount = await Product.countDocuments({ category: { $in: leafCategories } })
+        console.log('Products found with these categories (new schema):', productCount)
+        
+        // Also check old schema
+        const leafIds = leafCategories.map(id => id.toString())
+        const leafSlugs = leafCategories.map((id: any) => {
+          // Try to get slug from category - we'll need to fetch categories
+          return id.toString()
+        })
+        
+        // Get leaf category slugs for old schema matching
+        const leafCategoryDocs = await Category.find({ _id: { $in: leafCategories } }).select('slug').lean()
+        const leafCategorySlugs = leafCategoryDocs.map((doc: any) => doc.slug)
+        
+        // Check old schema with both IDs and slugs
+        const oldSchemaCount = await Product.countDocuments({ 
+          $or: [
+            { secondSubcategoryId: { $in: leafIds } },
+            { secondsubcategoryId: { $in: leafIds } },
+            { subcategoryId: { $in: leafIds } },
+            { secondSubcategoryId: { $in: leafCategorySlugs } },
+            { secondsubcategoryId: { $in: leafCategorySlugs } },
+            { subcategoryId: { $in: leafCategorySlugs } }
+          ]
+        })
+        console.log('Products found with these categories (old schema):', oldSchemaCount)
+        
+        // Also check for products with categoryId matching root category slug
+        const rootCategorySlug = rootCategory.slug || rootCategory.name?.toLowerCase().replace(/\s+/g, '-')
+        const rootCategoryIdCount = await Product.countDocuments({ 
+          categoryId: rootCategorySlug 
+        })
+        console.log('Products found with categoryId matching root slug:', rootCategoryIdCount, 'slug:', rootCategorySlug)
+        
+        // If new schema has no products but old schema does, switch to old schema
+        if (productCount === 0 && (oldSchemaCount > 0 || rootCategoryIdCount > 0)) {
+          console.log('⚠️ No products found with new schema, switching to old schema')
+          delete query.category
+          
+          // Build $or conditions for old schema
+          const oldSchemaConditions: any[] = []
+          
+          if (oldSchemaCount > 0) {
+            oldSchemaConditions.push(
+              { secondSubcategoryId: { $in: leafIds } },
+              { secondsubcategoryId: { $in: leafIds } },
+              { subcategoryId: { $in: leafIds } },
+              { secondSubcategoryId: { $in: leafCategorySlugs } },
+              { secondsubcategoryId: { $in: leafCategorySlugs } },
+              { subcategoryId: { $in: leafCategorySlugs } }
+            )
+          }
+          
+          if (rootCategoryIdCount > 0) {
+            oldSchemaConditions.push({ categoryId: rootCategorySlug })
+          }
+          
+          if (oldSchemaConditions.length > 0) {
+            if (!query.$and) {
+              query.$and = []
+            }
+            query.$and.push({ $or: oldSchemaConditions })
+            console.log('✅ Switched to old schema query with', oldSchemaConditions.length, 'conditions')
+          }
+        }
       } else {
-        console.log('WARNING: No leaf categories found - NOT applying category filter')
-        // Don't set query.category at all if empty
+        console.log('WARNING: No leaf categories found - trying root category slug directly')
+        // Try to find products with categoryId matching root category slug
+        const rootCategorySlug = rootCategory.slug || rootCategory.name?.toLowerCase().replace(/\s+/g, '-')
+        const rootCategoryIdCount = await Product.countDocuments({ categoryId: rootCategorySlug })
+        console.log('Products found with categoryId matching root slug:', rootCategoryIdCount, 'slug:', rootCategorySlug)
+        
+        if (rootCategoryIdCount > 0) {
+          if (!query.$and) {
+            query.$and = []
+          }
+          query.$and.push({ categoryId: rootCategorySlug })
+          console.log('✅ Applied old schema filter with root category slug:', rootCategorySlug)
+        }
       }
     }
     
@@ -351,21 +436,43 @@ export async function GET(request: NextRequest) {
           console.log('Leaf category slugs to try:', leafCategorySlugs)
           
           if (leafCategoryIds.length > 0) {
-            // IMPORTANT: Products might have secondSubcategoryId (camelCase) OR secondsubcategoryId (lowercase)
-            // Also might have slugs OR ObjectIds
+            // IMPORTANT: Check BOTH old schema (secondSubcategoryId) AND new schema (category field)
+            // Convert string IDs to ObjectIds for new schema
+            const leafObjectIds = leafCategoryIds.map(id => {
+              try {
+                return new mongoose.Types.ObjectId(id)
+              } catch (e) {
+                console.log('⚠️ Invalid ObjectId:', id)
+                return null
+              }
+            }).filter(id => id !== null)
+            
+            // Check new schema (category field)
+            const productCountByCategory = leafObjectIds.length > 0 
+              ? await Product.countDocuments({ category: { $in: leafObjectIds } })
+              : 0
+            
+            // Check old schema fields
             const productCountByIdsCamel = await Product.countDocuments({ secondSubcategoryId: { $in: leafCategoryIds } })
             const productCountByIdsLower = await Product.countDocuments({ secondsubcategoryId: { $in: leafCategoryIds } })
             const productCountBySlugsCamel = await Product.countDocuments({ secondSubcategoryId: { $in: leafCategorySlugs } })
             const productCountBySlugsLower = await Product.countDocuments({ secondsubcategoryId: { $in: leafCategorySlugs } })
             
+            console.log('Products found with category field (new schema):', productCountByCategory)
             console.log('Products found with ObjectIds (camelCase):', productCountByIdsCamel)
             console.log('Products found with ObjectIds (lowercase):', productCountByIdsLower)
             console.log('Products found with slugs (camelCase):', productCountBySlugsCamel)
             console.log('Products found with slugs (lowercase):', productCountBySlugsLower)
             
-            // Build $or conditions for both field names
+            // Build $or conditions for both old and new schema
             const orConditions: any[] = []
             
+            // NEW SCHEMA: Add category field check
+            if (leafObjectIds.length > 0) {
+              orConditions.push({ category: { $in: leafObjectIds } })
+            }
+            
+            // OLD SCHEMA: Check which format works
             if (productCountBySlugsCamel > 0 || productCountBySlugsLower > 0) {
               // Use slugs - check both field names
               if (leafCategorySlugs.length > 0) {
@@ -381,7 +488,7 @@ export async function GET(request: NextRequest) {
               }
               console.log('✅ Querying by secondSubcategoryId/secondsubcategoryId (ObjectIds):', leafCategoryIds.length, 'categories')
             } else {
-              // Try both ObjectIds and slugs with both field names
+              // Try both ObjectIds and slugs with both field names (fallback)
               if (leafCategoryIds.length > 0) {
                 orConditions.push({ secondSubcategoryId: { $in: leafCategoryIds } })
                 orConditions.push({ secondsubcategoryId: { $in: leafCategoryIds } })
@@ -392,6 +499,8 @@ export async function GET(request: NextRequest) {
               }
               console.log('✅ Querying by secondSubcategoryId/secondsubcategoryId (both ObjectIds and slugs)')
             }
+            
+            console.log('✅ Total conditions in $or:', orConditions.length, '(includes both old and new schema)')
             
             if (orConditions.length > 0) {
               // Initialize $and if it doesn't exist
@@ -427,29 +536,50 @@ export async function GET(request: NextRequest) {
               const productsWithSecondSubcategoryIdLower = await productsCollection.countDocuments({ secondsubcategoryId: { $in: possibleSubcategoryIds } })
               const productsWithSecondSubcategoryId = productsWithSecondSubcategoryIdCamel + productsWithSecondSubcategoryIdLower
               
+              // Check new schema (category field)
+              const subcategoryObjectId = new mongoose.Types.ObjectId(subcategoryIdStr)
+              const productsWithCategory = await Product.countDocuments({ category: subcategoryObjectId })
+              
+              console.log('Products with category field (new schema):', productsWithCategory)
               console.log('Products with subcategoryId:', productsWithSubcategoryId)
               console.log('Products with secondSubcategoryId (camelCase):', productsWithSecondSubcategoryIdCamel)
               console.log('Products with secondsubcategoryId (lowercase):', productsWithSecondSubcategoryIdLower)
               
+              // Build $or conditions for both old and new schema
+              const orConditions: any[] = []
+              
+              // NEW SCHEMA: Add category field check
+              orConditions.push({ category: subcategoryObjectId })
+              
+              // OLD SCHEMA: Check which field has products
               if (productsWithSecondSubcategoryId > 0) {
                 // Products are stored with secondSubcategoryId/secondsubcategoryId - use that
-                const orConditions: any[] = [
-                  { secondSubcategoryId: { $in: possibleSubcategoryIds } },
-                  { secondsubcategoryId: { $in: possibleSubcategoryIds } }
-                ]
+                orConditions.push({ secondSubcategoryId: { $in: possibleSubcategoryIds } })
+                orConditions.push({ secondsubcategoryId: { $in: possibleSubcategoryIds } })
+                console.log('✅ Subcategory is a leaf - querying by secondSubcategoryId/secondsubcategoryId:', possibleSubcategoryIds)
+                console.log('Products found (old schema):', productsWithSecondSubcategoryId)
+              } else if (productsWithSubcategoryId > 0) {
+                // Products are stored with subcategoryId - use that
+                orConditions.push({ subcategoryId: { $in: possibleSubcategoryIds } })
+                console.log('✅ Subcategory is a leaf - querying by subcategoryId:', possibleSubcategoryIds)
+                console.log('Products found (old schema):', productsWithSubcategoryId)
+              } else {
+                // Fallback: try all old schema fields even if no products found (might be new schema only)
+                orConditions.push({ secondSubcategoryId: { $in: possibleSubcategoryIds } })
+                orConditions.push({ secondsubcategoryId: { $in: possibleSubcategoryIds } })
+                orConditions.push({ subcategoryId: { $in: possibleSubcategoryIds } })
+                console.log('⚠️ No products found with old schema fields, trying all as fallback')
+              }
+              
+              if (orConditions.length > 0) {
                 if (!query.$and) {
                   query.$and = []
                 }
                 query.$and.push({ $or: orConditions })
-                console.log('✅ Subcategory is a leaf - querying by secondSubcategoryId/secondsubcategoryId:', possibleSubcategoryIds)
-                console.log('Products found:', productsWithSecondSubcategoryId)
-              } else if (productsWithSubcategoryId > 0) {
-                // Products are stored with subcategoryId - use that (try all possible values)
-                query.subcategoryId = { $in: possibleSubcategoryIds }
-                console.log('✅ Subcategory is a leaf - querying by subcategoryId:', possibleSubcategoryIds)
-                console.log('Products found:', productsWithSubcategoryId)
+                console.log('✅ Subcategory is a leaf - query includes both old and new schema')
+                console.log('Total products found:', productsWithCategory + productsWithSecondSubcategoryId + productsWithSubcategoryId)
               } else {
-                console.log('❌ WARNING: No products found with either subcategoryId or secondSubcategoryId/secondsubcategoryId')
+                console.log('❌ WARNING: No query conditions created')
               }
             } else {
               console.log('❌ WARNING: Subcategory has children but none are leaves - this should not happen!')
@@ -459,12 +589,63 @@ export async function GET(request: NextRequest) {
       } else if (categoryId) {
         // Find root category, get all leaf descendants, query products by those secondSubcategoryIds
         let rootCategory = null
+        
+        console.log('🔍 Looking for root category with categoryId:', categoryId)
+        
+        // Try to find root category by slug (exact match)
         rootCategory = await Category.findOne({ slug: categoryId, level: 0 })
+        console.log('  - Exact slug match:', rootCategory ? `Found: ${rootCategory.name}` : 'Not found')
+        
+        // Try case-insensitive slug match
         if (!rootCategory) {
-          rootCategory = await Category.findOne({ slug: { $regex: categoryId, $options: 'i' }, level: 0 })
+          rootCategory = await Category.findOne({ slug: { $regex: `^${categoryId}$`, $options: 'i' }, level: 0 })
+          console.log('  - Case-insensitive slug match:', rootCategory ? `Found: ${rootCategory.name}` : 'Not found')
+        }
+        
+        // Try partial slug match (starts with)
+        if (!rootCategory) {
+          rootCategory = await Category.findOne({ slug: { $regex: `^${categoryId}`, $options: 'i' }, level: 0 })
+          console.log('  - Partial slug match (starts with):', rootCategory ? `Found: ${rootCategory.name}` : 'Not found')
+        }
+        
+        // If not found, try to find by name (case insensitive)
+        if (!rootCategory) {
+          const categoryName = categoryId.replace(/-/g, ' ').toUpperCase()
+          rootCategory = await Category.findOne({ 
+            name: { $regex: new RegExp(`^${categoryName}`, 'i') },
+            level: 0 
+          })
+          console.log('  - Name match:', rootCategory ? `Found: ${rootCategory.name}` : 'Not found')
+        }
+        
+        // If still not found, check if categoryId is actually a subcategory or leaf category
+        // and find its root parent
+        if (!rootCategory) {
+          let foundCategory = await Category.findOne({ 
+            $or: [
+              { slug: categoryId },
+              { slug: { $regex: categoryId, $options: 'i' } }
+            ]
+          })
+          
+          if (foundCategory) {
+            console.log('  - Found as subcategory/leaf, traversing up to root...')
+            // Traverse up to find root category
+            let current = foundCategory
+            while (current && current.parent) {
+              const parent = await Category.findById(current.parent)
+              if (parent && parent.level === 0) {
+                rootCategory = parent
+                console.log('  - Found root parent:', rootCategory.name)
+                break
+              }
+              current = parent
+            }
+          }
         }
         
         if (rootCategory) {
+          console.log('✅ Root category found:', rootCategory.name, 'ID:', rootCategory._id.toString(), 'Slug:', rootCategory.slug)
           // Get all descendants recursively and find leaf categories
           const allLeafIds: string[] = []
           const allSubcategoryIds: string[] = [] // Level 1 subcategories
@@ -493,48 +674,122 @@ export async function GET(request: NextRequest) {
             }
           }
           
-          // Get exact slugs for subcategories and leaf categories (no partial matches to avoid cross-category contamination)
+          // Get exact slugs for subcategories and leaf categories
+          // Also extract partial slugs (last part) since products might store just the leaf name
           const allSubcategorySlugs: string[] = []
           const allLeafSlugs: string[] = []
           
           for (const level1Child of level1Children) {
-            // Only add exact slug, not partial matches
+            // Add exact slug
             allSubcategorySlugs.push(level1Child.slug)
+            // Also add partial slug (last part) for matching
+            const subSlugParts = level1Child.slug.split('-')
+            if (subSlugParts.length > 1) {
+              allSubcategorySlugs.push(subSlugParts[subSlugParts.length - 1]) // last part
+            }
             
             const hasLevel1Children = await Category.findOne({ parent: level1Child._id })
             if (!hasLevel1Children) {
+              // Level 1 child is a leaf
               allLeafSlugs.push(level1Child.slug)
+              // Also add partial slug
+              const leafSlugParts = level1Child.slug.split('-')
+              if (leafSlugParts.length > 1) {
+                allLeafSlugs.push(leafSlugParts[leafSlugParts.length - 1]) // last part
+                // Also try last 2 parts
+                if (leafSlugParts.length > 2) {
+                  allLeafSlugs.push(leafSlugParts.slice(-2).join('-'))
+                }
+              }
             } else {
+              // Get level 2 children (leaf categories)
               const level2Children = await Category.find({ parent: level1Child._id }).lean()
               for (const level2Child of level2Children) {
                 allLeafSlugs.push(level2Child.slug)
+                // Also add partial slug (last part) for matching
+                const leafSlugParts = level2Child.slug.split('-')
+                if (leafSlugParts.length > 1) {
+                  allLeafSlugs.push(leafSlugParts[leafSlugParts.length - 1]) // last part
+                  // Also try last 2 parts
+                  if (leafSlugParts.length > 2) {
+                    allLeafSlugs.push(leafSlugParts.slice(-2).join('-'))
+                  }
+                }
               }
             }
           }
           
+          // Remove duplicates
+          const uniqueLeafSlugs = [...new Set(allLeafSlugs)]
+          const uniqueSubcategorySlugs = [...new Set(allSubcategorySlugs)]
+          
           // Build $or conditions for all possible field combinations
+          // IMPORTANT: Check BOTH old schema (categoryId/subcategoryId/secondSubcategoryId) AND new schema (category)
           const orConditions: any[] = []
           
-          // Check by categoryId (ObjectId or slug)
+          // Build comprehensive list of all leaf category IDs (including subcategories that are leaves)
+          const allLeafCategoryIds = [...new Set(allLeafIds)] // Start with level 2 leaves
+          
+          // Also check if any subcategories are leaves (no children) - important for furniture
+          for (const subId of allSubcategoryIds) {
+            const hasChildren = await Category.findOne({ parent: new mongoose.Types.ObjectId(subId) })
+            if (!hasChildren) {
+              // This subcategory is a leaf, add it to the leaf list
+              if (!allLeafCategoryIds.includes(subId)) {
+                allLeafCategoryIds.push(subId)
+                console.log('✅ Found leaf subcategory:', subId)
+              }
+            }
+          }
+          
+          console.log('Total leaf categories (including leaf subcategories):', allLeafCategoryIds.length)
+          console.log('Leaf IDs:', allLeafCategoryIds.slice(0, 10), '...')
+          
+          // NEW SCHEMA: Check by category field (ObjectId pointing to leaf categories)
+          if (allLeafCategoryIds.length > 0) {
+            // Convert string IDs to ObjectIds for new schema
+            const leafObjectIds = allLeafCategoryIds.map(id => {
+              try {
+                return new mongoose.Types.ObjectId(id)
+              } catch (e) {
+                console.log('⚠️ Invalid ObjectId:', id)
+                return null
+              }
+            }).filter(id => id !== null)
+            
+            if (leafObjectIds.length > 0) {
+              orConditions.push({ category: { $in: leafObjectIds } })
+              console.log('✅ Added new schema category filter with', leafObjectIds.length, 'leaf category ObjectIds')
+            }
+          }
+          
+          // OLD SCHEMA: Check by categoryId (ObjectId or slug)
           orConditions.push({ categoryId: rootCategoryId })
           orConditions.push({ categoryId: categoryId })
           
-          // Check by subcategoryId (ObjectIds and slugs)
+          // OLD SCHEMA: Check by subcategoryId (ObjectIds and slugs)
+          // IMPORTANT: Also check subcategoryId because some products might be stored with subcategoryId
+          // pointing to the subcategory itself (especially when subcategories are leaves like in furniture)
           if (allSubcategoryIds.length > 0) {
             orConditions.push({ subcategoryId: { $in: allSubcategoryIds } })
+            console.log('✅ Added subcategoryId filter with', allSubcategoryIds.length, 'subcategory IDs')
           }
-          if (allSubcategorySlugs.length > 0) {
-            orConditions.push({ subcategoryId: { $in: allSubcategorySlugs } })
+          if (uniqueSubcategorySlugs.length > 0) {
+            orConditions.push({ subcategoryId: { $in: uniqueSubcategorySlugs } })
+            console.log('✅ Added subcategoryId filter with', uniqueSubcategorySlugs.length, 'subcategory slugs')
           }
           
-          // Check by secondSubcategoryId (ObjectIds and slugs, both camelCase and lowercase)
-          if (allLeafIds.length > 0) {
-            orConditions.push({ secondSubcategoryId: { $in: allLeafIds } })
-            orConditions.push({ secondsubcategoryId: { $in: allLeafIds } })
+          // OLD SCHEMA: Check by secondSubcategoryId (ObjectIds and slugs, both camelCase and lowercase)
+          // IMPORTANT: Use allLeafCategoryIds which includes both level 2 leaves AND level 1 leaves (subcategories that are leaves)
+          if (allLeafCategoryIds.length > 0) {
+            orConditions.push({ secondSubcategoryId: { $in: allLeafCategoryIds } })
+            orConditions.push({ secondsubcategoryId: { $in: allLeafCategoryIds } })
+            console.log('✅ Added secondSubcategoryId filter with', allLeafCategoryIds.length, 'leaf category IDs')
           }
-          if (allLeafSlugs.length > 0) {
-            orConditions.push({ secondSubcategoryId: { $in: allLeafSlugs } })
-            orConditions.push({ secondsubcategoryId: { $in: allLeafSlugs } })
+          if (uniqueLeafSlugs.length > 0) {
+            orConditions.push({ secondSubcategoryId: { $in: uniqueLeafSlugs } })
+            orConditions.push({ secondsubcategoryId: { $in: uniqueLeafSlugs } })
+            console.log('✅ Added secondSubcategoryId filter with', uniqueLeafSlugs.length, 'leaf slugs')
           }
           
           if (orConditions.length > 0) {
@@ -545,16 +800,68 @@ export async function GET(request: NextRequest) {
             console.log('✅ Querying root category with all field combinations:', {
               rootCategoryId,
               categorySlug: categoryId,
-              leafCategories: allLeafIds.length,
-              subcategories: allSubcategoryIds.length
+              leafCategories: allLeafCategoryIds.length,
+              subcategories: allSubcategoryIds.length,
+              uniqueLeafSlugs: uniqueLeafSlugs.length,
+              uniqueSubcategorySlugs: uniqueSubcategorySlugs.length,
+              totalOrConditions: orConditions.length
             })
+            
+            // Verify the query will work by testing it
+            const testQuery = { $and: [{ $or: orConditions }] }
+            const testCount = await productsCollection.countDocuments(testQuery)
+            console.log('✅ Test query count (before isActive filter):', testCount)
           } else {
-            console.log('WARNING: No leaf categories found for root category')
+            console.log('WARNING: No leaf categories found for root category - this should not happen!')
+            // Still try to filter by categoryId slug as fallback
+            if (!query.$and) {
+              query.$and = []
+            }
+            query.$and.push({ 
+              $or: [
+                { categoryId: categoryId },
+                { categoryId: rootCategoryId }
+              ]
+            })
           }
+        } else {
+          console.log('❌ ERROR: Root category not found for:', categoryId)
+          console.log('Attempting to filter by categoryId slug as fallback...')
+          // Try to filter by categoryId slug as last resort
+          if (!query.$and) {
+            query.$and = []
+          }
+          query.$and.push({ 
+            $or: [
+              { categoryId: categoryId },
+              { categoryId: { $regex: categoryId, $options: 'i' } }
+            ]
+          })
+          console.log('Applied fallback filter by categoryId:', categoryId)
         }
       }
       
-      console.log('Old schema query:', JSON.stringify(query, null, 2))
+      // Ensure category filter was applied
+      if (categoryId && (!query.$and || !query.$and.some((cond: any) => 
+        cond && (cond.$or || cond.categoryId || cond.subcategoryId || cond.secondSubcategoryId || cond.secondsubcategoryId)
+      ))) {
+        console.log('⚠️ WARNING: Category filter was not applied! Adding fallback filter...')
+        if (!query.$and) {
+          query.$and = []
+        }
+        query.$and.push({ 
+          $or: [
+            { categoryId: categoryId },
+            { categoryId: { $regex: categoryId, $options: 'i' } }
+          ]
+        })
+      }
+      
+      console.log('Old schema query after category filter:', JSON.stringify(query, null, 2))
+      console.log('Query $and length:', query.$and?.length || 0)
+      console.log('Has category filter:', !!(query.$and && query.$and.some((cond: any) => 
+        cond && (cond.$or || cond.categoryId || cond.subcategoryId || cond.secondSubcategoryId || cond.secondsubcategoryId)
+      )))
       console.log('===============================')
     } else if (secondSubcategoryId) {
       // secondSubcategory is the source of truth - it should be a leaf category
@@ -773,7 +1080,7 @@ export async function GET(request: NextRequest) {
       console.log('============================')
     } else if (categoryId) {
       // Fallback: If only category exists, resolve all leaf descendants
-      console.log('=== PROCESSING ROOT CATEGORY ===')
+      console.log('=== PROCESSING ROOT CATEGORY (NEW SCHEMA PATH) ===')
       
       // If it's a MongoDB ObjectId, use it directly
       if (categoryId.match(/^[0-9a-fA-F]{24}$/)) {
@@ -798,29 +1105,116 @@ export async function GET(request: NextRequest) {
         
         const slugToFind = oldIdToSlugMap[categoryId] || categoryId
         
+        console.log('Looking for root category with slug:', slugToFind)
+        
         // Try exact slug match first
         category = await Category.findOne({ slug: slugToFind, level: 0 })
+        console.log('  - Exact slug match:', category ? `Found: ${category.name}` : 'Not found')
         
         // If not found, try partial slug match
         if (!category) {
           category = await Category.findOne({ slug: { $regex: `^${slugToFind}`, $options: 'i' }, level: 0 })
+          console.log('  - Partial slug match:', category ? `Found: ${category.name}` : 'Not found')
         }
         
         // If still not found, try finding root category by name (case insensitive)
         if (!category) {
+          const categoryName = categoryId.replace(/-/g, ' ').toUpperCase()
           category = await Category.findOne({ 
-            name: { $regex: new RegExp(`^${categoryId.replace(/-/g, ' ')}`, 'i') },
+            name: { $regex: new RegExp(`^${categoryName}`, 'i') },
             level: 0 
           })
+          console.log('  - Name match:', category ? `Found: ${category.name}` : 'Not found')
         }
         
         if (category) {
-          console.log('Root category found:', category.name)
+          console.log('✅ Root category found:', category.name, 'ID:', category._id.toString())
           await resolveRootCategoryLeafs(category, query)
+          
+          // IMPORTANT: Also check for old schema products with categoryId directly
+          // This handles products that have categoryId: "skincare" as a string
+          // Use native collection to check for old schema fields
+          const db = mongoose.connection.db
+          if (db) {
+            const productsCollection = db.collection('products')
+            const directCategoryIdCount = await productsCollection.countDocuments({ categoryId: categoryId })
+            console.log('Products found with direct categoryId (old schema):', directCategoryIdCount, 'categoryId:', categoryId)
+            
+            if (directCategoryIdCount > 0) {
+              // Check if we already have a query condition
+              if (!query.$and) {
+                query.$and = []
+              }
+              
+              // Check if categoryId condition already exists
+              const hasCategoryIdCondition = query.$and.some((cond: any) => 
+                cond && (cond.categoryId || (cond.$or && cond.$or.some((orCond: any) => orCond && orCond.categoryId)))
+              )
+              
+              if (!hasCategoryIdCondition) {
+                // Add categoryId condition to $or if it exists, otherwise add directly
+                const categoryIdCondition = { categoryId: categoryId }
+                
+                // Check if there's already an $or in $and
+                const orIndex = query.$and.findIndex((cond: any) => cond && cond.$or)
+                if (orIndex >= 0) {
+                  // Add to existing $or
+                  query.$and[orIndex].$or.push(categoryIdCondition)
+                } else {
+                  // Create new $or condition
+                  query.$and.push({ $or: [categoryIdCondition] })
+                }
+                console.log('✅ Added direct categoryId filter for old schema products')
+              }
+            }
+          }
         } else {
-          console.log('WARNING: Root category not found for:', categoryId)
+          console.log('❌ WARNING: Root category not found for:', categoryId)
+          console.log('Attempting to filter by categoryId as fallback...')
+          
+          // Direct check for old schema products with categoryId using native collection
+          const db = mongoose.connection.db
+          if (db) {
+            const productsCollection = db.collection('products')
+            const directCategoryIdCount = await productsCollection.countDocuments({ categoryId: categoryId })
+            console.log('Products found with direct categoryId (old schema fallback):', directCategoryIdCount, 'categoryId:', categoryId)
+            
+            if (directCategoryIdCount > 0) {
+              if (!query.$and) {
+                query.$and = []
+              }
+              query.$and.push({ categoryId: categoryId })
+              console.log('✅ Added direct categoryId filter (fallback)')
+            }
+          }
+          
+          // Try to filter by categoryId slug as last resort
+          if (!query.category && directCategoryIdCount === 0) {
+            // For new schema, try to find any category with this slug and use it
+            const anyCategory = await Category.findOne({ 
+              $or: [
+                { slug: categoryId },
+                { slug: { $regex: `^${categoryId}`, $options: 'i' } }
+              ]
+            })
+            if (anyCategory) {
+              console.log('Found category (not root):', anyCategory.name)
+              // Get all leaf descendants
+              await resolveRootCategoryLeafs(anyCategory, query)
+            } else {
+              console.log('⚠️ Could not find any category matching:', categoryId)
+              console.log('⚠️ Products will NOT be filtered by category!')
+            }
+          }
         }
       }
+      
+      // Ensure category filter was applied for new schema
+      if (categoryId && !query.category && (!query.$and || !query.$and.some((cond: any) => cond && cond.category))) {
+        console.log('⚠️ WARNING: Category filter was not applied for new schema!')
+        console.log('⚠️ This will result in showing all products!')
+      }
+      
       console.log('================================')
     }
 
@@ -975,38 +1369,169 @@ export async function GET(request: NextRequest) {
       console.log('Page:', page, 'Limit:', limit)
       console.log('Has no filters:', hasNoFilters)
       
-      if (usesOldSchema) {
+      // Check if query has old schema fields (categoryId, subcategoryId, secondSubcategoryId)
+      const hasOldSchemaFields = query.categoryId || query.subcategoryId || query.secondSubcategoryId || query.secondsubcategoryId ||
+        (query.$and && query.$and.some((cond: any) => 
+          cond && (cond.categoryId || cond.subcategoryId || cond.secondSubcategoryId || cond.secondsubcategoryId ||
+            (cond.$or && cond.$or.some((orCond: any) => 
+              orCond && (orCond.categoryId || orCond.subcategoryId || orCond.secondSubcategoryId || orCond.secondsubcategoryId)
+            ))
+          )
+        ))
+      
+      // Use native collection if we have old schema OR if query has old schema fields
+      const shouldUseNativeCollection = usesOldSchema || hasOldSchemaFields
+      
+      if (shouldUseNativeCollection) {
         // OLD SCHEMA: Use native MongoDB collection to query fields not in Mongoose schema
+        // NOTE: This also handles new schema 'category' field if present in $or conditions
         if (!productsCollection) {
           throw new Error('productsCollection is not available')
         }
-        total = await productsCollection.countDocuments(query)
+        
+        // Log query structure for debugging
+        console.log('Query structure for native collection:', JSON.stringify(query, null, 2))
+        console.log('Query $and length:', query.$and?.length || 0)
+        if (query.$and) {
+          query.$and.forEach((cond: any, idx: number) => {
+            if (cond.$or) {
+              console.log(`  $and[${idx}].$or has`, cond.$or.length, 'conditions')
+              cond.$or.forEach((orCond: any, orIdx: number) => {
+                const keys = Object.keys(orCond)
+                console.log(`    $or[${orIdx}]:`, keys.join(', '))
+              })
+            }
+          })
+        }
+        
+        // Before executing, verify the query structure is correct
+        // Convert any ObjectId fields in $or conditions to proper format for native collection
+        const processedQuery = JSON.parse(JSON.stringify(query, (key, value) => {
+          // Keep ObjectIds as-is (they'll be serialized correctly by MongoDB driver)
+          if (value && typeof value === 'object' && value.constructor && value.constructor.name === 'ObjectId') {
+            return value
+          }
+          return value
+        }))
+        
+        total = await productsCollection.countDocuments(processedQuery)
         console.log('Products after filters (native collection):', total)
         
-        products = await productsCollection.find(query)
+        // If no products found, try a simpler query to debug
+        if (total === 0 && categoryId) {
+          console.log('⚠️ No products found with full query, trying simpler queries for debugging...')
+          
+          // First, try to find the root category and get all leaf categories
+          let rootCategory = await Category.findOne({ slug: categoryId, level: 0 })
+          if (!rootCategory) {
+            rootCategory = await Category.findOne({ slug: { $regex: `^${categoryId}`, $options: 'i' }, level: 0 })
+          }
+          
+          if (rootCategory) {
+            console.log('  - Root category found:', rootCategory.name)
+            
+            // Get all leaf categories
+            const level1Children = await Category.find({ parent: rootCategory._id }).lean()
+            const leafCategories: mongoose.Types.ObjectId[] = []
+            
+            for (const level1Child of level1Children) {
+              const hasLevel1Children = await Category.findOne({ parent: level1Child._id })
+              if (!hasLevel1Children) {
+                leafCategories.push(level1Child._id)
+              } else {
+                const level2Children = await Category.find({ parent: level1Child._id }).lean()
+                for (const level2Child of level2Children) {
+                  const hasLevel2Children = await Category.findOne({ parent: level2Child._id })
+                  if (!hasLevel2Children) {
+                    leafCategories.push(level2Child._id)
+                  }
+                }
+              }
+            }
+            
+            console.log('  - Leaf categories found:', leafCategories.length)
+            
+            // Try querying with just the category field (new schema)
+            if (leafCategories.length > 0) {
+              const simpleCategoryQuery = { 
+                $and: [
+                  { category: { $in: leafCategories } },
+                  isActiveCondition
+                ]
+              }
+              const simpleCount = await productsCollection.countDocuments(simpleCategoryQuery)
+              console.log('  - Products with category field (new schema):', simpleCount)
+              
+              // Also try without isActive filter
+              const simpleCategoryQueryNoActive = { category: { $in: leafCategories } }
+              const simpleCountNoActive = await productsCollection.countDocuments(simpleCategoryQueryNoActive)
+              console.log('  - Products with category field (no isActive filter):', simpleCountNoActive)
+            }
+          } else {
+            console.log('  - Root category not found for debugging')
+          }
+          
+          // Try just old schema fields
+          const oldSchemaQuery = { 
+            $and: [
+              { $or: [
+                { categoryId: categoryId }
+              ]},
+              isActiveCondition
+            ]
+          }
+          const oldSchemaCount = await productsCollection.countDocuments(oldSchemaQuery)
+          console.log('  - Products with categoryId only (old schema):', oldSchemaCount)
+        }
+        
+        products = await productsCollection.find(processedQuery)
           .sort({ createdAt: -1 })
           .skip((page - 1) * limit)
           .limit(limit)
           .toArray()
+        
+        console.log('Products retrieved from native collection:', products?.length || 0)
       } else {
-        // NEW SCHEMA: Use Mongoose with populate for category reference
-        total = await Product.countDocuments(query)
-        console.log('Products after filters (Mongoose):', total)
-        
-        // Build query - handle populate safely
-        let findQuery = Product.find(query)
-        
-        // Only populate if category field exists in query or if we're not filtering by category
-        // For no-filters case, we can safely populate
-        if (hasNoFilters || !query.category) {
-          findQuery = findQuery.populate('category', 'name slug level')
+        // Check if query has old schema fields - if so, use native collection
+        if (hasOldSchemaFields && productsCollection) {
+          console.log('⚠️ Query has old schema fields but usesOldSchema is false - using native collection')
+          const processedQuery = JSON.parse(JSON.stringify(query, (key, value) => {
+            if (value && typeof value === 'object' && value.constructor && value.constructor.name === 'ObjectId') {
+              return value
+            }
+            return value
+          }))
+          
+          total = await productsCollection.countDocuments(processedQuery)
+          console.log('Products after filters (native collection):', total)
+          
+          products = await productsCollection.find(processedQuery)
+            .sort({ createdAt: -1 })
+            .skip((page - 1) * limit)
+            .limit(limit)
+            .toArray()
+          
+          console.log('Products retrieved from native collection (fallback):', products?.length || 0)
+        } else {
+          // NEW SCHEMA: Use Mongoose with populate for category reference
+          total = await Product.countDocuments(query)
+          console.log('Products after filters (Mongoose):', total)
+          
+          // Build query - handle populate safely
+          let findQuery = Product.find(query)
+          
+          // Only populate if category field exists in query or if we're not filtering by category
+          // For no-filters case, we can safely populate
+          if (hasNoFilters || !query.category) {
+            findQuery = findQuery.populate('category', 'name slug level')
+          }
+          
+          products = await findQuery
+            .sort({ createdAt: -1 })
+            .skip((page - 1) * limit)
+            .limit(limit)
+            .lean()
         }
-        
-        products = await findQuery
-          .sort({ createdAt: -1 })
-          .skip((page - 1) * limit)
-          .limit(limit)
-          .lean()
       }
       
       console.log('Products retrieved:', products?.length || 0)
@@ -1162,4 +1687,5 @@ export async function POST(request: NextRequest) {
     )
   }
 }
+
 

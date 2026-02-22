@@ -16,6 +16,10 @@ export default function ContactPage() {
   const [topPadding, setTopPadding] = useState(176)
 
   useEffect(() => {
+    document.title = 'Contact Us - Allied Concept Beauty Supplies'
+  }, [])
+
+  useEffect(() => {
     const calculatePadding = () => {
       const header = document.getElementById('main-header')
       const nav = document.getElementById('main-nav')
@@ -108,12 +112,12 @@ export default function ContactPage() {
                 <div>
                   <h3 className="text-lg font-semibold text-gray-900 mb-2">Support</h3>
                   <a
-                    href="https://mail.google.com/mail/u/0/?fs=1&to=info@alliedpro.ca&tf=cm"
+                    href="https://mail.google.com/mail/u/0/?fs=1&to=info@alliedbeautysupply.ca&tf=cm"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-gray-700 hover:text-[#87CEEB] transition-colors duration-300 text-lg"
                   >
-                    info@alliedpro.ca
+                    info@alliedbeautysupply.ca
                   </a>
                 </div>
               </div>
@@ -195,49 +199,90 @@ export default function ContactPage() {
         </div>
 
         {/* Location Section */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        <div className="space-y-12">
           <div>
-            <h2 className="text-3xl font-bold text-gray-900 mb-6">Our Location</h2>
+            <h2 className="text-3xl font-bold text-gray-900 mb-6">Our Locations</h2>
             <p className="text-gray-700 leading-relaxed text-lg mb-8">
-              Visit Allied Pro Beauty Supply for top-quality salon products in Markham, Ontario, catering to beauty professionals and their needs.
+              Visit Allied Pro Beauty Supply at our two convenient locations in the Greater Toronto Area, catering to beauty professionals and their needs.
             </p>
-
-            <div className="space-y-6">
-              <div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-3">Address</h3>
-                <a
-                  href="https://www.google.com/maps/place/8339+Kennedy+Rd+%232628,+Unionville,+ON+L3R+5T5,+Canada/@43.8567676,-79.3060757,17z/data=!3m1!4b1!4m5!3m4!1s0x89d4d4325ac599ef:0xb31599bf23741a4e!8m2!3d43.8567638!4d-79.3035008?entry=ttu&g_ep=EgoyMDI2MDEyOC4wIKXMDSoASAFQAw%3D%3D"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-gray-700 hover:text-[#87CEEB] transition-colors duration-300 text-lg"
-                >
-                  8339 Kennedy Rd #2628, Markham, ON L3R 5T5
-                </a>
-              </div>
-
-              <div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-3">Hours</h3>
-                <ul className="space-y-2 text-gray-700 text-lg">
-                  <li>Monday - Friday: 9 AM - 6 PM</li>
-                  <li>Saturday: 10 AM - 5 PM</li>
-                  <li>Sunday: Closed</li>
-                </ul>
-              </div>
-            </div>
           </div>
 
-          {/* Google Map */}
-          <div className="bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-200">
-            <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2880.123456789!2d-79.3035008!3d43.8567638!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89d4d4325ac599ef%3A0xb31599bf23741a4e!2s8339%20Kennedy%20Rd%20%232628%2C%20Unionville%2C%20ON%20L3R%205T5%2C%20Canada!5e0!3m2!1sen!2sus!4v1706700000000!5m2!1sen!2sus"
-              width="100%"
-              height="450"
-              style={{ border: 0 }}
-              allowFullScreen
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-              title="Allied Pro Beauty Supply Location"
-            />
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+            {/* Kennedy Location */}
+            <div>
+              <h3 className="text-2xl font-bold text-gray-900 mb-4">Kennedy Location (Retail Only)</h3>
+              <div className="space-y-4 mb-6">
+                <div>
+                  <h4 className="text-lg font-semibold text-gray-900 mb-2">Address</h4>
+                  <a
+                    href="https://www.google.com/maps/place/8339+Kennedy+Rd+%232628,+Unionville,+ON+L3R+5T5,+Canada/@43.8567676,-79.3060757,17z/data=!3m1!4b1!4m5!3m4!1s0x89d4d4325ac599ef:0xb31599bf23741a4e!8m2!3d43.8567638!4d-79.3035008?entry=ttu&g_ep=EgoyMDI2MDEyOC4wIKXMDSoASAFQAw%3D%3D"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-gray-700 hover:text-[#87CEEB] transition-colors duration-300 text-lg block"
+                  >
+                    8339 Kennedy Rd #2628, Markham, ON L3R5T5
+                  </a>
+                </div>
+                <div>
+                  <h4 className="text-lg font-semibold text-gray-900 mb-2">Hours</h4>
+                  <p className="text-gray-700 text-lg">Monday to Sunday, 9:00 AM – 6:00 PM</p>
+                </div>
+                <div>
+                  <h4 className="text-lg font-semibold text-gray-900 mb-2">Note</h4>
+                  <p className="text-gray-700 text-lg">Walk-ins are welcome during business hours</p>
+                </div>
+              </div>
+              <div className="bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-200">
+                <iframe
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2880.123456789!2d-79.3035008!3d43.8567638!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89d4d4325ac599ef%3A0xb31599bf23741a4e!2s8339%20Kennedy%20Rd%20%232628%2C%20Unionville%2C%20ON%20L3R%205T5%2C%20Canada!5e0!3m2!1sen!2sus!4v1706700000000!5m2!1sen!2sus"
+                  width="100%"
+                  height="300"
+                  style={{ border: 0 }}
+                  allowFullScreen
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  title="Kennedy Location - Allied Pro Beauty Supply"
+                />
+              </div>
+            </div>
+
+            {/* Scarborough Location */}
+            <div>
+              <h3 className="text-2xl font-bold text-gray-900 mb-4">Scarborough Location (Wholesale Only)</h3>
+              <div className="space-y-4 mb-6">
+                <div>
+                  <h4 className="text-lg font-semibold text-gray-900 mb-2">Address</h4>
+                  <a
+                    href="https://www.google.com/maps/place/200+Silver+Star+Blvd,+Scarborough,+ON+M2H+3B4,+Canada"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-gray-700 hover:text-[#87CEEB] transition-colors duration-300 text-lg block"
+                  >
+                    200 Silver Star Blvd, Scarborough, ON M2H 3B4, Canada
+                  </a>
+                </div>
+                <div>
+                  <h4 className="text-lg font-semibold text-gray-900 mb-2">Hours</h4>
+                  <p className="text-gray-700 text-lg">Monday to Thursday, 9:00 AM – 5:00 PM</p>
+                </div>
+                <div>
+                  <h4 className="text-lg font-semibold text-gray-900 mb-2">Note</h4>
+                  <p className="text-gray-700 text-lg">Appointment Required (Call Before Visiting)</p>
+                </div>
+              </div>
+              <div className="bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-200">
+                <iframe
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2883.123456789!2d-79.3456789!3d43.7890123!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89d4d4325ac599ef%3A0xb31599bf23741a4e!2s200%20Silver%20Star%20Blvd%2C%20Scarborough%2C%20ON%20M2H%203B4%2C%20Canada!5e0!3m2!1sen!2sus!4v1706700000000!5m2!1sen!2sus"
+                  width="100%"
+                  height="300"
+                  style={{ border: 0 }}
+                  allowFullScreen
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  title="Scarborough Location - Allied Pro Beauty Supply"
+                />
+              </div>
+            </div>
           </div>
         </div>
       </div>

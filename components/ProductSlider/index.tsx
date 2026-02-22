@@ -25,7 +25,9 @@ export default function ProductSlider({ products, title }: ProductSliderProps) {
   return (
     <div className="relative">
       <div className="flex items-center justify-between mb-6">
-        <h2 className="text-2xl md:text-3xl font-bold text-gray-900">{title}</h2>
+        {title && (
+          <h2 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-[#C8A2C8] to-[#87CEEB] bg-clip-text text-transparent">{title}</h2>
+        )}
         <div className="flex space-x-2">
           <button
             onClick={() => scroll('left')}

@@ -32,6 +32,10 @@ export default function OrdersPage() {
   const [topPadding, setTopPadding] = useState(176) // Default padding
 
   useEffect(() => {
+    document.title = 'Orders - Allied Concept Beauty Supplies'
+  }, [])
+
+  useEffect(() => {
     const calculatePadding = () => {
       const header = document.getElementById('main-header')
       const nav = document.getElementById('main-nav')

@@ -104,6 +104,9 @@ export default function ProductCard({ product }: ProductCardProps) {
       </div>
       <div className="p-4">
         <p className="text-sm text-gray-500 mb-1">{product.brand}</p>
+        {product.category && (
+          <p className="text-xs text-[#87CEEB] font-medium mb-1 uppercase">{product.category}</p>
+        )}
         <h3 className="font-semibold text-gray-900 mb-2 line-clamp-2">{product.name}</h3>
         {isDealer ? (
           <div className="space-y-2">
