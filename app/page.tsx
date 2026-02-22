@@ -205,7 +205,7 @@ async function enrichProductsWithCategories(products: Product[]): Promise<Produc
       
       // If still not found, try case-insensitive slug match
       if (!categoryName) {
-        for (const [slug, name] of slugToRootCategory.entries()) {
+        for (const [slug, name] of Array.from(slugToRootCategory.entries())) {
           if (slug.toLowerCase() === categoryId.toLowerCase()) {
             categoryName = name
             break
@@ -215,7 +215,7 @@ async function enrichProductsWithCategories(products: Product[]): Promise<Produc
       
       // If still not found, try partial match (e.g., "skincare-by-category" -> "Skincare")
       if (!categoryName) {
-        for (const [slug, name] of slugToRootCategory.entries()) {
+        for (const [slug, name] of Array.from(slugToRootCategory.entries())) {
           if (categoryId.toLowerCase().includes(slug.toLowerCase()) || slug.toLowerCase().includes(categoryId.toLowerCase())) {
             categoryName = name
             break
