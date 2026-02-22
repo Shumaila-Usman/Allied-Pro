@@ -484,7 +484,7 @@ export default function MainNav() {
                                           </svg>
                                           <span className="flex-1 text-left">{subcategory.name}</span>
                                         </button>
-                                        {isSubExpanded && hasSecondSubcategories && (
+                                        {isSubExpanded && hasSecondSubcategories && subcategory.secondSubcategories && (
                                           <div className="pl-4 pb-2">
                                             {subcategory.secondSubcategories.map((secondSubcategory) => (
                                               <Link

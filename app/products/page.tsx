@@ -796,11 +796,18 @@ export default function ProductsPage() {
                         ? 'Loading subcategories...'
                         : 'All Subcategories'}
                   </option>
-                  {selectedCategory && getSelectedCategory()?.subcategories && getSelectedCategory()?.subcategories.length > 0 && getSelectedCategory()?.subcategories.map((sub) => (
-                    <option key={sub.id} value={sub.id}>
-                      {sub.name}
-                    </option>
-                  ))}
+                  {(() => {
+                    const category = getSelectedCategory()
+                    const subcategories = category?.subcategories
+                    if (!selectedCategory || !subcategories || subcategories.length === 0) {
+                      return null
+                    }
+                    return subcategories.map((sub) => (
+                      <option key={sub.id} value={sub.id}>
+                        {sub.name}
+                      </option>
+                    ))
+                  })()}
                 </select>
               </div>
 
@@ -825,11 +832,18 @@ export default function ProductsPage() {
                           ? 'No second subcategory'
                           : 'All Second Subcategories'}
                   </option>
-                  {selectedSubcategory && getSelectedSubcategory()?.secondSubcategories && getSelectedSubcategory()?.secondSubcategories.length > 0 && getSelectedSubcategory()?.secondSubcategories.map((second) => (
-                    <option key={second.id} value={second.id}>
-                      {second.name}
-                    </option>
-                  ))}
+                  {(() => {
+                    const subcategory = getSelectedSubcategory()
+                    const secondSubcategories = subcategory?.secondSubcategories
+                    if (!selectedSubcategory || !secondSubcategories || secondSubcategories.length === 0) {
+                      return null
+                    }
+                    return secondSubcategories.map((second) => (
+                      <option key={second.id} value={second.id}>
+                        {second.name}
+                      </option>
+                    ))
+                  })()}
                 </select>
               </div>
 

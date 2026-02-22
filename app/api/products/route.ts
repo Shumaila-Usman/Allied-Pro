@@ -639,7 +639,11 @@ export async function GET(request: NextRequest) {
                 console.log('  - Found root parent:', rootCategory.name)
                 break
               }
-              current = parent
+              if (parent) {
+                current = parent
+              } else {
+                break
+              }
             }
           }
         }
@@ -720,15 +724,15 @@ export async function GET(request: NextRequest) {
           }
           
           // Remove duplicates
-          const uniqueLeafSlugs = [...new Set(allLeafSlugs)]
-          const uniqueSubcategorySlugs = [...new Set(allSubcategorySlugs)]
+          const uniqueLeafSlugs = Array.from(new Set(allLeafSlugs))
+          const uniqueSubcategorySlugs = Array.from(new Set(allSubcategorySlugs))
           
           // Build $or conditions for all possible field combinations
           // IMPORTANT: Check BOTH old schema (categoryId/subcategoryId/secondSubcategoryId) AND new schema (category)
           const orConditions: any[] = []
           
           // Build comprehensive list of all leaf category IDs (including subcategories that are leaves)
-          const allLeafCategoryIds = [...new Set(allLeafIds)] // Start with level 2 leaves
+          const allLeafCategoryIds = Array.from(new Set(allLeafIds)) // Start with level 2 leaves
           
           // Also check if any subcategories are leaves (no children) - important for furniture
           for (const subId of allSubcategoryIds) {
@@ -1173,10 +1177,11 @@ export async function GET(request: NextRequest) {
           console.log('Attempting to filter by categoryId as fallback...')
           
           // Direct check for old schema products with categoryId using native collection
+          let directCategoryIdCount = 0
           const db = mongoose.connection.db
           if (db) {
             const productsCollection = db.collection('products')
-            const directCategoryIdCount = await productsCollection.countDocuments({ categoryId: categoryId })
+            directCategoryIdCount = await productsCollection.countDocuments({ categoryId: categoryId })
             console.log('Products found with direct categoryId (old schema fallback):', directCategoryIdCount, 'categoryId:', categoryId)
             
             if (directCategoryIdCount > 0) {
