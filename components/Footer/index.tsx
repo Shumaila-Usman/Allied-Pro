@@ -12,18 +12,13 @@ export default function Footer() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
           {/* About ACBS */}
           <div className="text-center sm:text-left">
-            <h3 className="text-white font-bold text-base sm:text-lg mb-3 sm:mb-4">About ACBS</h3>
-            <p className="text-xs sm:text-sm mb-4">
-              Your trusted partner in professional beauty and spa products. We provide high-quality
-              products for salons, spas, and beauty professionals.
-            </p>
-            <div className="flex justify-center sm:justify-start md:ml-0">
+            <Link href="/" className="flex justify-center sm:justify-start mb-3 sm:mb-4 -mt-4 sm:-mt-3">
               <Image
                 src="/logo-removebg-preview.png"
                 alt="ACBS - Allied Concept Beauty Supply"
                 width={150}
                 height={80}
-                className="object-contain h-auto w-auto bg-transparent max-w-[120px] sm:max-w-[150px]"
+                className="object-contain h-auto w-auto bg-transparent max-w-[120px] sm:max-w-[150px] cursor-pointer hover:opacity-90 transition-opacity duration-300"
                 style={{ backgroundColor: 'transparent' }}
                 onError={(e) => {
                   // Fallback: show logo with text matching the design
@@ -31,7 +26,7 @@ export default function Footer() {
                   const parent = target.parentElement;
                   if (parent) {
                     parent.innerHTML = `
-                      <div class="flex flex-col items-center md:items-start">
+                      <div class="flex flex-col items-center md:items-start cursor-pointer hover:opacity-90 transition-opacity duration-300">
                         <div class="text-3xl font-bold mb-2 tracking-tight">
                           <span style="background: linear-gradient(135deg, #00C8FF 0%, #6400C8 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">ACBS</span>
                         </div>
@@ -44,7 +39,10 @@ export default function Footer() {
                   }
                 }}
               />
-            </div>
+            </Link>
+            <p className="text-xs sm:text-sm">
+              ACBS is a leading distributor of modern beauty supplies and tools, offering wholesale pricing & support to salon, esthetic, and spa experts across Canada. We are committed to supporting beauty pros with ongoing support to ensure guaranteed results.
+            </p>
           </div>
 
           {/* Quick Links */}
@@ -67,8 +65,8 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/educational-module" className="hover:text-primary-400 transition-colors duration-300">
-                  Educational Module
+                <Link href="/training-education" className="hover:text-primary-400 transition-colors duration-300">
+                  Training & Education
                 </Link>
               </li>
               <li>

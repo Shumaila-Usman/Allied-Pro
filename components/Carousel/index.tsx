@@ -9,6 +9,7 @@ interface CarouselProps {
     image: string
     title?: string
     subtitle?: string
+    objectPosition?: string
   }>
   autoPlay?: boolean
   interval?: number
@@ -40,7 +41,7 @@ export default function Carousel({ slides, autoPlay = true, interval = 5000 }: C
   }
 
   return (
-    <div className="relative w-full h-[400px] sm:h-[500px] md:h-[600px] overflow-hidden">
+    <div className="relative w-full max-w-5xl mx-auto h-[260px] sm:h-[320px] md:h-[380px] overflow-hidden bg-white rounded-2xl shadow-lg">
       {slides.map((slide, index) => (
         <div
           key={slide.id}
@@ -53,7 +54,10 @@ export default function Carousel({ slides, autoPlay = true, interval = 5000 }: C
               src={slide.image}
               alt={slide.title || 'Hero slide'}
               fill
-              className="object-cover"
+              className="object-cover w-full h-full"
+              style={{ 
+                objectPosition: slide.objectPosition || (slide.image.includes('banner-4') ? 'center 0%' : 'center top')
+              }}
               priority={index === 0}
             />
             {(slide.title || slide.subtitle) && (

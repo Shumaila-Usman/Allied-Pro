@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { useRouter, usePathname } from 'next/navigation'
+import { useRouter, usePathname, useSearchParams } from 'next/navigation'
 import { useAuth } from '@/contexts/AuthContext'
 import Link from 'next/link'
 import Image from 'next/image'
@@ -16,9 +16,11 @@ interface AuthPageProps {
 export default function AuthPage({ initialMode }: AuthPageProps) {
   const router = useRouter()
   const pathname = usePathname()
+  const searchParams = useSearchParams()
   const { login, register } = useAuth()
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const redirectPath = searchParams.get('redirect') || '/'
   
   // Determine initial mode from URL if not provided
   const [isRegisterMode, setIsRegisterMode] = useState(
@@ -114,7 +116,7 @@ export default function AuthPage({ initialMode }: AuthPageProps) {
     setIsLoading(false)
 
     if (result.success) {
-      router.push('/')
+      router.push(redirectPath)
     } else {
       setError(result.error || 'Registration failed')
     }
@@ -129,7 +131,7 @@ export default function AuthPage({ initialMode }: AuthPageProps) {
     setIsLoading(false)
 
     if (result.success) {
-      router.push('/')
+      router.push(redirectPath)
     } else {
       setError(result.error || 'Login failed')
     }

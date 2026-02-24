@@ -28,9 +28,10 @@ export default function ProductCard({ product }: ProductCardProps) {
 
   return (
     <div
-      className="group relative bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-lg transition-shadow duration-300 cursor-pointer"
+      className="group relative rounded-[8px] p-[2px] bg-gradient-to-r from-[#E8D5E8] to-[#C7E8F0] shadow-sm hover:shadow-lg transition-shadow duration-300 cursor-pointer h-full"
       onClick={handleCardClick}
     >
+      <div className="bg-white rounded-[8px] overflow-hidden h-full flex flex-col">
       <div 
         className="relative aspect-square overflow-hidden"
         onMouseEnter={() => {
@@ -102,14 +103,14 @@ export default function ProductCard({ product }: ProductCardProps) {
           </div>
         )}
       </div>
-      <div className="p-4">
+      <div className="p-4 flex flex-col flex-grow">
         <p className="text-sm text-gray-500 mb-1">{product.brand}</p>
         {product.category && (
           <p className="text-xs text-[#87CEEB] font-medium mb-1 uppercase">{product.category}</p>
         )}
         <h3 className="font-semibold text-gray-900 mb-2 line-clamp-2">{product.name}</h3>
         {isDealer ? (
-          <div className="space-y-2">
+          <div className="space-y-2 mt-auto">
             <div>
               <p className="text-lg font-bold text-gray-900">
                 ${(product.cost && isDealer ? product.cost : product.price).toFixed(2)}
@@ -134,16 +135,19 @@ export default function ProductCard({ product }: ProductCardProps) {
             </div>
           </div>
         ) : (
-          <button
-            onClick={(e) => {
-              e.stopPropagation()
-              setIsModalOpen(true)
-            }}
-            className="text-sm text-gray-600 hover:text-gray-900 transition-colors duration-300"
-          >
-            View Details
-          </button>
+          <div className="mt-auto">
+            <button
+              onClick={(e) => {
+                e.stopPropagation()
+                setIsModalOpen(true)
+              }}
+              className="w-full border-2 border-black text-black font-semibold px-4 py-2 rounded-lg text-sm hover:scale-105 hover:border-[3px] transition-all duration-300"
+            >
+              View Details
+            </button>
+          </div>
         )}
+      </div>
       </div>
 
       {/* Product Detail Modal */}
@@ -155,4 +159,3 @@ export default function ProductCard({ product }: ProductCardProps) {
     </div>
   )
 }
-

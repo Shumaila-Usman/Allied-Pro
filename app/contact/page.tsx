@@ -70,7 +70,7 @@ export default function ContactPage() {
         {/* Header Section */}
         <div className="text-center mb-12">
           <h1 className="text-5xl font-bold text-gray-900 mb-4">
-            Contact <span className="bg-gradient-to-r from-[#C8A2C8] to-[#87CEEB] bg-clip-text text-transparent">Allied PRO</span>
+            Contact <span className="bg-gradient-to-r from-[#C8A2C8] to-[#87CEEB] bg-clip-text text-transparent">Allied Concept Beauty Supply</span>
           </h1>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
             Get in touch with us for inquiries about our extensive range of salon products and equipment
@@ -80,7 +80,7 @@ export default function ContactPage() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
           {/* Contact Information */}
           <div className="mt-8">
-            <h2 className="text-3xl font-bold text-gray-900 mb-6">Contact Allied Pro Beauty Supply</h2>
+            <h2 className="text-3xl font-bold text-gray-900 mb-6">Contact Allied Concept Beauty Supply</h2>
             <p className="text-gray-700 leading-relaxed text-lg mb-8">
               Get in touch for inquiries about our extensive range of salon products and equipment available for beauty professionals in Markham, Ontario.
             </p>
@@ -203,7 +203,7 @@ export default function ContactPage() {
           <div>
             <h2 className="text-3xl font-bold text-gray-900 mb-6">Our Locations</h2>
             <p className="text-gray-700 leading-relaxed text-lg mb-8">
-              Visit Allied Pro Beauty Supply at our two convenient locations in the Greater Toronto Area, catering to beauty professionals and their needs.
+              Visit Allied Concept Beauty Supply at our two convenient locations in the Greater Toronto Area, catering to beauty professionals and their needs.
             </p>
           </div>
 
@@ -241,7 +241,7 @@ export default function ContactPage() {
                   allowFullScreen
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
-                  title="Kennedy Location - Allied Pro Beauty Supply"
+                  title="Kennedy Location - Allied Concept Beauty Supply"
                 />
               </div>
             </div>
@@ -279,7 +279,7 @@ export default function ContactPage() {
                   allowFullScreen
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
-                  title="Scarborough Location - Allied Pro Beauty Supply"
+                  title="Scarborough Location - Allied Concept Beauty Supply"
                 />
               </div>
             </div>

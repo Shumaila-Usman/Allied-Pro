@@ -217,7 +217,7 @@ export default function MainNav() {
 
   return (
     <nav id="main-nav" className={`bg-black text-white fixed left-0 right-0 transition-all duration-300 ${isScrolledDown ? 'z-50' : 'z-30'}`} style={{ top: isScrolledDown ? '0px' : `${headerHeight}px` }}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Desktop Navigation - Hidden on mobile */}
         <div className="hidden md:flex items-center justify-center space-x-1">
           <MegaMenu title="SKINCARE">

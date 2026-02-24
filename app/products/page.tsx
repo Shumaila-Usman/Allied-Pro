@@ -24,6 +24,194 @@ interface ProductsResponse {
   }
 }
 
+// Helper function to get category names for products
+async function enrichProductsWithCategories(products: Product[]): Promise<Product[]> {
+  try {
+    const response = await fetch('/api/categories')
+    const data = await response.json()
+    const categories = data.categories || []
+    
+    // Create maps for ID/Slug to root category name
+    const idToRootCategory = new Map<string, string>()
+    const slugToRootCategory = new Map<string, string>()
+    const idToCategory = new Map<string, any>() // Store full category objects
+    
+    // First, build a map of all categories by ID
+    const buildCategoryMap = (cats: any[]) => {
+      for (const cat of cats) {
+        const id = cat._id?.toString() || cat.id || ''
+        if (id) {
+          idToCategory.set(id, cat)
+        }
+        if (cat.subcategories && cat.subcategories.length > 0) {
+          buildCategoryMap(cat.subcategories)
+        }
+      }
+    }
+    buildCategoryMap(categories)
+    
+    // Helper function to find root category name by traversing up the tree
+    const findRootCategoryName = (categoryId: string): string | null => {
+      const category = idToCategory.get(categoryId)
+      if (!category) return null
+      
+      // If this is a root category (level 0), return its name
+      if (category.level === 0) {
+        return category.name
+      }
+      
+      // Otherwise, traverse up to find root
+      let current = category
+      while (current) {
+        if (current.level === 0) {
+          return current.name
+        }
+        // Try to find parent
+        if (current.parent) {
+          const parentId = typeof current.parent === 'string' ? current.parent : current.parent._id?.toString() || current.parent.toString()
+          current = idToCategory.get(parentId)
+          if (!current) break
+        } else {
+          break
+        }
+      }
+      
+      return null
+    }
+    
+    // Build a flat map of all categories with their root category
+    const buildCategoryMaps = (cats: any[], rootCategoryName: string = '') => {
+      for (const cat of cats) {
+        const id = cat._id?.toString() || cat.id || ''
+        const slug = cat.slug || ''
+        const name = cat.name || ''
+        
+        // Determine root category name
+        // If this is a root category (level 0), use its name as root
+        // Otherwise, use the passed rootCategoryName
+        const rootName = (cat.level === 0 || !rootCategoryName) ? name : rootCategoryName
+        
+        // Map this category to its root
+        if (id) {
+          idToRootCategory.set(id, rootName)
+          // Also try to find root by traversing up
+          const foundRoot = findRootCategoryName(id)
+          if (foundRoot) {
+            idToRootCategory.set(id, foundRoot)
+          }
+        }
+        if (slug) {
+          slugToRootCategory.set(slug, rootName)
+        }
+        
+        // Process subcategories
+        if (cat.subcategories && cat.subcategories.length > 0) {
+          // For subcategories, the root is the parent category name
+          const subRoot = rootName || name
+          for (const subcat of cat.subcategories) {
+            const subId = subcat._id?.toString() || subcat.id || ''
+            const subSlug = subcat.slug || ''
+            
+            if (subId) {
+              idToRootCategory.set(subId, subRoot)
+              // Also try to find root by traversing up
+              const foundRoot = findRootCategoryName(subId)
+              if (foundRoot) {
+                idToRootCategory.set(subId, foundRoot)
+              }
+            }
+            if (subSlug) {
+              slugToRootCategory.set(subSlug, subRoot)
+            }
+            
+            // Process second subcategories (they also map to the same root)
+            if (subcat.secondSubcategories && subcat.secondSubcategories.length > 0) {
+              for (const secondSub of subcat.secondSubcategories) {
+                const secondSubId = secondSub._id?.toString() || secondSub.id || ''
+                const secondSubSlug = secondSub.slug || ''
+                
+                if (secondSubId) {
+                  idToRootCategory.set(secondSubId, subRoot)
+                  // Also try to find root by traversing up
+                  const foundRoot = findRootCategoryName(secondSubId)
+                  if (foundRoot) {
+                    idToRootCategory.set(secondSubId, foundRoot)
+                  }
+                }
+                if (secondSubSlug) {
+                  slugToRootCategory.set(secondSubSlug, subRoot)
+                }
+              }
+            }
+          }
+          // Recursively process nested subcategories
+          buildCategoryMaps(cat.subcategories, subRoot)
+        }
+      }
+    }
+    
+    buildCategoryMaps(categories)
+    
+    // Fallback slug map for root categories
+    const slugMap: Record<string, string> = {
+      'skincare': 'SKINCARE',
+      'nail-products': 'NAIL PRODUCTS',
+      'spa-products': 'SPA PRODUCTS',
+      'equipment': 'EQUIPMENT',
+      'implements': 'IMPLEMENTS',
+      'furniture': 'FURNITURE'
+    }
+    
+    // Enrich products with category names
+    return products.map(product => {
+      // Try categoryId first (from API transformation)
+      let categoryId = product.categoryId || ''
+      
+      // The API returns categoryId which is the leaf category ObjectId
+      // We need to find the root category name from this leaf category
+      
+      // Try to find root category by ID first (this will work if categoryId is the leaf category ObjectId)
+      let categoryName = idToRootCategory.get(categoryId)
+      
+      // If not found, try by slug
+      if (!categoryName) {
+        categoryName = slugToRootCategory.get(categoryId)
+      }
+      
+      // If still not found, try slug map
+      if (!categoryName) {
+        categoryName = slugMap[categoryId]
+      }
+      
+      // If still not found, try case-insensitive slug match
+      if (!categoryName) {
+        for (const [slug, name] of Array.from(slugToRootCategory.entries())) {
+          if (slug.toLowerCase() === categoryId.toLowerCase()) {
+            categoryName = name
+            break
+          }
+        }
+      }
+      
+      // If still not found, try partial match (e.g., "skincare-by-category" -> "SKINCARE")
+      if (!categoryName) {
+        for (const [slug, name] of Array.from(slugToRootCategory.entries())) {
+          if (categoryId.toLowerCase().includes(slug.toLowerCase()) || slug.toLowerCase().includes(categoryId.toLowerCase())) {
+            categoryName = name
+            break
+          }
+        }
+      }
+      
+      // Final fallback: return empty string to hide category if not found
+      return { ...product, category: categoryName || product.category || '' }
+    })
+  } catch (error) {
+    console.error('Error enriching products with categories:', error)
+    return products
+  }
+}
+
 export default function ProductsPage() {
   const searchParams = useSearchParams()
   const router = useRouter()
@@ -458,9 +646,11 @@ export default function ProductsPage() {
         }
         return res.json()
       })
-      .then((data: ProductsResponse) => {
+      .then(async (data: ProductsResponse) => {
         console.log('🔴 Products fetched:', data.products?.length || 0, 'Total:', data.pagination?.total || 0)
-        setProducts(data.products || [])
+        // Enrich products with category names
+        const productsWithCategories = await enrichProductsWithCategories(data.products || [])
+        setProducts(productsWithCategories)
         setPagination(data.pagination || pagination)
         setLoading(false)
       })

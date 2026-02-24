@@ -5,6 +5,7 @@ import { useAuth } from '@/contexts/AuthContext'
 import { useCart } from '@/contexts/CartContext'
 import Link from 'next/link'
 import Image from 'next/image'
+import { useRouter } from 'next/navigation'
 import LoginModal from '../LoginModal'
 import { getProductUrl } from '@/lib/category-mapping'
 
@@ -18,6 +19,7 @@ interface Category {
 }
 
 export default function MiddleBar() {
+  const router = useRouter()
   const { isLoggedIn, user, logout, isDealer } = useAuth()
   const { wishlistItems, cartItems, getCartItemCount, getCartTotal, removeFromCart, updateCartQuantity, removeFromWishlist } = useCart()
   const [showWishlistDropdown, setShowWishlistDropdown] = useState(false)
@@ -111,6 +113,30 @@ export default function MiddleBar() {
     setExpandedSubcategories(newExpanded)
   }
 
+  // Get current day name
+  const getDayName = () => {
+    const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+    return days[new Date().getDay()]
+  }
+
+  // Handle search
+  const handleSearch = (e?: React.FormEvent) => {
+    if (e) {
+      e.preventDefault()
+    }
+    if (searchQuery.trim()) {
+      router.push(`/products?search=${encodeURIComponent(searchQuery.trim())}`)
+      setSearchQuery('')
+    }
+  }
+
+  // Handle Enter key press in search
+  const handleSearchKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      handleSearch()
+    }
+  }
+
   return (
     <>
       <div className="bg-white border-b border-gray-200">
@@ -174,17 +200,22 @@ export default function MiddleBar() {
           </div>
 
           {/* Desktop Layout: Logo left, Search center, Icons right */}
-          <div className="hidden md:flex items-center justify-between w-full">
-            {/* Logo */}
-            <div className="flex-shrink-0">
-              <Link href="/" className="flex items-center">
-                <div className="relative h-14 w-40 lg:h-16 lg:w-48">
+          <div className="hidden md:flex items-center w-full">
+            {/* Logo and Search Bar Group */}
+            <div className="flex items-center gap-0">
+              {/* Logo */}
+              <Link 
+                href="/" 
+                className="flex-shrink-0 inline-block"
+                style={{ lineHeight: 0 }}
+              >
+                <div className="relative h-14 w-40 lg:h-16 lg:w-48 overflow-hidden">
                   <Image
                     src="/logo-removebg-preview.png"
                     alt="ACBS - Allied Concept Beauty Supply"
                     width={192}
                     height={64}
-                    className="object-contain h-full w-auto bg-transparent"
+                    className="object-contain h-full w-full bg-transparent"
                     priority
                     onError={(e) => {
                       const target = e.target as HTMLImageElement;
@@ -196,294 +227,90 @@ export default function MiddleBar() {
                   />
                 </div>
               </Link>
-            </div>
 
-            {/* Search Bar */}
-            <div className="flex-1 max-w-2xl mx-4 lg:mx-8">
-              <div className="w-full relative">
+              {/* Search Bar */}
+              <div className="flex-1 max-w-xl">
+              <form onSubmit={handleSearch} className="w-full relative">
                 <input
                   type="text"
-                  placeholder="Search products, brands, categories..."
+                  placeholder="Search"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full px-3 lg:px-4 py-2 pr-10 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-primary-400 focus:border-transparent text-sm lg:text-base"
+                  onKeyPress={handleSearchKeyPress}
+                  className="w-full px-4 py-2 pr-10 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-primary-400 focus:border-transparent text-sm lg:text-base"
                 />
-                <button className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-primary-400">
+                <button 
+                  type="submit"
+                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-primary-400"
+                >
                   <svg className="w-4 h-4 lg:w-5 lg:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                   </svg>
                 </button>
+              </form>
+              </div>
+
+              {/* Navigation Links */}
+              <div className="flex items-center gap-4 lg:gap-5 flex-shrink-0 ml-5">
+              {/* About Us */}
+              <Link
+                href="/about-us"
+                className="flex items-center gap-1.5 text-sm text-gray-700 hover:text-primary-400 transition-colors duration-300 whitespace-nowrap"
+              >
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <span>About Us</span>
+              </Link>
+
+              {/* Contact Us */}
+              <Link
+                href="/contact"
+                className="flex items-center gap-1.5 text-sm text-gray-700 hover:text-primary-400 transition-colors duration-300 whitespace-nowrap"
+              >
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                </svg>
+                <span>Contact Us</span>
+              </Link>
+
+              {/* FAQs */}
+              <Link
+                href="/faq"
+                className="flex items-center gap-1.5 text-sm text-gray-700 hover:text-primary-400 transition-colors duration-300 whitespace-nowrap"
+              >
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <span>FAQs</span>
+              </Link>
+
+              {/* Training & Education */}
+              <Link
+                href="/training-education"
+                className="flex items-center gap-1.5 text-sm text-gray-700 hover:text-primary-400 transition-colors duration-300 whitespace-nowrap"
+              >
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                </svg>
+                <span>Training & Education</span>
+              </Link>
+
+              {/* Sales and Offers */}
+              <Link
+                href="/sales-offers"
+                className="flex items-center gap-1.5 text-sm text-gray-700 hover:text-primary-400 transition-colors duration-300 whitespace-nowrap"
+              >
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
+                </svg>
+                <span>Sales & Offers</span>
+              </Link>
               </div>
             </div>
 
             {/* Icons */}
-            <div className="flex items-center space-x-2 lg:space-x-4">
-              {/* Hamburger Menu */}
-              <div className="relative" ref={hamburgerRef}>
-                <button 
-                  onClick={() => setShowHamburgerDropdown(!showHamburgerDropdown)}
-                  className="p-2 text-gray-700 hover:text-primary-400 transition-colors duration-300"
-                >
-                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-                  </svg>
-                </button>
-                {showHamburgerDropdown && (
-                  <div className="absolute right-0 mt-2 w-56 bg-white rounded-lg shadow-xl border border-gray-200 z-50 transition-all duration-300">
-                    <div className="py-2">
-                      <Link
-                        href="/about-us"
-                        className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors duration-300"
-                        onClick={() => setShowHamburgerDropdown(false)}
-                      >
-                        About Us
-                      </Link>
-                      <Link
-                        href="/contact"
-                        className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors duration-300"
-                        onClick={() => setShowHamburgerDropdown(false)}
-                      >
-                        Contact Us
-                      </Link>
-                      <Link
-                        href="/faq"
-                        className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors duration-300"
-                        onClick={() => setShowHamburgerDropdown(false)}
-                      >
-                        FAQs
-                      </Link>
-                      <Link
-                        href="/educational-module"
-                        className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors duration-300"
-                        onClick={() => setShowHamburgerDropdown(false)}
-                      >
-                        Educational Module
-                      </Link>
-                    </div>
-                  </div>
-                )}
-              </div>
-
-              {/* Wishlist */}
-              {(isDealer || !isLoggedIn) && (
-                <div className="relative" ref={wishlistRef}>
-                  <button 
-                    onClick={() => setShowWishlistDropdown(!showWishlistDropdown)}
-                    className="p-2 text-gray-700 hover:text-primary-400 transition-colors duration-300 relative"
-                  >
-                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                    </svg>
-                    {isLoggedIn && wishlistItems.length > 0 && (
-                      <span className="absolute top-0 right-0 bg-primary-400 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
-                        {wishlistItems.length}
-                      </span>
-                    )}
-                  </button>
-                  {showWishlistDropdown && (
-                    <div className="absolute right-0 mt-2 w-80 bg-white rounded-lg shadow-xl border border-gray-200 z-50 transition-all duration-300 max-h-96 overflow-y-auto">
-                      {!isLoggedIn ? (
-                        <div className="p-4">
-                          <p className="text-sm text-gray-600 mb-4">
-                            Signup as a dealer to see your wishlist
-                          </p>
-                          <div className="space-y-2">
-                            <Link
-                              href="/create-account"
-                              className="block w-full gradient-primary text-white py-2 px-4 rounded-lg font-medium hover:opacity-90 transition-opacity duration-300 text-center"
-                              onClick={() => setShowWishlistDropdown(false)}
-                            >
-                              Create Account
-                            </Link>
-                            <Link
-                              href="/sign-in"
-                              className="block w-full bg-white border-2 border-gray-300 text-gray-700 py-2 px-4 rounded-lg font-medium hover:border-primary-400 transition-colors duration-300 text-center"
-                              onClick={() => setShowWishlistDropdown(false)}
-                            >
-                              Login
-                            </Link>
-                          </div>
-                        </div>
-                      ) : wishlistItems.length === 0 ? (
-                        <div className="p-6 text-center">
-                          <svg className="w-12 h-12 mx-auto text-gray-300 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                          </svg>
-                          <p className="text-sm text-gray-600">Your wishlist is empty</p>
-                        </div>
-                      ) : (
-                        <div className="p-4">
-                          <h3 className="font-semibold text-gray-900 mb-3">Wishlist ({wishlistItems.length})</h3>
-                          <div className="space-y-3">
-                            {wishlistItems.map((item) => (
-                              <div key={item.id} className="flex items-center gap-3 pb-3 border-b border-gray-100 last:border-0">
-                                <div className="relative w-16 h-16 flex-shrink-0">
-                                  <Image
-                                    src={item.images[0]}
-                                    alt={item.name}
-                                    fill
-                                    className="object-cover rounded"
-                                  />
-                                </div>
-                                <div className="flex-1 min-w-0">
-                                  <p className="text-sm font-medium text-gray-900 truncate">{item.name}</p>
-                                  <p className="text-sm text-gray-500">{item.brand}</p>
-                                  <p className="text-sm font-semibold text-primary-400">
-                                    ${(item.cost && isDealer ? item.cost : item.price).toFixed(2)}
-                                  </p>
-                                </div>
-                                <button
-                                  onClick={() => removeFromWishlist(item.id)}
-                                  className="text-gray-400 hover:text-red-500 transition-colors duration-300"
-                                >
-                                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                                  </svg>
-                                </button>
-                              </div>
-                            ))}
-                          </div>
-                          <Link
-                            href="/wishlist"
-                            className="block w-full mt-4 gradient-primary text-white py-2 px-4 rounded-lg font-medium hover:opacity-90 transition-opacity duration-300 text-center"
-                            onClick={() => setShowWishlistDropdown(false)}
-                          >
-                            View All
-                          </Link>
-                        </div>
-                      )}
-                    </div>
-                  )}
-                </div>
-              )}
-
-              {/* Cart */}
-              {(isDealer || !isLoggedIn) && (
-                <div className="relative" ref={cartRef}>
-                  {isDealer ? (
-                    <button
-                      onClick={() => setShowCartDropdown(!showCartDropdown)}
-                      className="p-2 text-gray-700 hover:text-primary-400 transition-colors duration-300 relative"
-                    >
-                      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
-                      </svg>
-                      {isLoggedIn && getCartItemCount() > 0 && (
-                        <span className="absolute top-0 right-0 bg-primary-400 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
-                          {getCartItemCount()}
-                        </span>
-                      )}
-                    </button>
-                  ) : (
-                    <button 
-                      onClick={() => setShowCartDropdown(!showCartDropdown)}
-                      className="p-2 text-gray-700 hover:text-primary-400 transition-colors duration-300 relative"
-                    >
-                      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
-                      </svg>
-                    </button>
-                  )}
-                  {showCartDropdown && (
-                    <div className="absolute right-0 mt-2 w-80 bg-white rounded-lg shadow-xl border border-gray-200 z-50 transition-all duration-300 max-h-96 overflow-y-auto">
-                      {!isLoggedIn ? (
-                        <div className="p-4">
-                          <p className="text-sm text-gray-600 mb-4">
-                            Signup as a dealer to see your cart
-                          </p>
-                          <div className="space-y-2">
-                            <Link
-                              href="/create-account"
-                              className="block w-full gradient-primary text-white py-2 px-4 rounded-lg font-medium hover:opacity-90 transition-opacity duration-300 text-center"
-                              onClick={() => setShowCartDropdown(false)}
-                            >
-                              Create Account
-                            </Link>
-                            <Link
-                              href="/sign-in"
-                              className="block w-full bg-white border-2 border-gray-300 text-gray-700 py-2 px-4 rounded-lg font-medium hover:border-primary-400 transition-colors duration-300 text-center"
-                              onClick={() => setShowCartDropdown(false)}
-                            >
-                              Login
-                            </Link>
-                          </div>
-                        </div>
-                      ) : cartItems.length === 0 ? (
-                        <div className="p-6 text-center">
-                          <svg className="w-12 h-12 mx-auto text-gray-300 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
-                          </svg>
-                          <p className="text-sm text-gray-600">Your cart is empty</p>
-                        </div>
-                      ) : (
-                        <div className="p-4">
-                          <h3 className="font-semibold text-gray-900 mb-3">Cart ({getCartItemCount()} items)</h3>
-                          <div className="space-y-3">
-                            {cartItems.map((item) => (
-                              <div key={item.id} className="flex items-center gap-3 pb-3 border-b border-gray-100 last:border-0">
-                                <div className="relative w-16 h-16 flex-shrink-0">
-                                  <Image
-                                    src={item.images[0]}
-                                    alt={item.name}
-                                    fill
-                                    className="object-cover rounded"
-                                  />
-                                </div>
-                                <div className="flex-1 min-w-0">
-                                  <p className="text-sm font-medium text-gray-900 truncate">{item.name}</p>
-                                  <p className="text-sm text-gray-500">{item.brand}</p>
-                                  <div className="flex items-center gap-2 mt-1">
-                                    <p className="text-sm font-semibold text-primary-400">
-                                      ${(item.cost && isDealer ? item.cost : item.price).toFixed(2)}
-                                    </p>
-                                    <div className="flex items-center gap-1 border border-gray-300 rounded">
-                                      <button
-                                        onClick={() => updateCartQuantity(item.id, item.quantity - 1)}
-                                        className="px-2 py-1 text-gray-600 hover:text-gray-900"
-                                      >
-                                        -
-                                      </button>
-                                      <span className="px-2 py-1 text-sm">{item.quantity}</span>
-                                      <button
-                                        onClick={() => updateCartQuantity(item.id, item.quantity + 1)}
-                                        className="px-2 py-1 text-gray-600 hover:text-gray-900"
-                                      >
-                                        +
-                                      </button>
-                                    </div>
-                                  </div>
-                                </div>
-                                <button
-                                  onClick={() => removeFromCart(item.id)}
-                                  className="text-gray-400 hover:text-red-500 transition-colors duration-300"
-                                >
-                                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                                  </svg>
-                                </button>
-                              </div>
-                            ))}
-                          </div>
-                          <div className="mt-4 pt-4 border-t border-gray-200">
-                            <div className="flex justify-between items-center mb-3">
-                              <span className="font-semibold text-gray-900">Total:</span>
-                              <span className="font-bold text-lg text-primary-400">${getCartTotal().toFixed(2)}</span>
-                            </div>
-                            <Link
-                              href="/cart"
-                              className="block w-full gradient-primary text-white py-2 px-4 rounded-lg font-medium hover:opacity-90 transition-opacity duration-300 text-center"
-                              onClick={() => setShowCartDropdown(false)}
-                            >
-                              View Cart
-                            </Link>
-                          </div>
-                        </div>
-                      )}
-                    </div>
-                  )}
-                </div>
-              )}
-
+            <div className="flex items-center gap-3 lg:gap-4 flex-shrink-0 ml-[30px]">
               {/* User Icon */}
               <div className="relative" ref={userRef}>
             <button
@@ -554,7 +381,7 @@ export default function MiddleBar() {
                       <>
                         <div className="text-center mb-4">
                           <p className="text-lg font-semibold text-gray-900 mb-1">
-                            Happy Friday, Beautiful 🎉
+                            Happy {getDayName()}, Beautiful 🎉
                           </p>
                           <div className="w-16 h-16 gradient-primary rounded-full mx-auto flex items-center justify-center text-white text-2xl font-bold">
                             ✨
@@ -836,7 +663,7 @@ export default function MiddleBar() {
                 <>
                   <div className="text-center mb-6 pb-6 border-b border-gray-200">
                     <p className="text-lg font-semibold text-gray-900 mb-2">
-                      Welcome! 👋
+                      Happy {getDayName()}, Beautiful 🎉
                     </p>
                     <div className="w-16 h-16 gradient-primary rounded-full mx-auto flex items-center justify-center text-white text-2xl font-bold">
                       ✨
@@ -919,11 +746,11 @@ export default function MiddleBar() {
                   FAQs
                 </Link>
                 <Link
-                  href="/educational-module"
+                  href="/training-education"
                   className="block w-full text-left px-4 py-3 text-base text-gray-700 hover:bg-gray-100 rounded-lg transition-colors duration-300"
                   onClick={() => setMobileLinksSidebarOpen(false)}
                 >
-                  Educational Module
+                  Training & Education
                 </Link>
                 <Link
                   href="/wishlist"

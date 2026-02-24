@@ -11,7 +11,7 @@ export default function EducationalModulePage() {
   const [topPadding, setTopPadding] = useState(176)
 
   useEffect(() => {
-    document.title = 'Educational Module - Allied Concept Beauty Supplies'
+    document.title = 'Training & Education - Allied Concept Beauty Supplies'
   }, [])
 
   useEffect(() => {
@@ -75,7 +75,7 @@ export default function EducationalModulePage() {
               Build a strong foundation for your salon career with our professional salon training programs. These sessions are hands-on, designed to improve your technical skills, client communication, and service delivery. Perfect for new salon employees or anyone looking to enhance their expertise.
             </p>
             <Link
-              href="/educational-module/training"
+              href="/training-education/training"
               className="inline-block bg-gradient-to-r from-[#87CEEB] to-[#C8A2C8] text-white px-6 py-3 rounded-lg font-semibold hover:opacity-90 transition-opacity duration-300 shadow-lg mt-auto"
             >
               View Training
@@ -96,7 +96,7 @@ export default function EducationalModulePage() {
               Our beauty workshops are focused, practical sessions that teach specific treatments efficiently. Ideal for quick skill mastery and for implementing new services in your salon immediately. These workshops help you stay updated with the latest beauty techniques.
             </p>
             <Link
-              href="/educational-module/workshops"
+              href="/training-education/workshops"
               className="inline-block bg-gradient-to-r from-[#87CEEB] to-[#C8A2C8] text-white px-6 py-3 rounded-lg font-semibold hover:opacity-90 transition-opacity duration-300 shadow-lg mt-auto"
             >
               View Workshops
@@ -117,7 +117,7 @@ export default function EducationalModulePage() {
               Take your career to the next level with our professional certification courses. Each course includes practical training and awards an accredited certificate upon completion. Perfect for anyone aiming to become a certified beauty professional and gain professional recognition in the beauty industry.
             </p>
             <Link
-              href="/educational-module/certifications"
+              href="/training-education/certifications"
               className="inline-block bg-gradient-to-r from-[#87CEEB] to-[#C8A2C8] text-white px-6 py-3 rounded-lg font-semibold hover:opacity-90 transition-opacity duration-300 shadow-lg mt-auto"
             >
               View Certifications

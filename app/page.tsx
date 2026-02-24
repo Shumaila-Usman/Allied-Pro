@@ -1,41 +1,45 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import { useRouter } from 'next/navigation'
 import Header from '@/components/Header'
 import MainNav from '@/components/MainNav'
 import Carousel from '@/components/Carousel'
 import ProductSlider from '@/components/ProductSlider'
-import BrandSlider from '@/components/BrandSlider'
 import Footer from '@/components/Footer'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useAuth } from '@/contexts/AuthContext'
 import { Product } from '@/types'
 
-// Mock data
+// Hero banner images
 const heroSlides = [
   {
     id: '1',
-    image: 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=1920&q=80',
-    title: 'Professional Beauty Products',
-    subtitle: 'Elevate Your Business',
+    image: '/banners/banner-1.jpg',
+    title: '',
+    subtitle: '',
+    objectPosition: 'center 60%',
   },
   {
     id: '2',
-    image: 'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=1920&q=80',
-    title: 'Spa Essentials',
-    subtitle: 'Transform Your Space',
+    image: '/banners/banner-2.jpg',
+    title: '',
+    subtitle: '',
   },
   {
     id: '3',
-    image: 'https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?w=1920&q=80',
-    title: 'Premium Equipment',
-    subtitle: 'Built to Last',
+    image: '/banners/banner-3.jpg',
+    title: '',
+    subtitle: '',
+    objectPosition: 'center 20%',
   },
   {
     id: '4',
-    image: 'https://images.unsplash.com/photo-1512496015851-a90fb38ba796?w=1920&q=80',
-    title: 'Expert Tools',
-    subtitle: 'For Professionals',
+    image: '/banners/banner-4.jpg',
+    title: '',
+    subtitle: '',
+    objectPosition: 'center 50%',
   },
 ]
 
@@ -117,6 +121,50 @@ async function enrichProductsWithCategories(products: Product[]): Promise<Produc
     // Create maps for ID/Slug to root category name
     const idToRootCategory = new Map<string, string>()
     const slugToRootCategory = new Map<string, string>()
+    const idToCategory = new Map<string, any>() // Store full category objects
+    
+    // First, build a map of all categories by ID
+    const buildCategoryMap = (cats: any[]) => {
+      for (const cat of cats) {
+        const id = cat._id?.toString() || cat.id || ''
+        if (id) {
+          idToCategory.set(id, cat)
+        }
+        if (cat.subcategories && cat.subcategories.length > 0) {
+          buildCategoryMap(cat.subcategories)
+        }
+      }
+    }
+    buildCategoryMap(categories)
+    
+    // Helper function to find root category name by traversing up the tree
+    const findRootCategoryName = (categoryId: string): string | null => {
+      const category = idToCategory.get(categoryId)
+      if (!category) return null
+      
+      // If this is a root category (level 0), return its name
+      if (category.level === 0) {
+        return category.name
+      }
+      
+      // Otherwise, traverse up to find root
+      let current = category
+      while (current) {
+        if (current.level === 0) {
+          return current.name
+        }
+        // Try to find parent
+        if (current.parent) {
+          const parentId = typeof current.parent === 'string' ? current.parent : current.parent._id?.toString() || current.parent.toString()
+          current = idToCategory.get(parentId)
+          if (!current) break
+        } else {
+          break
+        }
+      }
+      
+      return null
+    }
     
     // Build a flat map of all categories with their root category
     const buildCategoryMaps = (cats: any[], rootCategoryName: string = '') => {
@@ -133,6 +181,11 @@ async function enrichProductsWithCategories(products: Product[]): Promise<Produc
         // Map this category to its root
         if (id) {
           idToRootCategory.set(id, rootName)
+          // Also try to find root by traversing up
+          const foundRoot = findRootCategoryName(id)
+          if (foundRoot) {
+            idToRootCategory.set(id, foundRoot)
+          }
         }
         if (slug) {
           slugToRootCategory.set(slug, rootName)
@@ -148,6 +201,11 @@ async function enrichProductsWithCategories(products: Product[]): Promise<Produc
             
             if (subId) {
               idToRootCategory.set(subId, subRoot)
+              // Also try to find root by traversing up
+              const foundRoot = findRootCategoryName(subId)
+              if (foundRoot) {
+                idToRootCategory.set(subId, foundRoot)
+              }
             }
             if (subSlug) {
               slugToRootCategory.set(subSlug, subRoot)
@@ -161,6 +219,11 @@ async function enrichProductsWithCategories(products: Product[]): Promise<Produc
                 
                 if (secondSubId) {
                   idToRootCategory.set(secondSubId, subRoot)
+                  // Also try to find root by traversing up
+                  const foundRoot = findRootCategoryName(secondSubId)
+                  if (foundRoot) {
+                    idToRootCategory.set(secondSubId, foundRoot)
+                  }
                 }
                 if (secondSubSlug) {
                   slugToRootCategory.set(secondSubSlug, subRoot)
@@ -178,12 +241,12 @@ async function enrichProductsWithCategories(products: Product[]): Promise<Produc
     
     // Fallback slug map for root categories
     const slugMap: Record<string, string> = {
-      'skincare': 'Skincare',
-      'nail-products': 'Nail Products',
-      'spa-products': 'Spa Products',
-      'equipment': 'Equipment',
-      'implements': 'Implements',
-      'furniture': 'Furniture'
+      'skincare': 'SKINCARE',
+      'nail-products': 'NAIL PRODUCTS',
+      'spa-products': 'SPA PRODUCTS',
+      'equipment': 'EQUIPMENT',
+      'implements': 'IMPLEMENTS',
+      'furniture': 'FURNITURE'
     }
     
     // Enrich products with category names
@@ -240,29 +303,55 @@ function BestSellersSlider() {
   useEffect(() => {
     const fetchBestSellers = async () => {
       try {
-        // Fetch products from skincare, nail-products, and spa-products categories
-        const categories = ['skincare', 'nail-products', 'spa-products']
-        const allProducts: Product[] = []
+        // Specific products for BEST SELLERS & PROFESSIONAL FAVORITES
+        const productNames = [
+          'Makeup Cotton / Cotton Pads',
+          'Paraffin Heater',
+          'Hot Stone Heater (18q / 6q)',
+          'Compressed Dry Sheet Masks',
+          'Golden Firming Gel Mask (30ml/500ml)',
+          'Jade Roller / Gua Sha (Anti-Aging)',
+          'Under-Eye Press / Disc (Electric Jade)',
+          'Salon/Spa Rolling Tray Trolley'
+        ]
         
-        for (const category of categories) {
-          try {
-            const response = await fetch(`/api/products?categoryId=${category}&limit=10&page=1`)
-            const data = await response.json()
-            if (data.products && data.products.length > 0) {
-              allProducts.push(...data.products.slice(0, 4))
+        // Fetch all products and filter by name
+        const response = await fetch('/api/products?limit=1000&page=1')
+        const data = await response.json()
+        
+        if (data.products && data.products.length > 0) {
+          // Filter products by exact name match
+          const filteredProducts = data.products.filter((product: Product) => 
+            productNames.some(name => product.name === name)
+          )
+          
+          // Sort to match the order specified
+          const sortedProducts = productNames
+            .map(name => filteredProducts.find((p: Product) => p.name === name))
+            .filter((p): p is Product => p !== undefined)
+          
+          // Manually set categories for specific products
+          const productsWithCategories = sortedProducts.map(product => {
+            // Manually assign categories based on product names
+            let category = ''
+            if (product.name === 'Makeup Cotton / Cotton Pads') {
+              category = 'NAIL PRODUCTS'
+            } else if (product.name === 'Paraffin Heater' || product.name === 'Hot Stone Heater (18q / 6q)') {
+              category = 'SPA PRODUCTS'
+            } else if (product.name === 'Compressed Dry Sheet Masks' || 
+                       product.name === 'Golden Firming Gel Mask (30ml/500ml)' ||
+                       product.name === 'Jade Roller / Gua Sha (Anti-Aging)' ||
+                       product.name === 'Under-Eye Press / Disc (Electric Jade)') {
+              category = 'SKINCARE'
+            } else if (product.name === 'Salon/Spa Rolling Tray Trolley') {
+              category = 'EQUIPMENT'
             }
-          } catch (error) {
-            console.error(`Error fetching products for ${category}:`, error)
-          }
+            
+            return { ...product, category }
+          })
+          
+          setBestSellersProducts(productsWithCategories)
         }
-        
-        // Shuffle and take up to 12 products
-        const shuffled = allProducts.sort(() => 0.5 - Math.random())
-        const selectedProducts = shuffled.slice(0, 12)
-        
-        // Enrich with category names
-        const productsWithCategories = await enrichProductsWithCategories(selectedProducts)
-        setBestSellersProducts(productsWithCategories)
       } catch (error) {
         console.error('Error fetching best sellers:', error)
       } finally {
@@ -290,13 +379,16 @@ function BestSellersSlider() {
     )
   }
 
-  return <ProductSlider products={bestSellersProducts} title="" />
+  return <ProductSlider products={bestSellersProducts} title="" externalNavContainerId="best-sellers-nav" />
 }
 
 export default function Home() {
+  const router = useRouter()
+  const { isLoggedIn } = useAuth()
   const [topPadding, setTopPadding] = useState(176) // Default padding
   const [featuredProducts, setFeaturedProducts] = useState<Product[]>([])
   const [loadingProducts, setLoadingProducts] = useState(true)
+  const [showAuthModal, setShowAuthModal] = useState(false)
 
   useEffect(() => {
     document.title = 'Allied Concept Beauty Supplies'
@@ -307,30 +399,87 @@ export default function Home() {
       const header = document.getElementById('main-header')
       const nav = document.getElementById('main-nav')
       if (header && nav) {
-        const totalHeight = header.offsetHeight + nav.offsetHeight
-        setTopPadding(totalHeight)
+        // Get actual heights, accounting for when header might be hidden
+        const headerHeight = header.offsetHeight > 0 ? header.offsetHeight : header.scrollHeight
+        const navHeight = nav.offsetHeight
+        const totalHeight = headerHeight + navHeight
+        // Add extra padding to ensure content is not hidden
+        setTopPadding(totalHeight + 30)
+      } else {
+        // Fallback padding if elements not found
+        setTopPadding(220)
       }
     }
 
+    // Calculate immediately
     calculatePadding()
+    
+    // Recalculate after a short delay to ensure DOM is ready
+    const timeout1 = setTimeout(calculatePadding, 100)
+    const timeout2 = setTimeout(calculatePadding, 500)
+    
     window.addEventListener('resize', calculatePadding)
-    // Also recalculate after a short delay to ensure elements are rendered
-    setTimeout(calculatePadding, 100)
+    window.addEventListener('scroll', calculatePadding)
 
     return () => {
+      clearTimeout(timeout1)
+      clearTimeout(timeout2)
       window.removeEventListener('resize', calculatePadding)
+      window.removeEventListener('scroll', calculatePadding)
     }
   }, [])
 
-  // Fetch featured products from database
+  // Fetch featured products from database (Salon Must-Haves)
   useEffect(() => {
     const fetchFeaturedProducts = async () => {
       try {
-        const response = await fetch('/api/products?limit=10&page=1')
+        // Specific products for SALONS MUST HAVES
+        const productNames = [
+          'Mixing Bowl Set',
+          'Disposable Headbands',
+          'PMT Portable Manicure Table Folable Legs',
+          'Cellulose Sponge',
+          'SilkRoma Depilatory Cream Wax',
+          'Pumice Stone with Brush',
+          'Gua Sha Stone (Dolphin)'
+        ]
+        
+        // Fetch all products and filter by name
+        const response = await fetch('/api/products?limit=1000&page=1')
         const data = await response.json()
+        
         if (data.products && data.products.length > 0) {
-          // Add category names to products
-          const productsWithCategories = await enrichProductsWithCategories(data.products.slice(0, 10))
+          // Filter products by exact name match
+          const filteredProducts = data.products.filter((product: Product) => 
+            productNames.some(name => product.name === name)
+          )
+          
+          // Sort to match the order specified
+          const sortedProducts = productNames
+            .map(name => filteredProducts.find((p: Product) => p.name === name))
+            .filter((p): p is Product => p !== undefined)
+          
+          // Manually set categories for specific products
+          const productsWithCategories = sortedProducts.map(product => {
+            // Manually assign categories based on product names
+            let category = ''
+            if (product.name === 'Mixing Bowl Set' || product.name === 'Disposable Headbands') {
+              category = 'SKINCARE'
+            } else if (product.name === 'PMT Portable Manicure Table Folable Legs') {
+              category = 'FURNITURE'
+            } else if (product.name === 'Cellulose Sponge') {
+              category = 'SKINCARE'
+            } else if (product.name === 'SilkRoma Depilatory Cream Wax') {
+              category = 'SPA PRODUCTS'
+            } else if (product.name === 'Pumice Stone with Brush') {
+              category = 'NAIL PRODUCTS'
+            } else if (product.name === 'Gua Sha Stone (Dolphin)') {
+              category = 'SKINCARE'
+            }
+            
+            return { ...product, category }
+          })
+          
           setFeaturedProducts(productsWithCategories)
         }
       } catch (error) {
@@ -349,7 +498,7 @@ export default function Home() {
       <MainNav />
 
       {/* Hero Section - Add padding to account for fixed header and nav */}
-      <section className="w-full" style={{ paddingTop: `${topPadding}px` }}>
+      <section className="w-full px-4 sm:px-6 lg:px-8" style={{ paddingTop: `${topPadding + 135}px` }}>
         <Carousel slides={heroSlides} />
       </section>
 
@@ -357,35 +506,69 @@ export default function Home() {
       <section className="w-full bg-white py-12 md:py-16 relative z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
-            {/* Sale Card */}
-            <div className="relative h-72 md:h-80 rounded-2xl overflow-hidden shadow-xl group cursor-pointer hover:shadow-2xl transition-shadow duration-300">
-              <div className="absolute inset-0 bg-gradient-to-r from-[#87CEEB] to-[#C8A2C8] flex items-center justify-center">
-                <div className="text-center text-white px-6 w-full">
-                  <h3 className="text-5xl md:text-6xl font-bold mb-2">EXTRA 20% OFF</h3>
-                  <p className="text-2xl md:text-3xl font-semibold mb-4">SALE ITEMS</p>
-                  <p className="text-base md:text-lg mb-6 opacity-90">Use code: BONUS20</p>
-                  <button className="bg-white text-[#8B6FA8] px-10 py-3.5 rounded-full font-bold text-lg hover:bg-gray-100 transition-all duration-300 shadow-xl hover:scale-105">
-                    Shop Sale
-                  </button>
+            {/* SILK-B Professional Special Sale Event Card */}
+            <Link href="/sales-offers" className="group block h-full">
+              <div className="relative rounded-[8px] overflow-hidden shadow-xl hover:shadow-2xl transition-shadow duration-300 bg-white h-full flex flex-col">
+                {/* Image Section - Top 2/3 */}
+                <div className="relative h-64 md:h-80 flex-shrink-0 overflow-hidden bg-gradient-to-br from-purple-200 via-pink-200 to-blue-200">
+                  <Image
+                    src="/promo/silk-b-sale.jpg"
+                    alt="SILK-B Professional Special Sale Event"
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-300 relative z-10"
+                    priority
+                    unoptimized
+                  />
+                </div>
+                {/* Text Section - Bottom 1/3 with Sky Blue background */}
+                <div className="bg-[#87CEEB] px-6 py-6 md:py-8 flex-grow flex flex-col justify-between">
+                  <div>
+                    <h3 className="text-2xl md:text-3xl font-bold text-white mb-2 md:mb-3">
+                      SILK B Professionals<br />
+                      Special Sale Event
+                    </h3>
+                    <p className="text-white text-base md:text-lg mb-4 md:mb-5 opacity-95">
+                      Premium Products and Spa Essentials Now on Sale
+                    </p>
+                  </div>
+                  <span className="inline-block bg-white text-[#87CEEB] px-6 py-3 rounded-[30px] font-semibold text-base md:text-lg hover:bg-gray-100 transition-all duration-300 shadow-lg hover:scale-105 w-fit">
+                    Stock Up and Save
+                  </span>
                 </div>
               </div>
-            </div>
+            </Link>
             
             {/* Featured Brands Card */}
-            <div className="relative h-72 md:h-80 rounded-2xl overflow-hidden shadow-xl group cursor-pointer hover:shadow-2xl transition-shadow duration-300">
-              <div className="absolute inset-0 bg-gradient-to-r from-[#C8A2C8] to-[#87CEEB] flex items-center justify-center">
-                <div className="text-center text-white px-6 w-full">
-                  <span className="inline-block bg-white/30 backdrop-blur-md text-white text-sm font-bold px-5 py-2 rounded-full mb-5 border border-white/20">
-                    NEW ARRIVALS
-                  </span>
-                  <h3 className="text-5xl md:text-6xl font-bold mb-3">Featured Brands</h3>
-                  <p className="text-lg md:text-xl mb-6 opacity-90">Discover the latest in beauty & spa</p>
-                  <button className="bg-white text-[#8B6FA8] px-10 py-3.5 rounded-full font-bold text-lg hover:bg-gray-100 transition-all duration-300 shadow-xl hover:scale-105">
+            <Link href="#our-brands" className="group block h-full">
+              <div className="relative rounded-[8px] overflow-hidden shadow-xl hover:shadow-2xl transition-shadow duration-300 bg-white h-full flex flex-col">
+                {/* Image Section - Top 2/3 */}
+                <div className="relative h-64 md:h-80 flex-shrink-0 overflow-hidden bg-gradient-to-br from-purple-200 via-pink-200 to-blue-200">
+                  <Image
+                    src="/promo/discover-beauty-brands.jpg"
+                    alt="Featured Brands"
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-300 relative z-10"
+                    style={{ objectPosition: 'center 50%' }}
+                    priority
+                    unoptimized
+                  />
+                </div>
+                {/* Text Section - Bottom 1/3 with Lilac background */}
+                <div className="bg-[#C8A2C8] px-6 py-6 md:py-8 flex-grow flex flex-col justify-between">
+                  <div>
+                    <h3 className="text-2xl md:text-3xl font-bold text-white mb-2 md:mb-3">
+                      Featured Brands
+                    </h3>
+                    <p className="text-white text-base md:text-lg mb-4 md:mb-5 opacity-95">
+                      Discover the Latest in Beauty & Spa
+                    </p>
+                  </div>
+                  <span className="inline-block bg-white text-[#C8A2C8] px-6 py-3 rounded-[30px] font-semibold text-base md:text-lg hover:bg-gray-100 transition-all duration-300 shadow-lg hover:scale-105 w-fit">
                     Explore Now
-                  </button>
+                  </span>
                 </div>
               </div>
-            </div>
+            </Link>
           </div>
         </div>
       </section>
@@ -488,7 +671,7 @@ export default function Home() {
 
       {/* Best Sellers & Professional Favorites Section */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
-        <div className="text-left md:text-center mb-8">
+        <div className="text-left md:text-center mb-4">
           {/* Mobile heading with line breaks */}
           <h2 className="md:hidden text-2xl font-bold mb-4 bg-gradient-to-r from-[#C8A2C8] to-[#87CEEB] bg-clip-text text-transparent">
             BEST SELLERS &<br />
@@ -498,41 +681,123 @@ export default function Home() {
           <h2 className="hidden md:block text-3xl font-bold mb-4 bg-gradient-to-r from-[#C8A2C8] to-[#87CEEB] bg-clip-text text-transparent">
             BEST SELLERS & PROFESSIONAL FAVORITES
           </h2>
+          {/* Description with Navigation on left, centered text, and View All Products on right */}
+          <div className="flex flex-col md:flex-row md:items-center gap-4 mb-4 relative">
+            {/* Navigation Arrows - Left Side */}
+            <div id="best-sellers-nav" className="flex space-x-2 order-1 md:order-1">
+              {/* Navigation buttons will be inserted here by ProductSlider */}
+            </div>
+            {/* Centered Description */}
+            <div className="flex-1 flex justify-center order-2 md:order-2">
           {/* Mobile description with line breaks */}
-          <p className="md:hidden text-gray-600 text-base">
+              <p className="md:hidden text-gray-600 text-base text-center">
             Discover our top-selling products frequently<br />
-            ordered by Canadian beauty businesses<br />
-            including
+                ordered by Canadian beauty businesses
           </p>
           {/* Desktop description without line breaks */}
-          <p className="hidden md:block text-gray-600 text-lg max-w-3xl mx-auto">
-            Discover our top-selling products frequently ordered by Canadian beauty businesses including
-          </p>
+              <p className="hidden md:block text-gray-600 text-lg text-center">
+                Discover our top-selling products frequently ordered by Canadian beauty businesses
+              </p>
+            </div>
+            {/* View All Products Link - Right Side */}
+            <div className="flex items-center justify-end order-3 md:order-3">
+              <Link
+                href="/products"
+                className="text-[#C8A2C8] hover:text-[#87CEEB] font-semibold transition-colors duration-300 whitespace-nowrap"
+              >
+                View All Products →
+              </Link>
+            </div>
+          </div>
         </div>
         <BestSellersSlider />
       </section>
 
-      {/* Brands Section */}
-      <section className="w-full py-12">
-        <h2 className="text-3xl font-bold mb-8 text-center bg-gradient-to-r from-[#C8A2C8] to-[#87CEEB] bg-clip-text text-transparent">Our Brands</h2>
-        <BrandSlider brands={brands} />
-      </section>
-
       {/* Featured Products Section */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 md:py-6">
         {loadingProducts ? (
           <div className="text-center py-12">
             <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-[#87CEEB]"></div>
             <p className="mt-4 text-gray-600">Loading products...</p>
           </div>
         ) : featuredProducts.length > 0 ? (
-          <ProductSlider products={featuredProducts} title="Must Haves" />
+          <div>
+            <div className="mb-6 flex items-center justify-between">
+              <div>
+                <h2 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-[#C8A2C8] to-[#87CEEB] bg-clip-text text-transparent mb-2">
+                  Salon Must-Haves
+                </h2>
+                <p className="text-gray-600 text-base md:text-lg">
+                  Top-rated products for flawless skincare services.
+                </p>
+              </div>
+              <button
+                onClick={() => {
+                  if (isLoggedIn) {
+                    router.push('/recent-searches')
+                  } else {
+                    setShowAuthModal(true)
+                  }
+                }}
+                className="text-[#C8A2C8] hover:text-[#87CEEB] font-semibold transition-colors duration-300 whitespace-nowrap"
+              >
+                View All Products →
+              </button>
+            </div>
+            <ProductSlider products={featuredProducts} title="" />
+          </div>
         ) : (
           <div className="text-center py-12">
             <p className="text-gray-600">No featured products available</p>
           </div>
         )}
       </section>
+
+      {/* Auth Modal */}
+      {showAuthModal && (
+        <div
+          className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm"
+          onClick={() => setShowAuthModal(false)}
+        >
+          <div
+            className="bg-white rounded-lg max-w-md w-full p-8 relative"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Close Button */}
+            <button
+              onClick={() => setShowAuthModal(false)}
+              className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors"
+            >
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+
+            <div className="text-center">
+              <h3 className="text-2xl font-bold text-gray-900 mb-4">
+                Sign In or Create Account
+              </h3>
+              <p className="text-gray-600 mb-6">
+                To view recent searches, please sign up or login.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4">
+                <Link
+                  href="/create-account?redirect=/recent-searches"
+                  className="flex-1 bg-gradient-to-r from-[#C8A2C8] to-[#87CEEB] text-white px-6 py-3 rounded-lg font-semibold hover:opacity-90 transition-opacity duration-300 text-center"
+                >
+                  Create Account
+                </Link>
+                <Link
+                  href="/sign-in?redirect=/recent-searches"
+                  className="flex-1 border-2 border-[#C8A2C8] text-[#C8A2C8] px-6 py-3 rounded-lg font-semibold hover:bg-[#C8A2C8] hover:text-white transition-all duration-300 text-center"
+                >
+                  Login
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Fast & Reliable Supply Section */}
       <section className="w-full py-12 md:py-16 bg-gradient-to-br from-purple-50 to-blue-50 relative overflow-hidden">
@@ -577,6 +842,77 @@ export default function Home() {
               </div>
               <h3 className="text-lg sm:text-xl font-semibold text-gray-900">Nationwide Delivery</h3>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-16 sm:py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
+            {/* Left Section - Text Content */}
+            <div className="space-y-4">
+              <h2 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-[#C8A2C8] to-[#87CEEB] bg-clip-text text-transparent">
+                Scale Your Salon with Allied Quality
+              </h2>
+              <p className="text-gray-600 text-base md:text-lg">
+                Partner with Allied Concept Beauty Supply for premium, professional-grade spa essentials in Canada. From advanced serums to luxury linens, provide your clients with the quality they deserve.
+              </p>
+              <div className="inline-block p-[2px] bg-gradient-to-r from-[#C8A2C8] to-[#87CEEB] rounded">
+                <Link
+                  href="/contact"
+                  className="block px-8 py-3 rounded bg-white font-semibold text-base uppercase tracking-wide transition-all duration-300 relative overflow-hidden group"
+                >
+                  <span className="bg-gradient-to-r from-[#C8A2C8] to-[#87CEEB] bg-clip-text text-transparent group-hover:text-white transition-colors duration-300 relative z-10">
+                    CONTACT US
+                  </span>
+                  <span className="absolute inset-0 bg-gradient-to-r from-[#C8A2C8] to-[#87CEEB] opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded"></span>
+                </Link>
+              </div>
+            </div>
+            
+            {/* Right Section - Image */}
+            <div className="relative h-64 md:h-96 w-full rounded-lg overflow-hidden">
+              <Image
+                src="/promo/spa-products.jpg"
+                alt="Spa and beauty products"
+                fill
+                className="object-cover"
+                unoptimized
+                onError={(e) => {
+                  // Fallback to a gradient background if image doesn't exist
+                  const target = e.target as HTMLImageElement;
+                  target.style.display = 'none';
+                  const parent = target.parentElement;
+                  if (parent) {
+                    parent.className = 'relative h-64 md:h-96 w-full rounded-lg overflow-hidden bg-gradient-to-br from-purple-100 via-pink-100 to-blue-100';
+                  }
+                }}
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Brands Section */}
+      <section id="our-brands" className="w-full pt-4 pb-6 md:pt-6 md:pb-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-2xl md:text-3xl font-bold mb-4 text-center bg-gradient-to-r from-[#C8A2C8] to-[#87CEEB] bg-clip-text text-transparent">Our Brands</h2>
+          <div className="flex items-center justify-center gap-8 md:gap-12">
+            {brands.slice(0, 3).map((brand) => (
+              <div
+                key={brand.id}
+                className="flex-shrink-0 w-24 h-24 md:w-32 md:h-32 relative transition-all duration-300"
+              >
+                <Image
+                  src={brand.logo}
+                  alt={brand.name}
+                  fill
+                  className="object-contain"
+                  unoptimized
+                />
+              </div>
+            ))}
           </div>
         </div>
       </section>

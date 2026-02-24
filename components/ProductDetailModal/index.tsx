@@ -553,4 +553,3 @@ export default function ProductDetailModal({ product, isOpen, onClose }: Product
     </div>
   )
 }
-

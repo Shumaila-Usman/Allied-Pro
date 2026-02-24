@@ -75,7 +75,7 @@ export default function MegaMenu({ title, children }: MegaMenuProps) {
         onMouseEnter={() => setIsOpen(true)}
         onMouseLeave={() => setIsOpen(false)}
       >
-        <button className="px-4 py-4 text-white hover:text-primary-300 transition-colors duration-300 font-medium">
+        <button className="px-4 py-2 text-white hover:text-primary-300 transition-colors duration-300 font-medium">
           {title}
         </button>
       </div>
