@@ -13,41 +13,84 @@ interface CarouselProps {
   }>
   autoPlay?: boolean
   interval?: number
+  hideFirstOnMobile?: boolean
 }
 
-export default function Carousel({ slides, autoPlay = true, interval = 5000 }: CarouselProps) {
-  const [currentIndex, setCurrentIndex] = useState(0)
+export default function Carousel({ slides, autoPlay = true, interval = 5000, hideFirstOnMobile = false }: CarouselProps) {
+  // Start from index 1 if first slide should be hidden on mobile
+  const getInitialIndex = () => {
+    if (hideFirstOnMobile && slides.length > 0 && slides[0].id === '1') {
+      return 1
+    }
+    return 0
+  }
+  
+  const [currentIndex, setCurrentIndex] = useState(getInitialIndex)
+
+  // Reset to appropriate index when slides or hideFirstOnMobile changes
+  const slideIds = slides.map(s => s.id).join(',')
+  useEffect(() => {
+    setCurrentIndex(getInitialIndex())
+  }, [slideIds, hideFirstOnMobile])
+
+  // Get next valid index (skip first if hidden on mobile)
+  const getNextIndex = (current: number) => {
+    let next = (current + 1) % slides.length
+    if (hideFirstOnMobile && slides.length > 0 && slides[0].id === '1' && next === 0) {
+      next = 1
+    }
+    return next
+  }
+
+  // Get previous valid index (skip first if hidden on mobile)
+  const getPrevIndex = (current: number) => {
+    let prev = (current - 1 + slides.length) % slides.length
+    if (hideFirstOnMobile && slides.length > 0 && slides[0].id === '1' && prev === 0) {
+      prev = slides.length - 1
+    }
+    return prev
+  }
 
   useEffect(() => {
     if (!autoPlay) return
 
     const timer = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % slides.length)
+      setCurrentIndex((prev) => getNextIndex(prev))
     }, interval)
 
     return () => clearInterval(timer)
-  }, [autoPlay, interval, slides.length])
+  }, [autoPlay, interval, slides.length, hideFirstOnMobile])
 
   const goToSlide = (index: number) => {
-    setCurrentIndex(index)
+    // Don't allow going to first slide if it's hidden on mobile
+    if (hideFirstOnMobile && slides.length > 0 && slides[0].id === '1' && index === 0) {
+      setCurrentIndex(1)
+    } else {
+      setCurrentIndex(index)
+    }
   }
 
   const goToPrevious = () => {
-    setCurrentIndex((prev) => (prev - 1 + slides.length) % slides.length)
+    setCurrentIndex((prev) => getPrevIndex(prev))
   }
 
   const goToNext = () => {
-    setCurrentIndex((prev) => (prev + 1) % slides.length)
+    setCurrentIndex((prev) => getNextIndex(prev))
   }
 
   return (
     <div className="relative w-full max-w-5xl mx-auto h-[260px] sm:h-[320px] md:h-[380px] overflow-hidden bg-white rounded-2xl shadow-lg">
-      {slides.map((slide, index) => (
+      {slides.map((slide, index) => {
+        // Hide first slide on mobile if hideFirstOnMobile is true
+        const isFirstSlide = index === 0 && slide.id === '1'
+        const shouldHide = hideFirstOnMobile && isFirstSlide
+        
+        return (
         <div
           key={slide.id}
           className={`absolute inset-0 transition-opacity duration-1000 ${
             index === currentIndex ? 'opacity-100' : 'opacity-0'
-          }`}
+          } ${shouldHide ? 'hidden md:block' : ''}`}
         >
           <div className="relative w-full h-full">
             <Image
@@ -74,7 +117,8 @@ export default function Carousel({ slides, autoPlay = true, interval = 5000 }: C
             )}
           </div>
         </div>
-      ))}
+        )
+      })}
 
       {/* Navigation Arrows */}
       <button
@@ -98,16 +142,24 @@ export default function Carousel({ slides, autoPlay = true, interval = 5000 }: C
 
       {/* Dots Indicator */}
       <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
-        {slides.map((_, index) => (
-          <button
-            key={index}
-            onClick={() => goToSlide(index)}
-            className={`w-3 h-3 rounded-full transition-all ${
-              index === currentIndex ? 'bg-white' : 'bg-white bg-opacity-50'
-            }`}
-            aria-label={`Go to slide ${index + 1}`}
-          />
-        ))}
+        {slides.map((slide, index) => {
+          // Hide first dot on mobile if first slide is hidden
+          const isFirstSlide = index === 0 && slide.id === '1'
+          const shouldHide = hideFirstOnMobile && isFirstSlide
+          
+          if (shouldHide) return null
+          
+          return (
+            <button
+              key={index}
+              onClick={() => goToSlide(index)}
+              className={`w-3 h-3 rounded-full transition-all ${
+                index === currentIndex ? 'bg-white' : 'bg-white bg-opacity-50'
+              }`}
+              aria-label={`Go to slide ${index + 1}`}
+            />
+          )
+        })}
       </div>
     </div>
   )

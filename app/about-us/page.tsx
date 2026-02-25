@@ -9,26 +9,57 @@ import Link from 'next/link'
 
 export default function AboutUsPage() {
   const [topPadding, setTopPadding] = useState(176)
+  const [isMobile, setIsMobile] = useState(false)
 
   useEffect(() => {
     document.title = 'About Us - Allied Concept Beauty Supplies'
   }, [])
 
   useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768)
+    }
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
+
+  useEffect(() => {
     const calculatePadding = () => {
       const header = document.getElementById('main-header')
       const nav = document.getElementById('main-nav')
+      const isMobile = window.innerWidth < 768 // md breakpoint
+      
       if (header && nav) {
-        const totalHeight = header.offsetHeight + nav.offsetHeight
-        setTopPadding(totalHeight)
+        // Get actual heights, accounting for when header might be hidden
+        const headerHeight = header.offsetHeight > 0 ? header.offsetHeight : header.scrollHeight
+        const navHeight = nav.offsetHeight
+        
+        // On mobile, nav is not fixed, so only account for header
+        // On desktop, account for both header and nav
+        const totalHeight = isMobile ? headerHeight : headerHeight + navHeight
+        // Add extra padding to ensure content is not hidden
+        setTopPadding(totalHeight + (isMobile ? 10 : 20))
+      } else {
+        // Fallback padding if elements not found
+        setTopPadding(isMobile ? 100 : 220)
       }
     }
 
+    // Calculate immediately
     calculatePadding()
+    
+    // Recalculate after delays to ensure DOM is ready
+    const timeout1 = setTimeout(calculatePadding, 100)
+    const timeout2 = setTimeout(calculatePadding, 300)
+    const timeout3 = setTimeout(calculatePadding, 500)
+    
     window.addEventListener('resize', calculatePadding)
-    setTimeout(calculatePadding, 100)
 
     return () => {
+      clearTimeout(timeout1)
+      clearTimeout(timeout2)
+      clearTimeout(timeout3)
       window.removeEventListener('resize', calculatePadding)
     }
   }, [])
@@ -82,7 +113,7 @@ export default function AboutUsPage() {
           </p>
 
           {/* Three Icons */}
-          <div className="flex items-center justify-center gap-6 md:gap-8 mb-8">
+          <div className="flex items-center justify-center gap-6 md:gap-8 mb-4">
             {/* Beaker with Leaf Icon - Premium Products */}
             <div className="w-16 h-16 md:w-20 md:h-20 rounded-full border-2 border-white flex items-center justify-center bg-white/10 backdrop-blur-sm">
               <svg className="w-8 h-8 md:w-10 md:h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -115,7 +146,7 @@ export default function AboutUsPage() {
           {/* Contact Us Button */}
           <Link
             href="/contact"
-            className="inline-block bg-gradient-to-r from-[#C8A2C8] to-[#87CEEB] text-white px-8 py-3 rounded-lg font-semibold hover:opacity-90 transition-opacity duration-300 shadow-lg"
+            className="inline-block bg-gradient-to-r from-[#C8A2C8] to-[#87CEEB] text-white px-8 py-3 rounded-lg font-semibold hover:opacity-90 transition-opacity duration-300 shadow-lg mt-4"
           >
             Contact Us
           </Link>

@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useMemo } from 'react'
 import { useRouter } from 'next/navigation'
 import Header from '@/components/Header'
 import MainNav from '@/components/MainNav'
@@ -12,15 +12,8 @@ import Link from 'next/link'
 import { useAuth } from '@/contexts/AuthContext'
 import { Product } from '@/types'
 
-// Hero banner images
+// Hero banner images - Only 3 banners (removed banner-1)
 const heroSlides = [
-  {
-    id: '1',
-    image: '/banners/banner-1.jpg',
-    title: '',
-    subtitle: '',
-    objectPosition: 'center 60%',
-  },
   {
     id: '2',
     image: '/banners/banner-2.jpg',
@@ -386,6 +379,7 @@ export default function Home() {
   const router = useRouter()
   const { isLoggedIn } = useAuth()
   const [topPadding, setTopPadding] = useState(176) // Default padding
+  const [isMobile, setIsMobile] = useState(false)
   const [featuredProducts, setFeaturedProducts] = useState<Product[]>([])
   const [loadingProducts, setLoadingProducts] = useState(true)
   const [showAuthModal, setShowAuthModal] = useState(false)
@@ -395,19 +389,34 @@ export default function Home() {
   }, [])
 
   useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768)
+    }
+    // Check immediately
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
+
+  useEffect(() => {
     const calculatePadding = () => {
       const header = document.getElementById('main-header')
       const nav = document.getElementById('main-nav')
+      const isMobile = window.innerWidth < 768 // md breakpoint
+      
       if (header && nav) {
         // Get actual heights, accounting for when header might be hidden
         const headerHeight = header.offsetHeight > 0 ? header.offsetHeight : header.scrollHeight
         const navHeight = nav.offsetHeight
-        const totalHeight = headerHeight + navHeight
+        
+        // On mobile, nav is not fixed, so only account for header
+        // On desktop, account for both header and nav
+        const totalHeight = isMobile ? headerHeight : headerHeight + navHeight
         // Add extra padding to ensure content is not hidden
-        setTopPadding(totalHeight + 30)
+        setTopPadding(totalHeight + (isMobile ? 10 : 30))
       } else {
         // Fallback padding if elements not found
-        setTopPadding(220)
+        setTopPadding(isMobile ? 100 : 220)
       }
     }
 
@@ -441,7 +450,8 @@ export default function Home() {
           'Cellulose Sponge',
           'SilkRoma Depilatory Cream Wax',
           'Pumice Stone with Brush',
-          'Gua Sha Stone (Dolphin)'
+          'Gua Sha Stone (Dolphin)',
+          'Makeup Cotton / Cotton Pads'
         ]
         
         // Fetch all products and filter by name
@@ -492,13 +502,14 @@ export default function Home() {
     fetchFeaturedProducts()
   }, [])
 
+
   return (
     <div className="min-h-screen flex flex-col overflow-x-hidden max-w-full">
       <Header />
       <MainNav />
 
       {/* Hero Section - Add padding to account for fixed header and nav */}
-      <section className="w-full px-4 sm:px-6 lg:px-8" style={{ paddingTop: `${topPadding + 135}px` }}>
+      <section className="w-full px-2 sm:px-4 md:px-6 lg:px-8" style={{ paddingTop: `${topPadding}px` }}>
         <Carousel slides={heroSlides} />
       </section>
 
@@ -670,37 +681,42 @@ export default function Home() {
       </section>
 
       {/* Best Sellers & Professional Favorites Section */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
-        <div className="text-left md:text-center mb-4">
-          {/* Mobile heading with line breaks */}
-          <h2 className="md:hidden text-2xl font-bold mb-4 bg-gradient-to-r from-[#C8A2C8] to-[#87CEEB] bg-clip-text text-transparent">
-            BEST SELLERS &<br />
-            PROFESSIONAL FAVORITES
-          </h2>
-          {/* Desktop heading without line breaks */}
-          <h2 className="hidden md:block text-3xl font-bold mb-4 bg-gradient-to-r from-[#C8A2C8] to-[#87CEEB] bg-clip-text text-transparent">
-            BEST SELLERS & PROFESSIONAL FAVORITES
-          </h2>
-          {/* Description with Navigation on left, centered text, and View All Products on right */}
-          <div className="flex flex-col md:flex-row md:items-center gap-4 mb-4 relative">
+      <section className="w-full overflow-x-visible py-8 md:py-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Heading - Centered */}
+          <div className="text-center mb-4">
+            {/* Mobile heading with line breaks */}
+            <h2 className="md:hidden text-2xl font-bold mb-4 bg-gradient-to-r from-[#C8A2C8] to-[#87CEEB] bg-clip-text text-transparent">
+              BEST SELLERS &<br />
+              PROFESSIONAL FAVORITES
+            </h2>
+            {/* Desktop heading without line breaks */}
+            <h2 className="hidden md:block text-3xl font-bold mb-4 bg-gradient-to-r from-[#C8A2C8] to-[#87CEEB] bg-clip-text text-transparent">
+              BEST SELLERS & PROFESSIONAL FAVORITES
+            </h2>
+          </div>
+
+          {/* Description - Centered */}
+          <div className="text-center mb-4">
+            {/* Mobile description with line breaks */}
+            <p className="md:hidden text-gray-600 text-base">
+              Discover our top-selling products frequently<br />
+              ordered by Canadian beauty businesses
+            </p>
+            {/* Desktop description without line breaks */}
+            <p className="hidden md:block text-gray-600 text-lg">
+              Discover our top-selling products frequently ordered by Canadian beauty businesses
+            </p>
+          </div>
+
+          {/* Navigation and View All - Left and Right */}
+          <div className="flex items-center justify-between mb-4">
             {/* Navigation Arrows - Left Side */}
-            <div id="best-sellers-nav" className="flex space-x-2 order-1 md:order-1">
+            <div id="best-sellers-nav" className="flex space-x-2">
               {/* Navigation buttons will be inserted here by ProductSlider */}
             </div>
-            {/* Centered Description */}
-            <div className="flex-1 flex justify-center order-2 md:order-2">
-          {/* Mobile description with line breaks */}
-              <p className="md:hidden text-gray-600 text-base text-center">
-            Discover our top-selling products frequently<br />
-                ordered by Canadian beauty businesses
-          </p>
-          {/* Desktop description without line breaks */}
-              <p className="hidden md:block text-gray-600 text-lg text-center">
-                Discover our top-selling products frequently ordered by Canadian beauty businesses
-              </p>
-            </div>
             {/* View All Products Link - Right Side */}
-            <div className="flex items-center justify-end order-3 md:order-3">
+            <div className="flex items-center">
               <Link
                 href="/products"
                 className="text-[#C8A2C8] hover:text-[#87CEEB] font-semibold transition-colors duration-300 whitespace-nowrap"
@@ -710,11 +726,14 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <BestSellersSlider />
+        <div className="w-full overflow-x-visible px-4 sm:px-6 lg:px-8">
+          <BestSellersSlider />
+        </div>
       </section>
 
       {/* Featured Products Section */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 md:py-6">
+      <section className="w-full overflow-x-visible py-4 md:py-6">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {loadingProducts ? (
           <div className="text-center py-12">
             <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-[#87CEEB]"></div>
@@ -722,33 +741,52 @@ export default function Home() {
           </div>
         ) : featuredProducts.length > 0 ? (
           <div>
-            <div className="mb-6 flex items-center justify-between">
-              <div>
-                <h2 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-[#C8A2C8] to-[#87CEEB] bg-clip-text text-transparent mb-2">
-                  Salon Must-Haves
-                </h2>
-                <p className="text-gray-600 text-base md:text-lg">
-                  Top-rated products for flawless skincare services.
-                </p>
-              </div>
-              <button
-                onClick={() => {
-                  if (isLoggedIn) {
-                    router.push('/recent-searches')
-                  } else {
-                    setShowAuthModal(true)
-                  }
-                }}
-                className="text-[#C8A2C8] hover:text-[#87CEEB] font-semibold transition-colors duration-300 whitespace-nowrap"
-              >
-                View All Products →
-              </button>
+            {/* Heading - Centered */}
+            <div className="text-center mb-4">
+              <h2 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-[#C8A2C8] to-[#87CEEB] bg-clip-text text-transparent mb-2">
+                Salon Must-Haves
+              </h2>
             </div>
-            <ProductSlider products={featuredProducts} title="" />
+
+            {/* Description - Centered */}
+            <div className="text-center mb-4">
+              <p className="text-gray-600 text-base md:text-lg">
+                Top-rated products for flawless skincare services.
+              </p>
+            </div>
+
+            {/* Navigation and View All - Left and Right */}
+            <div className="flex items-center justify-between mb-4">
+              {/* Navigation Arrows - Left Side */}
+              <div id="salon-must-haves-nav" className="flex space-x-2">
+                {/* Navigation buttons will be inserted here by ProductSlider */}
+              </div>
+              {/* View All Products Link - Right Side */}
+              <div className="flex items-center">
+                <button
+                  onClick={() => {
+                    if (isLoggedIn) {
+                      router.push('/recent-searches')
+                    } else {
+                      setShowAuthModal(true)
+                    }
+                  }}
+                  className="text-[#C8A2C8] hover:text-[#87CEEB] font-semibold transition-colors duration-300 whitespace-nowrap"
+                >
+                  View All Products →
+                </button>
+              </div>
+            </div>
           </div>
         ) : (
           <div className="text-center py-12">
             <p className="text-gray-600">No featured products available</p>
+          </div>
+        )}
+        </div>
+        {featuredProducts.length > 0 && (
+          <div className="w-full overflow-x-visible px-4 sm:px-6 lg:px-8">
+            <ProductSlider products={featuredProducts} title="" externalNavContainerId="salon-must-haves-nav" />
           </div>
         )}
       </section>

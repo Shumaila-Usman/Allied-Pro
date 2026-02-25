@@ -234,20 +234,36 @@ export default function SalesOffersPage() {
   }, [productsByCategory])
 
 
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768)
+    }
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
+
   useEffect(() => {
     const calculatePadding = () => {
       const header = document.getElementById('main-header')
       const nav = document.getElementById('main-nav')
+      const isMobile = window.innerWidth < 768 // md breakpoint
+      
       if (header && nav) {
         // Get actual heights, accounting for when header might be hidden
         const headerHeight = header.offsetHeight > 0 ? header.offsetHeight : header.scrollHeight
         const navHeight = nav.offsetHeight
-        const totalHeight = headerHeight + navHeight
+        
+        // On mobile, nav is not fixed, so only account for header
+        // On desktop, account for both header and nav
+        const totalHeight = isMobile ? headerHeight : headerHeight + navHeight
         // Add extra padding to ensure content is not hidden
-        setTopPadding(totalHeight + 20)
+        setTopPadding(totalHeight + (isMobile ? 10 : 20))
       } else {
         // Fallback padding if elements not found
-        setTopPadding(220)
+        setTopPadding(isMobile ? 100 : 220)
       }
     }
 

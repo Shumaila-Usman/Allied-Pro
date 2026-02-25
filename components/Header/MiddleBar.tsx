@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useState, useRef, useEffect } from 'react'
+import { createPortal } from 'react-dom'
 import { useAuth } from '@/contexts/AuthContext'
 import { useCart } from '@/contexts/CartContext'
 import Link from 'next/link'
@@ -441,27 +442,6 @@ export default function MiddleBar() {
                 <div className="mb-6 pb-4 border-b border-gray-200">
                   <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-3">Main Categories</h3>
                   <Link
-                    href={getProductUrl('SKINCARE', true)}
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="block w-full py-3 text-left text-gray-900 font-medium hover:text-primary-400 transition-colors border-b border-gray-100"
-                  >
-                    SKINCARE
-                  </Link>
-                  <Link
-                    href={getProductUrl('SPA PRODUCTS', true)}
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="block w-full py-3 text-left text-gray-900 font-medium hover:text-primary-400 transition-colors border-b border-gray-100"
-                  >
-                    SPA PRODUCTS
-                  </Link>
-                  <Link
-                    href={getProductUrl('NAIL PRODUCTS', true)}
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="block w-full py-3 text-left text-gray-900 font-medium hover:text-primary-400 transition-colors border-b border-gray-100"
-                  >
-                    NAIL PRODUCTS
-                  </Link>
-                  <Link
                     href={getProductUrl('EQUIPMENT', true)}
                     onClick={() => setMobileMenuOpen(false)}
                     className="block w-full py-3 text-left text-gray-900 font-medium hover:text-primary-400 transition-colors border-b border-gray-100"
@@ -476,11 +456,32 @@ export default function MiddleBar() {
                     IMPLEMENTS
                   </Link>
                   <Link
+                    href={getProductUrl('NAIL PRODUCTS', true)}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="block w-full py-3 text-left text-gray-900 font-medium hover:text-primary-400 transition-colors border-b border-gray-100"
+                  >
+                    NAIL PRODUCTS
+                  </Link>
+                  <Link
+                    href={getProductUrl('SPA PRODUCTS', true)}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="block w-full py-3 text-left text-gray-900 font-medium hover:text-primary-400 transition-colors border-b border-gray-100"
+                  >
+                    SPA PRODUCTS
+                  </Link>
+                  <Link
                     href={getProductUrl('FURNITURE', true)}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="block w-full py-3 text-left text-gray-900 font-medium hover:text-primary-400 transition-colors border-b border-gray-100"
+                  >
+                    FURNITURE
+                  </Link>
+                  <Link
+                    href={getProductUrl('SKINCARE', true)}
                     onClick={() => setMobileMenuOpen(false)}
                     className="block w-full py-3 text-left text-gray-900 font-medium hover:text-primary-400 transition-colors"
                   >
-                    FURNITURE
+                    SKINCARE
                   </Link>
                 </div>
                 {/* Database Categories */}
@@ -581,15 +582,28 @@ export default function MiddleBar() {
       )}
 
       {/* Mobile User Sidebar */}
-      {mobileUserSidebarOpen && (
+      {mobileUserSidebarOpen && typeof window !== 'undefined' && createPortal(
         <>
           {/* Backdrop */}
           <div 
-            className="md:hidden fixed inset-0 bg-black bg-opacity-50 z-[60] transition-opacity duration-300"
+            className="md:hidden fixed inset-0 bg-black bg-opacity-50 z-[9998] transition-opacity duration-300"
             onClick={() => setMobileUserSidebarOpen(false)}
+            style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0 }}
           />
           {/* Sidebar */}
-          <div className="md:hidden fixed right-0 top-0 bottom-0 w-[85vw] max-w-sm bg-white z-[70] overflow-y-auto shadow-2xl transform transition-transform duration-300 ease-in-out">
+          <div 
+            className="md:hidden fixed bg-white z-[9999] overflow-y-auto shadow-2xl" 
+            style={{ 
+              position: 'fixed',
+              right: 0, 
+              top: 0, 
+              bottom: 0, 
+              width: '85vw', 
+              maxWidth: '384px', 
+              minWidth: '280px',
+              zIndex: 9999
+            }}
+          >
             <div className="p-6">
               <div className="flex items-center justify-between mb-6">
                 <h2 className="text-xl font-bold text-gray-900">Account</h2>
@@ -689,29 +703,37 @@ export default function MiddleBar() {
               )}
             </div>
           </div>
-        </>
+        </>,
+        document.body
       )}
 
       {/* Mobile Links Sidebar */}
-      {mobileLinksSidebarOpen && (
+      {mobileLinksSidebarOpen && typeof window !== 'undefined' && createPortal(
         <>
           {/* Backdrop */}
           <div 
             className="md:hidden fixed inset-0 bg-black bg-opacity-50 z-[9998] transition-opacity duration-300"
             onClick={() => setMobileLinksSidebarOpen(false)}
+            style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0 }}
           />
           {/* Sidebar */}
-          <div className="md:hidden fixed left-0 top-0 bottom-0 w-[85vw] max-w-sm bg-white z-[9999] overflow-y-auto shadow-2xl">
+          <div 
+            className="md:hidden fixed bg-white z-[9999] overflow-y-auto shadow-2xl" 
+            style={{ 
+              position: 'fixed',
+              right: 0, 
+              top: 0, 
+              bottom: 0, 
+              width: '85vw', 
+              maxWidth: '384px', 
+              minWidth: '280px',
+              zIndex: 9999
+            }}
+          >
             <div className="px-4 py-4">
               {/* Header */}
               <div className="flex items-center justify-between mb-6">
-                <Link href="/" className="flex flex-col">
-                  <span className="text-xl font-bold text-primary-600">ACBS</span>
-                  <span className="text-[10px] text-gray-600 leading-tight">ALLIED CONCEPT BEAUTY SUPPLY</span>
-                </Link>
-                <div className="flex-1 flex justify-center">
-                  <h2 className="text-2xl font-bold text-gray-900">Menu</h2>
-                </div>
+                <h2 className="text-2xl font-bold text-gray-900">Menu</h2>
                 <button
                   onClick={() => setMobileLinksSidebarOpen(false)}
                   className="p-2 text-gray-500 hover:text-gray-700"
@@ -752,24 +774,11 @@ export default function MiddleBar() {
                 >
                   Training & Education
                 </Link>
-                <Link
-                  href="/wishlist"
-                  className="block w-full text-left px-4 py-3 text-base text-gray-700 hover:bg-gray-100 rounded-lg transition-colors duration-300"
-                  onClick={() => setMobileLinksSidebarOpen(false)}
-                >
-                  Wish List
-                </Link>
-                <Link
-                  href="/cart"
-                  className="block w-full text-left px-4 py-3 text-base text-gray-700 hover:bg-gray-100 rounded-lg transition-colors duration-300"
-                  onClick={() => setMobileLinksSidebarOpen(false)}
-                >
-                  Cart
-                </Link>
               </div>
             </div>
           </div>
-        </>
+        </>,
+        document.body
       )}
       <LoginModal isOpen={showLoginModal} onClose={() => setShowLoginModal(false)} />
     </>

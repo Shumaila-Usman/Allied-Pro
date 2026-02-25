@@ -118,68 +118,68 @@ export default function ProductSlider({ products, title, externalNavContainerId 
   }
 
   return (
-    <div className="relative">
+    <div className="relative w-full overflow-visible">
       {title && (
         <div className="mb-6">
           <h2 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-[#C8A2C8] to-[#87CEEB] bg-clip-text text-transparent">{title}</h2>
         </div>
       )}
       {!title && !externalNavContainerId && (
-        <div className="flex items-center justify-end mb-4 -mt-12 md:-mt-10">
-          <div className="flex space-x-2">
-            <button
-              onClick={() => scroll('left')}
-              disabled={!canScrollLeft}
-              className="p-2 rounded-full border border-gray-300 hover:border-primary-400 hover:text-primary-400 transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
-              aria-label="Scroll left"
-            >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-              </svg>
-            </button>
-            <button
-              onClick={() => scroll('right')}
-              disabled={!canScrollRight}
-              className="p-2 rounded-full border border-gray-300 hover:border-primary-400 hover:text-primary-400 transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
-              aria-label="Scroll right"
-            >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-              </svg>
-            </button>
-          </div>
-        </div>
-      )}
-      {title && (
-        <div className="flex items-center justify-end mb-4">
-          <div className="flex space-x-2">
-            <button
-              onClick={() => scroll('left')}
-              disabled={!canScrollLeft}
-              className="p-2 rounded-full border border-gray-300 hover:border-primary-400 hover:text-primary-400 transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
-              aria-label="Scroll left"
-            >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-              </svg>
-            </button>
-            <button
-              onClick={() => scroll('right')}
-              disabled={!canScrollRight}
-              className="p-2 rounded-full border border-gray-300 hover:border-primary-400 hover:text-primary-400 transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
-              aria-label="Scroll right"
-            >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-              </svg>
-            </button>
-          </div>
-        </div>
-      )}
+            <div className="flex items-center justify-end mb-4 -mt-12 md:-mt-10">
+              <div className="flex space-x-2">
+                <button
+                  onClick={() => scroll('left')}
+                  disabled={!canScrollLeft}
+                  className="p-2 rounded-full border border-gray-300 hover:border-primary-400 hover:text-primary-400 transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                  aria-label="Scroll left"
+                >
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                  </svg>
+                </button>
+                <button
+                  onClick={() => scroll('right')}
+                  disabled={!canScrollRight}
+                  className="p-2 rounded-full border border-gray-300 hover:border-primary-400 hover:text-primary-400 transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                  aria-label="Scroll right"
+                >
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </button>
+              </div>
+            </div>
+          )}
+          {title && (
+            <div className="flex items-center justify-end mb-4">
+              <div className="flex space-x-2">
+                <button
+                  onClick={() => scroll('left')}
+                  disabled={!canScrollLeft}
+                  className="p-2 rounded-full border border-gray-300 hover:border-primary-400 hover:text-primary-400 transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                  aria-label="Scroll left"
+                >
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                  </svg>
+                </button>
+                <button
+                  onClick={() => scroll('right')}
+                  disabled={!canScrollRight}
+                  className="p-2 rounded-full border border-gray-300 hover:border-primary-400 hover:text-primary-400 transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                  aria-label="Scroll right"
+                >
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </button>
+              </div>
+            </div>
+          )}
       <div
         ref={scrollRef}
         className="flex space-x-6 overflow-x-auto scrollbar-hide scroll-smooth pb-4 snap-x snap-mandatory"
-        style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+        style={{ scrollbarWidth: 'none', msOverflowStyle: 'none', WebkitOverflowScrolling: 'touch' }}
         onScroll={checkScrollButtons}
       >
         {products.map((product) => (

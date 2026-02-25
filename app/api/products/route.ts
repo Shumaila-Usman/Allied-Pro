@@ -239,7 +239,84 @@ export async function GET(request: NextRequest) {
     }
     const productsCollection = db.collection('products')
     
-    if (usesOldSchema) {
+    // PRIORITY FIX: If we have categoryId (root category only), try new schema first
+    let categoryHandled = false
+    if (categoryId && !subcategoryId && !secondSubcategoryId) {
+      // NEW SCHEMA PATH: Handle root category directly with new schema approach
+      console.log('=== TRYING NEW SCHEMA QUERY FIRST (root category) ===')
+      
+      // Find root category
+      let rootCategory = await Category.findOne({ slug: categoryId, level: 0 })
+      if (!rootCategory) {
+        rootCategory = await Category.findOne({ slug: { $regex: `^${categoryId}`, $options: 'i' }, level: 0 })
+      }
+      if (!rootCategory) {
+        const categoryName = categoryId.replace(/-/g, ' ').toUpperCase()
+        rootCategory = await Category.findOne({ 
+          name: { $regex: new RegExp(`^${categoryName}`, 'i') },
+          level: 0 
+        })
+      }
+      
+      if (rootCategory) {
+        console.log('✅ Root category found:', rootCategory.name, 'ID:', rootCategory._id.toString())
+        
+        // Get ALL descendant categories recursively
+        const getAllDescendantIds = async (parentId: mongoose.Types.ObjectId): Promise<mongoose.Types.ObjectId[]> => {
+          const children = await Category.find({ parent: parentId }).lean()
+          let allIds: mongoose.Types.ObjectId[] = [parentId]
+          for (const child of children) {
+            const childIds = await getAllDescendantIds(child._id)
+            allIds = allIds.concat(childIds)
+          }
+          return allIds
+        }
+        
+        const allCategoryIds = await getAllDescendantIds(rootCategory._id)
+        console.log('✅ All category IDs (root + descendants):', allCategoryIds.length)
+        
+        // Use simple query with new schema
+        if (allCategoryIds.length > 0) {
+          // Test query first (without isActive)
+          const testQueryNoActive = { category: { $in: allCategoryIds } }
+          const testCountNoActive = await productsCollection.countDocuments(testQueryNoActive)
+          console.log('✅ Test: Products with category field (new schema, no isActive):', testCountNoActive)
+          
+          // Test with isActive
+          const testQuery = { 
+            $and: [
+              { category: { $in: allCategoryIds } },
+              isActiveCondition
+            ]
+          }
+          const testCount = await productsCollection.countDocuments(testQuery)
+          console.log('✅ Test: Products with category field (new schema, with isActive):', testCount)
+          
+          if (testCount > 0) {
+            // Use simple query with isActive
+            if (!query.$and) {
+              query.$and = []
+            }
+            query.$and.push({ category: { $in: allCategoryIds } })
+            console.log('✅ Applied new schema category filter (with isActive)')
+            categoryHandled = true
+          } else if (testCountNoActive > 0) {
+            // Use simple query without isActive
+            if (!query.$and) {
+              query.$and = []
+            }
+            query.$and.push({ category: { $in: allCategoryIds } })
+            console.log('✅ Applied new schema category filter (without isActive)')
+            categoryHandled = true
+          } else {
+            console.log('⚠️ No products with new schema, will try old schema...')
+          }
+        }
+      }
+    }
+    
+    // Only use old schema path if category wasn't handled by new schema OR if we have subcategory/secondSubcategory
+    if (!categoryHandled) {
       // OLD SCHEMA: Products have categoryId, subcategoryId, secondSubcategoryId as string ObjectIds
       console.log('=== USING OLD SCHEMA QUERY ===')
       
@@ -650,7 +727,25 @@ export async function GET(request: NextRequest) {
         
         if (rootCategory) {
           console.log('✅ Root category found:', rootCategory.name, 'ID:', rootCategory._id.toString(), 'Slug:', rootCategory.slug)
-          // Get all descendants recursively and find leaf categories
+          
+          // SIMPLIFIED APPROACH: Get ALL descendant categories recursively (not just leaves)
+          // This ensures we catch all products regardless of which level category they're stored with
+          const getAllDescendantIds = async (parentId: mongoose.Types.ObjectId): Promise<mongoose.Types.ObjectId[]> => {
+            const children = await Category.find({ parent: parentId }).lean()
+            let allIds: mongoose.Types.ObjectId[] = [parentId] // Include parent itself
+            
+            for (const child of children) {
+              const childIds = await getAllDescendantIds(child._id)
+              allIds = allIds.concat(childIds)
+            }
+            
+            return allIds
+          }
+          
+          const allCategoryIds = await getAllDescendantIds(rootCategory._id)
+          console.log('✅ All category IDs (root + all descendants):', allCategoryIds.length)
+          
+          // Get all descendants recursively and find leaf categories (for old schema compatibility)
           const allLeafIds: string[] = []
           const allSubcategoryIds: string[] = [] // Level 1 subcategories
           const rootCategoryId = rootCategory._id.toString()
@@ -734,6 +829,12 @@ export async function GET(request: NextRequest) {
           // Build comprehensive list of all leaf category IDs (including subcategories that are leaves)
           const allLeafCategoryIds = Array.from(new Set(allLeafIds)) // Start with level 2 leaves
           
+          // IMPORTANT: Also include root category ID in case some products are stored with root category
+          if (!allLeafCategoryIds.includes(rootCategoryId)) {
+            allLeafCategoryIds.push(rootCategoryId)
+            console.log('✅ Added root category ID to leaf list:', rootCategoryId)
+          }
+          
           // Also check if any subcategories are leaves (no children) - important for furniture
           for (const subId of allSubcategoryIds) {
             const hasChildren = await Category.findOne({ parent: new mongoose.Types.ObjectId(subId) })
@@ -746,25 +847,30 @@ export async function GET(request: NextRequest) {
             }
           }
           
-          console.log('Total leaf categories (including leaf subcategories):', allLeafCategoryIds.length)
+          console.log('Total leaf categories (including root and leaf subcategories):', allLeafCategoryIds.length)
           console.log('Leaf IDs:', allLeafCategoryIds.slice(0, 10), '...')
           
-          // NEW SCHEMA: Check by category field (ObjectId pointing to leaf categories)
-          if (allLeafCategoryIds.length > 0) {
-            // Convert string IDs to ObjectIds for new schema
-            const leafObjectIds = allLeafCategoryIds.map(id => {
-              try {
-                return new mongoose.Types.ObjectId(id)
-              } catch (e) {
-                console.log('⚠️ Invalid ObjectId:', id)
-                return null
-              }
-            }).filter(id => id !== null)
+          // NEW SCHEMA: Check by category field (ObjectId pointing to ANY category in the tree)
+          // Use ALL category IDs (root + all descendants) for maximum coverage
+          // This is the PRIMARY query - should catch all products
+          if (allCategoryIds.length > 0) {
+            orConditions.push({ category: { $in: allCategoryIds } })
+            console.log('✅ Added new schema category filter with', allCategoryIds.length, 'category ObjectIds (root + all descendants)')
             
-            if (leafObjectIds.length > 0) {
-              orConditions.push({ category: { $in: leafObjectIds } })
-              console.log('✅ Added new schema category filter with', leafObjectIds.length, 'leaf category ObjectIds')
+            // Test this query immediately to see if it works
+            const testQuery = { 
+              $and: [
+                { category: { $in: allCategoryIds } },
+                isActiveCondition
+              ]
             }
+            const testCount = await productsCollection.countDocuments(testQuery)
+            console.log('✅ Test: Products with category field (new schema, all categories):', testCount)
+            
+            // Also test without isActive
+            const testQueryNoActive = { category: { $in: allCategoryIds } }
+            const testCountNoActive = await productsCollection.countDocuments(testQueryNoActive)
+            console.log('✅ Test: Products with category field (no isActive):', testCountNoActive)
           }
           
           // OLD SCHEMA: Check by categoryId (ObjectId or slug)
@@ -796,7 +902,49 @@ export async function GET(request: NextRequest) {
             console.log('✅ Added secondSubcategoryId filter with', uniqueLeafSlugs.length, 'leaf slugs')
           }
           
-          if (orConditions.length > 0) {
+          // PRIORITY: If we have allCategoryIds, use a simpler query that prioritizes new schema
+          if (allCategoryIds.length > 0) {
+            // Build a simpler query that prioritizes the category field (new schema)
+            const simpleCategoryQuery = {
+              $and: [
+                { category: { $in: allCategoryIds } },
+                isActiveCondition
+              ]
+            }
+            
+            // Test this query first
+            const simpleCount = await productsCollection.countDocuments(simpleCategoryQuery)
+            console.log('✅ Test: Simple category query (new schema):', simpleCount)
+            
+            if (simpleCount > 0) {
+              // Use the simple query - it works!
+              console.log('✅ Using simple category query (new schema only)')
+              if (!query.$and) {
+                query.$and = []
+              }
+              // Replace any existing category filters with the simple one
+              query.$and = query.$and.filter((cond: any) => 
+                !cond || !cond.$or || !cond.$or.some((orCond: any) => orCond.category)
+              )
+              query.$and.push({ category: { $in: allCategoryIds } })
+            } else {
+              // Simple query didn't work, use the complex one with all conditions
+              if (orConditions.length > 0) {
+                if (!query.$and) {
+                  query.$and = []
+                }
+                query.$and.push({ $or: orConditions })
+                console.log('✅ Using complex query with all field combinations:', {
+                  rootCategoryId,
+                  categorySlug: categoryId,
+                  allCategories: allCategoryIds.length,
+                  leafCategories: allLeafCategoryIds.length,
+                  subcategories: allSubcategoryIds.length,
+                  totalOrConditions: orConditions.length
+                })
+              }
+            }
+          } else if (orConditions.length > 0) {
             if (!query.$and) {
               query.$and = []
             }
@@ -1422,7 +1570,7 @@ export async function GET(request: NextRequest) {
         total = await productsCollection.countDocuments(processedQuery)
         console.log('Products after filters (native collection):', total)
         
-        // If no products found, try a simpler query to debug
+        // If no products found, try a simpler query to debug AND FIX
         if (total === 0 && categoryId) {
           console.log('⚠️ No products found with full query, trying simpler queries for debugging...')
           
@@ -1432,64 +1580,123 @@ export async function GET(request: NextRequest) {
             rootCategory = await Category.findOne({ slug: { $regex: `^${categoryId}`, $options: 'i' }, level: 0 })
           }
           
+          // Also try by name
+          if (!rootCategory) {
+            const categoryName = categoryId.replace(/-/g, ' ').toUpperCase()
+            rootCategory = await Category.findOne({ 
+              name: { $regex: new RegExp(`^${categoryName}`, 'i') },
+              level: 0 
+            })
+          }
+          
           if (rootCategory) {
-            console.log('  - Root category found:', rootCategory.name)
+            console.log('  - Root category found:', rootCategory.name, 'Slug:', rootCategory.slug)
             
-            // Get all leaf categories
-            const level1Children = await Category.find({ parent: rootCategory._id }).lean()
-            const leafCategories: mongoose.Types.ObjectId[] = []
-            
-            for (const level1Child of level1Children) {
-              const hasLevel1Children = await Category.findOne({ parent: level1Child._id })
-              if (!hasLevel1Children) {
-                leafCategories.push(level1Child._id)
-              } else {
-                const level2Children = await Category.find({ parent: level1Child._id }).lean()
-                for (const level2Child of level2Children) {
-                  const hasLevel2Children = await Category.findOne({ parent: level2Child._id })
-                  if (!hasLevel2Children) {
-                    leafCategories.push(level2Child._id)
-                  }
-                }
+            // Get ALL categories under this root (recursive)
+            const getAllDescendantIds = async (parentId: mongoose.Types.ObjectId): Promise<mongoose.Types.ObjectId[]> => {
+              const children = await Category.find({ parent: parentId }).lean()
+              let allIds: mongoose.Types.ObjectId[] = [parentId] // Include parent itself
+              
+              for (const child of children) {
+                const childIds = await getAllDescendantIds(child._id)
+                allIds = allIds.concat(childIds)
               }
+              
+              return allIds
             }
             
-            console.log('  - Leaf categories found:', leafCategories.length)
+            const allCategoryIds = await getAllDescendantIds(rootCategory._id)
+            console.log('  - All category IDs found (including root and all descendants):', allCategoryIds.length)
             
-            // Try querying with just the category field (new schema)
-            if (leafCategories.length > 0) {
+            // Try querying with just the category field (new schema) - THIS IS THE FIX
+            if (allCategoryIds.length > 0) {
               const simpleCategoryQuery = { 
                 $and: [
-                  { category: { $in: leafCategories } },
+                  { category: { $in: allCategoryIds } },
                   isActiveCondition
                 ]
               }
               const simpleCount = await productsCollection.countDocuments(simpleCategoryQuery)
-              console.log('  - Products with category field (new schema):', simpleCount)
+              console.log('  - Products with category field (new schema, all descendants):', simpleCount)
               
               // Also try without isActive filter
-              const simpleCategoryQueryNoActive = { category: { $in: leafCategories } }
+              const simpleCategoryQueryNoActive = { category: { $in: allCategoryIds } }
               const simpleCountNoActive = await productsCollection.countDocuments(simpleCategoryQueryNoActive)
               console.log('  - Products with category field (no isActive filter):', simpleCountNoActive)
+              
+              // IF SIMPLE QUERY WORKS, USE IT INSTEAD
+              if (simpleCount > 0) {
+                console.log('✅ FIX: Using simpler query with isActive filter!')
+                query = {
+                  $and: [
+                    { category: { $in: allCategoryIds } },
+                    isActiveCondition
+                  ]
+                }
+                total = simpleCount
+                console.log('✅ Fixed query total:', total)
+              } else if (simpleCountNoActive > 0) {
+                console.log('✅ FIX: Using simpler query WITHOUT isActive filter (products exist but isActive might be false/missing)!')
+                query = {
+                  category: { $in: allCategoryIds }
+                }
+                total = simpleCountNoActive
+                console.log('✅ Fixed query total (no isActive):', total)
+              }
+            }
+            
+            // If still 0, try old schema
+            if (total === 0 && rootCategory) {
+              console.log('  - Still 0 products, trying old schema fields...')
+              const oldSchemaQuery = { 
+                $and: [
+                  { $or: [
+                    { categoryId: categoryId },
+                    { categoryId: rootCategory.slug }
+                  ]},
+                  isActiveCondition
+                ]
+              }
+              const oldSchemaCount = await productsCollection.countDocuments(oldSchemaQuery)
+              console.log('  - Products with categoryId only (old schema, with isActive):', oldSchemaCount)
+              
+              // Also try without isActive
+              const oldSchemaQueryNoActive = { 
+                $or: [
+                  { categoryId: categoryId },
+                  { categoryId: rootCategory.slug }
+                ]
+              }
+              const oldSchemaCountNoActive = await productsCollection.countDocuments(oldSchemaQueryNoActive)
+              console.log('  - Products with categoryId only (old schema, no isActive):', oldSchemaCountNoActive)
+              
+              if (oldSchemaCount > 0) {
+                console.log('✅ FIX: Using old schema query with isActive!')
+                query = oldSchemaQuery
+                total = oldSchemaCount
+              } else if (oldSchemaCountNoActive > 0) {
+                console.log('✅ FIX: Using old schema query WITHOUT isActive!')
+                query = oldSchemaQueryNoActive
+                total = oldSchemaCountNoActive
+              }
             }
           } else {
-            console.log('  - Root category not found for debugging')
+            console.log('  - Root category not found for:', categoryId)
+            // List all available root categories for debugging
+            const allRootCategories = await Category.find({ level: 0 }).select('name slug').lean()
+            console.log('  - Available root categories:', allRootCategories.map((c: any) => ({ name: c.name, slug: c.slug })))
           }
-          
-          // Try just old schema fields
-          const oldSchemaQuery = { 
-            $and: [
-              { $or: [
-                { categoryId: categoryId }
-              ]},
-              isActiveCondition
-            ]
-          }
-          const oldSchemaCount = await productsCollection.countDocuments(oldSchemaQuery)
-          console.log('  - Products with categoryId only (old schema):', oldSchemaCount)
         }
         
-        products = await productsCollection.find(processedQuery)
+        // Use the updated query (might have been fixed above)
+        const finalQuery = JSON.parse(JSON.stringify(query, (key, value) => {
+          if (value && typeof value === 'object' && value.constructor && value.constructor.name === 'ObjectId') {
+            return value
+          }
+          return value
+        }))
+        
+        products = await productsCollection.find(finalQuery)
           .sort({ createdAt: -1 })
           .skip((page - 1) * limit)
           .limit(limit)

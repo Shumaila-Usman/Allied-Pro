@@ -386,45 +386,76 @@ export default function ProductsPage() {
     totalPages: 0,
   })
 
-  // Filters - read from URL params
+  // Filters - read from URL params (support both category and categoryId)
   const [selectedCategory, setSelectedCategory] = useState<string>(
-    searchParams.get('category') || ''
+    searchParams.get('categoryId') || searchParams.get('category') || ''
   )
   const [selectedSubcategory, setSelectedSubcategory] = useState<string>(
-    searchParams.get('subcategory') || ''
+    searchParams.get('subcategoryId') || searchParams.get('subcategory') || ''
   )
   const [selectedSecondSubcategory, setSelectedSecondSubcategory] = useState<string>(
-    searchParams.get('secondSubcategory') || ''
+    searchParams.get('secondSubcategoryId') || searchParams.get('secondSubcategory') || ''
   )
 
   // Update filters when URL params change
   useEffect(() => {
-    setSelectedCategory(searchParams.get('category') || '')
-    setSelectedSubcategory(searchParams.get('subcategory') || '')
-    setSelectedSecondSubcategory(searchParams.get('secondSubcategory') || '')
+    setSelectedCategory(searchParams.get('categoryId') || searchParams.get('category') || '')
+    setSelectedSubcategory(searchParams.get('subcategoryId') || searchParams.get('subcategory') || '')
+    setSelectedSecondSubcategory(searchParams.get('secondSubcategoryId') || searchParams.get('secondSubcategory') || '')
   }, [searchParams])
   const [searchQuery, setSearchQuery] = useState<string>(searchParams.get('search') || '')
   const [minPrice, setMinPrice] = useState<string>(searchParams.get('minPrice') || '')
   const [maxPrice, setMaxPrice] = useState<string>(searchParams.get('maxPrice') || '')
   const [topPadding, setTopPadding] = useState(176) // Default padding
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false) // Mobile filters toggle
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768)
+    }
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
 
   // Calculate header padding
   useEffect(() => {
     const calculatePadding = () => {
       const header = document.getElementById('main-header')
       const nav = document.getElementById('main-nav')
+      const isMobile = window.innerWidth < 768 // md breakpoint
+      
       if (header && nav) {
-        const totalHeight = header.offsetHeight + nav.offsetHeight
-        setTopPadding(totalHeight)
+        // Get actual heights, accounting for when header might be hidden
+        const headerHeight = header.offsetHeight > 0 ? header.offsetHeight : header.scrollHeight
+        const navHeight = nav.offsetHeight
+        
+        // On mobile, nav is not fixed, so only account for header
+        // On desktop, account for both header and nav
+        const totalHeight = isMobile ? headerHeight : headerHeight + navHeight
+        // Add extra padding to ensure content is not hidden
+        setTopPadding(totalHeight + (isMobile ? 10 : 32))
+      } else {
+        // Fallback padding if elements not found
+        setTopPadding(isMobile ? 100 : 220)
       }
     }
 
+    // Calculate immediately
     calculatePadding()
+    
+    // Recalculate after delays to ensure DOM is ready
+    const timeout1 = setTimeout(calculatePadding, 100)
+    const timeout2 = setTimeout(calculatePadding, 300)
+    const timeout3 = setTimeout(calculatePadding, 500)
+    
     window.addEventListener('resize', calculatePadding)
-    setTimeout(calculatePadding, 100)
 
     return () => {
+      clearTimeout(timeout1)
+      clearTimeout(timeout2)
+      clearTimeout(timeout3)
       window.removeEventListener('resize', calculatePadding)
     }
   }, [])
@@ -617,8 +648,10 @@ export default function ProductsPage() {
     const params = new URLSearchParams()
     
     // Use categoryId, subcategoryId, secondSubcategoryId for API
+    // Also send 'category' parameter (slug) for compatibility
     if (selectedCategory) {
       params.set('categoryId', selectedCategory)
+      params.set('category', selectedCategory) // Also send as 'category' for API compatibility
       console.log('🔴 Fetching products with categoryId:', selectedCategory)
     }
     if (selectedSubcategory) {
@@ -881,7 +914,7 @@ export default function ProductsPage() {
       <Header />
       <MainNav />
 
-      <div className="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full" style={{ paddingTop: `${topPadding + 32}px` }}>
+      <div className="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full" style={{ paddingTop: `${topPadding}px` }}>
         {/* Mobile Search Bar - Above Filters Row */}
         <div className="lg:hidden mb-4">
           <form onSubmit={handleSearch} className="bg-white rounded-lg shadow-sm p-4">
@@ -923,7 +956,7 @@ export default function ProductsPage() {
             </div>
 
             {/* Filters Content - Collapsible on Mobile, Always visible on Desktop */}
-            <div className={`bg-white rounded-lg shadow-sm ${mobileFiltersOpen ? 'block' : 'hidden'} lg:block p-6 sticky`} style={{ top: `${topPadding + 16}px` }}>
+            <div className={`bg-white rounded-lg shadow-sm ${mobileFiltersOpen ? 'block' : 'hidden'} lg:block p-6 sticky`} style={{ top: isMobile ? `${topPadding + 8}px` : `${topPadding + 16}px` }}>
               <h2 className="text-xl font-bold mb-4 bg-gradient-to-r from-[#C8A2C8] to-[#87CEEB] bg-clip-text text-transparent hidden lg:block">
                 Filters
               </h2>

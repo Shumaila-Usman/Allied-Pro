@@ -8,9 +8,19 @@ import Link from 'next/link'
 
 export default function CertificationsPage() {
   const [topPadding, setTopPadding] = useState(176)
+  const [isMobile, setIsMobile] = useState(false)
 
   useEffect(() => {
     document.title = 'Certifications - Allied Concept Beauty Supplies'
+  }, [])
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768)
+    }
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
   }, [])
 
   useEffect(() => {
@@ -18,16 +28,32 @@ export default function CertificationsPage() {
       const header = document.getElementById('main-header')
       const nav = document.getElementById('main-nav')
       if (header && nav) {
-        const totalHeight = header.offsetHeight + nav.offsetHeight
-        setTopPadding(totalHeight)
+        // Get actual heights, accounting for when header might be hidden
+        const headerHeight = header.offsetHeight > 0 ? header.offsetHeight : header.scrollHeight
+        const navHeight = nav.offsetHeight
+        const totalHeight = headerHeight + navHeight
+        
+        // Only update if we have valid heights
+        if (totalHeight > 0) {
+          setTopPadding(totalHeight)
+        }
       }
     }
 
+    // Calculate immediately
     calculatePadding()
+    
+    // Recalculate after delays to ensure DOM is ready
+    const timeout1 = setTimeout(calculatePadding, 100)
+    const timeout2 = setTimeout(calculatePadding, 300)
+    const timeout3 = setTimeout(calculatePadding, 500)
+    
     window.addEventListener('resize', calculatePadding)
-    setTimeout(calculatePadding, 100)
 
     return () => {
+      clearTimeout(timeout1)
+      clearTimeout(timeout2)
+      clearTimeout(timeout3)
       window.removeEventListener('resize', calculatePadding)
     }
   }, [])
@@ -209,7 +235,7 @@ export default function CertificationsPage() {
       <Header />
       <MainNav />
 
-      <div className="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-16 w-full" style={{ paddingTop: `${topPadding + 24}px` }}>
+      <div className="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-16 w-full" style={{ paddingTop: isMobile ? `${topPadding + 4}px` : `${topPadding + 24}px` }}>
         {/* Page Title */}
         <div className="text-center mb-8 sm:mb-12">
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-4 sm:mb-6 px-2">
@@ -369,6 +395,7 @@ export default function CertificationsPage() {
     </div>
   )
 }
+
 
 
 

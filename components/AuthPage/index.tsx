@@ -146,22 +146,53 @@ export default function AuthPage({ initialMode }: AuthPageProps) {
   }
 
   const [topPadding, setTopPadding] = useState(176) // Default padding
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768)
+    }
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
 
   useEffect(() => {
     const calculatePadding = () => {
       const header = document.getElementById('main-header')
       const nav = document.getElementById('main-nav')
+      const isMobile = window.innerWidth < 768 // md breakpoint
+      
       if (header && nav) {
-        const totalHeight = header.offsetHeight + nav.offsetHeight
-        setTopPadding(totalHeight)
+        // Get actual heights, accounting for when header might be hidden
+        const headerHeight = header.offsetHeight > 0 ? header.offsetHeight : header.scrollHeight
+        const navHeight = nav.offsetHeight
+        
+        // On mobile, nav is not fixed, so only account for header
+        // On desktop, account for both header and nav
+        const totalHeight = isMobile ? headerHeight : headerHeight + navHeight
+        // Add extra padding to ensure content is not hidden
+        setTopPadding(totalHeight + (isMobile ? 20 : 48))
+      } else {
+        // Fallback padding if elements not found
+        setTopPadding(isMobile ? 120 : 220)
       }
     }
 
+    // Calculate immediately
     calculatePadding()
+    
+    // Recalculate after delays to ensure DOM is ready
+    const timeout1 = setTimeout(calculatePadding, 100)
+    const timeout2 = setTimeout(calculatePadding, 300)
+    const timeout3 = setTimeout(calculatePadding, 500)
+    
     window.addEventListener('resize', calculatePadding)
-    setTimeout(calculatePadding, 100)
 
     return () => {
+      clearTimeout(timeout1)
+      clearTimeout(timeout2)
+      clearTimeout(timeout3)
       window.removeEventListener('resize', calculatePadding)
     }
   }, [])
@@ -170,7 +201,7 @@ export default function AuthPage({ initialMode }: AuthPageProps) {
     <div className="min-h-screen bg-gray-50 flex flex-col">
       <Header />
       <MainNav />
-      <div className="flex-1 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8" style={{ paddingTop: `${topPadding + 48}px` }}>
+      <div className="flex-1 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8" style={{ paddingTop: `${topPadding}px` }}>
         <div className="max-w-6xl w-full">
           {/* Mobile: Simple Form */}
           <div className="md:hidden w-full max-w-md mx-auto">

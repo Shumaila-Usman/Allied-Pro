@@ -91,10 +91,20 @@ export default function MainNav() {
   const { isScrolledDown } = useScroll()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [headerHeight, setHeaderHeight] = useState(80) // Default height to prevent hydration issues
+  const [isMobile, setIsMobile] = useState(false)
   const [categories, setCategories] = useState<Category[]>([])
   const [expandedCategories, setExpandedCategories] = useState<Set<string>>(new Set())
   const [expandedSubcategories, setExpandedSubcategories] = useState<Set<string>>(new Set())
   const [forceUpdate, setForceUpdate] = useState(0) // Force re-render
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768)
+    }
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
 
   useEffect(() => {
     const updateHeaderHeight = () => {
@@ -216,19 +226,41 @@ export default function MainNav() {
   }
 
   return (
-    <nav id="main-nav" className={`bg-black text-white fixed left-0 right-0 transition-all duration-300 ${isScrolledDown ? 'z-50' : 'z-30'}`} style={{ top: isScrolledDown ? '0px' : `${headerHeight}px` }}>
+    <nav 
+      id="main-nav" 
+      className={`bg-black text-white md:fixed relative left-0 right-0 transition-all duration-300 ${isScrolledDown ? 'z-50' : 'z-30'}`} 
+      style={!isMobile ? { top: isScrolledDown ? '0px' : `${headerHeight}px` } : {}}
+    >
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Desktop Navigation - Hidden on mobile */}
         <div className="hidden md:flex items-center justify-center space-x-1">
-          <MegaMenu title="SKINCARE">
-            <div className="grid grid-cols-3 gap-12">
+          <MegaMenu title="EQUIPMENT">
+            <div className="grid grid-cols-2 gap-12">
               <div>
-                <Link href={getProductUrl('SKINCARE', true)} className="text-gray-900 font-semibold text-base mb-4 block hover:text-primary-400 transition-colors duration-300">
-                  All Skincare &gt;
+                <Link href={getProductUrl('EQUIPMENT', true)} className="text-gray-900 font-semibold text-base mb-4 block hover:text-primary-400 transition-colors duration-300">
+                  All Equipment &gt;
                 </Link>
-                <h3 className="font-semibold text-gray-900 mb-3 text-sm uppercase tracking-wide">By Category</h3>
                 <ul className="space-y-2.5">
-                  {menuData.skincare.byCategory.map((item) => (
+                  {menuData.equipment.map((item) => (
+                    <li key={item}>
+                      <Link href={getProductUrl(item)} className="text-gray-700 hover:text-primary-400 transition-colors duration-300 text-sm">
+                        {item}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </MegaMenu>
+
+          <MegaMenu title="IMPLEMENTS">
+            <div className="grid grid-cols-2 gap-12">
+              <div>
+                <Link href={getProductUrl('IMPLEMENTS', true)} className="text-gray-900 font-semibold text-base mb-4 block hover:text-primary-400 transition-colors duration-300">
+                  All Implements &gt;
+                </Link>
+                <ul className="space-y-2.5">
+                  {menuData.implements.slice(0, 4).map((item) => (
                     <li key={item}>
                       <Link href={getProductUrl(item)} className="text-gray-700 hover:text-primary-400 transition-colors duration-300 text-sm">
                         {item}
@@ -238,9 +270,27 @@ export default function MainNav() {
                 </ul>
               </div>
               <div>
-                <h3 className="font-semibold text-gray-900 mb-3 text-sm uppercase tracking-wide">By Concern</h3>
+                <ul className="space-y-2.5 mt-8">
+                  {menuData.implements.slice(4).map((item) => (
+                    <li key={item}>
+                      <Link href={getProductUrl(item)} className="text-gray-700 hover:text-primary-400 transition-colors duration-300 text-sm">
+                        {item}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </MegaMenu>
+
+          <MegaMenu title="NAIL PRODUCTS">
+            <div className="grid grid-cols-2 gap-12">
+              <div>
+                <Link href={getProductUrl('NAIL PRODUCTS', true)} className="text-gray-900 font-semibold text-base mb-4 block hover:text-primary-400 transition-colors duration-300">
+                  All Nail Products &gt;
+                </Link>
                 <ul className="space-y-2.5">
-                  {menuData.skincare.byConcern.map((item) => (
+                  {menuData.nailProducts.slice(0, 4).map((item) => (
                     <li key={item}>
                       <Link href={getProductUrl(item)} className="text-gray-700 hover:text-primary-400 transition-colors duration-300 text-sm">
                         {item}
@@ -250,9 +300,8 @@ export default function MainNav() {
                 </ul>
               </div>
               <div>
-                <h3 className="font-semibold text-gray-900 mb-3 text-sm uppercase tracking-wide">By Skin Type</h3>
-                <ul className="space-y-2.5">
-                  {menuData.skincare.bySkinType.map((item) => (
+                <ul className="space-y-2.5 mt-8">
+                  {menuData.nailProducts.slice(4).map((item) => (
                     <li key={item}>
                       <Link href={getProductUrl(item)} className="text-gray-700 hover:text-primary-400 transition-colors duration-300 text-sm">
                         {item}
@@ -305,85 +354,6 @@ export default function MainNav() {
             </div>
           </MegaMenu>
 
-          <MegaMenu title="NAIL PRODUCTS">
-            <div className="grid grid-cols-2 gap-12">
-              <div>
-                <Link href={getProductUrl('NAIL PRODUCTS', true)} className="text-gray-900 font-semibold text-base mb-4 block hover:text-primary-400 transition-colors duration-300">
-                  All Nail Products &gt;
-                </Link>
-                <ul className="space-y-2.5">
-                  {menuData.nailProducts.slice(0, 4).map((item) => (
-                    <li key={item}>
-                      <Link href={getProductUrl(item)} className="text-gray-700 hover:text-primary-400 transition-colors duration-300 text-sm">
-                        {item}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <div>
-                <ul className="space-y-2.5 mt-8">
-                  {menuData.nailProducts.slice(4).map((item) => (
-                    <li key={item}>
-                      <Link href={getProductUrl(item)} className="text-gray-700 hover:text-primary-400 transition-colors duration-300 text-sm">
-                        {item}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-          </MegaMenu>
-
-          <MegaMenu title="EQUIPMENT">
-            <div className="grid grid-cols-2 gap-12">
-              <div>
-                <Link href={getProductUrl('EQUIPMENT', true)} className="text-gray-900 font-semibold text-base mb-4 block hover:text-primary-400 transition-colors duration-300">
-                  All Equipment &gt;
-                </Link>
-                <ul className="space-y-2.5">
-                  {menuData.equipment.map((item) => (
-                    <li key={item}>
-                      <Link href={getProductUrl(item)} className="text-gray-700 hover:text-primary-400 transition-colors duration-300 text-sm">
-                        {item}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-          </MegaMenu>
-
-          <MegaMenu title="IMPLEMENTS">
-            <div className="grid grid-cols-2 gap-12">
-              <div>
-                <Link href={getProductUrl('IMPLEMENTS', true)} className="text-gray-900 font-semibold text-base mb-4 block hover:text-primary-400 transition-colors duration-300">
-                  All Implements &gt;
-                </Link>
-                <ul className="space-y-2.5">
-                  {menuData.implements.slice(0, 4).map((item) => (
-                    <li key={item}>
-                      <Link href={getProductUrl(item)} className="text-gray-700 hover:text-primary-400 transition-colors duration-300 text-sm">
-                        {item}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <div>
-                <ul className="space-y-2.5 mt-8">
-                  {menuData.implements.slice(4).map((item) => (
-                    <li key={item}>
-                      <Link href={getProductUrl(item)} className="text-gray-700 hover:text-primary-400 transition-colors duration-300 text-sm">
-                        {item}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-          </MegaMenu>
-
           <MegaMenu title="FURNITURE">
             <div className="grid grid-cols-1 gap-12">
               <div>
@@ -392,6 +362,50 @@ export default function MainNav() {
                 </Link>
                 <ul className="space-y-2.5">
                   {menuData.furniture.map((item) => (
+                    <li key={item}>
+                      <Link href={getProductUrl(item)} className="text-gray-700 hover:text-primary-400 transition-colors duration-300 text-sm">
+                        {item}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </MegaMenu>
+
+          <MegaMenu title="SKINCARE">
+            <div className="grid grid-cols-3 gap-12">
+              <div>
+                <Link href={getProductUrl('SKINCARE', true)} className="text-gray-900 font-semibold text-base mb-4 block hover:text-primary-400 transition-colors duration-300">
+                  All Skincare &gt;
+                </Link>
+                <h3 className="font-semibold text-gray-900 mb-3 text-sm uppercase tracking-wide">By Category</h3>
+                <ul className="space-y-2.5">
+                  {menuData.skincare.byCategory.map((item) => (
+                    <li key={item}>
+                      <Link href={getProductUrl(item)} className="text-gray-700 hover:text-primary-400 transition-colors duration-300 text-sm">
+                        {item}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div>
+                <h3 className="font-semibold text-gray-900 mb-3 text-sm uppercase tracking-wide">By Concern</h3>
+                <ul className="space-y-2.5">
+                  {menuData.skincare.byConcern.map((item) => (
+                    <li key={item}>
+                      <Link href={getProductUrl(item)} className="text-gray-700 hover:text-primary-400 transition-colors duration-300 text-sm">
+                        {item}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div>
+                <h3 className="font-semibold text-gray-900 mb-3 text-sm uppercase tracking-wide">By Skin Type</h3>
+                <ul className="space-y-2.5">
+                  {menuData.skincare.bySkinType.map((item) => (
                     <li key={item}>
                       <Link href={getProductUrl(item)} className="text-gray-700 hover:text-primary-400 transition-colors duration-300 text-sm">
                         {item}
@@ -546,57 +560,6 @@ export default function MainNav() {
                 <>
                   <div className="border-b border-gray-800">
                     <Link
-                      href={getProductUrl('SKINCARE', true)}
-                      className="flex items-center py-3 px-4 hover:bg-gray-900 rounded transition-colors duration-300 font-medium"
-                      onClick={() => setMobileMenuOpen(false)}
-                    >
-                      <svg
-                        className="w-5 h-5 mr-3 flex-shrink-0 opacity-50"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                      </svg>
-                      <span className="flex-1 text-left">SKINCARE</span>
-                    </Link>
-                  </div>
-                  <div className="border-b border-gray-800">
-                    <Link
-                      href={getProductUrl('SPA PRODUCTS', true)}
-                      className="flex items-center py-3 px-4 hover:bg-gray-900 rounded transition-colors duration-300 font-medium"
-                      onClick={() => setMobileMenuOpen(false)}
-                    >
-                      <svg
-                        className="w-5 h-5 mr-3 flex-shrink-0 opacity-50"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                      </svg>
-                      <span className="flex-1 text-left">SPA PRODUCTS</span>
-                    </Link>
-                  </div>
-                  <div className="border-b border-gray-800">
-                    <Link
-                      href={getProductUrl('NAIL PRODUCTS', true)}
-                      className="flex items-center py-3 px-4 hover:bg-gray-900 rounded transition-colors duration-300 font-medium"
-                      onClick={() => setMobileMenuOpen(false)}
-                    >
-                      <svg
-                        className="w-5 h-5 mr-3 flex-shrink-0 opacity-50"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                      </svg>
-                      <span className="flex-1 text-left">NAIL PRODUCTS</span>
-                    </Link>
-                  </div>
-                  <div className="border-b border-gray-800">
-                    <Link
                       href={getProductUrl('EQUIPMENT', true)}
                       className="flex items-center py-3 px-4 hover:bg-gray-900 rounded transition-colors duration-300 font-medium"
                       onClick={() => setMobileMenuOpen(false)}
@@ -631,6 +594,40 @@ export default function MainNav() {
                   </div>
                   <div className="border-b border-gray-800">
                     <Link
+                      href={getProductUrl('NAIL PRODUCTS', true)}
+                      className="flex items-center py-3 px-4 hover:bg-gray-900 rounded transition-colors duration-300 font-medium"
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      <svg
+                        className="w-5 h-5 mr-3 flex-shrink-0 opacity-50"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
+                      <span className="flex-1 text-left">NAIL PRODUCTS</span>
+                    </Link>
+                  </div>
+                  <div className="border-b border-gray-800">
+                    <Link
+                      href={getProductUrl('SPA PRODUCTS', true)}
+                      className="flex items-center py-3 px-4 hover:bg-gray-900 rounded transition-colors duration-300 font-medium"
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      <svg
+                        className="w-5 h-5 mr-3 flex-shrink-0 opacity-50"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
+                      <span className="flex-1 text-left">SPA PRODUCTS</span>
+                    </Link>
+                  </div>
+                  <div className="border-b border-gray-800">
+                    <Link
                       href={getProductUrl('FURNITURE', true)}
                       className="flex items-center py-3 px-4 hover:bg-gray-900 rounded transition-colors duration-300 font-medium"
                       onClick={() => setMobileMenuOpen(false)}
@@ -644,6 +641,23 @@ export default function MainNav() {
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                       </svg>
                       <span className="flex-1 text-left">FURNITURE</span>
+                    </Link>
+                  </div>
+                  <div className="border-b border-gray-800">
+                    <Link
+                      href={getProductUrl('SKINCARE', true)}
+                      className="flex items-center py-3 px-4 hover:bg-gray-900 rounded transition-colors duration-300 font-medium"
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      <svg
+                        className="w-5 h-5 mr-3 flex-shrink-0 opacity-50"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
+                      <span className="flex-1 text-left">SKINCARE</span>
                     </Link>
                   </div>
                 </>
