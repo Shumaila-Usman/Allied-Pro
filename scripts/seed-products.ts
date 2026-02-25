@@ -314,7 +314,7 @@ function createProduct(
     description,
     price,
     cost: price * 0.7, // 30% margin for dealers
-    images: [`/products/${name.toLowerCase().replace(/\s+/g, '-')}-1.jpg`],
+    images: [`/products/${name.toLowerCase().replace(/\s+/g, '-').replace(/\//g, '-').replace(/-+/g, '-')}-1.jpg`],
     categoryId,
     subcategoryId,
     secondSubcategoryId,
