@@ -182,7 +182,7 @@ export default function AboutUsPage() {
               Our Mission
             </h2>
             <p className="text-gray-700 leading-relaxed text-lg">
-              To provide beauty professionals with premium industry equipment and high-quality wholesale products they can trust. At Allied Concept Beauty Supply, we support creativity, high performance, and long-term growth. We empower salons and spas with reliable solutions from professional waxing kits to professional nail care products that enhance services, strengthen businesses, and deliver consistent results that drive lasting success.
+              To provide beauty professionals with premium equipment and high-quality wholesale products they can trust. To empower salons and spas with reliable solutions, from waxing kits to nail care products, delivering consistent results and long-term business growth.
             </p>
           </div>
           <div>
@@ -190,7 +190,7 @@ export default function AboutUsPage() {
               Our Vision
             </h2>
             <p className="text-gray-700 leading-relaxed text-lg">
-              To become the leading destination for wholesale beauty innovation, where every professional has access to the tools, education, and support needed to redefine industry standards. We envision a global community of confident stylists and spa experts growing their businesses with purpose. By curating exceptional salon-quality solutions, including brow lamination products wholesale and esthetician spa tools, we aim to be a lifelong partner in turning passion into measurable success.
+              To become the leading destination for wholesale beauty innovation, offering tools, education, and support to redefine industry standards. To help stylists and spa experts grow with purpose, providing exceptional salon-quality solutions that drive success and lasting impact.
             </p>
           </div>
         </div>
@@ -492,7 +492,7 @@ export default function AboutUsPage() {
                 />
               </div>
               <h3 className="text-xl font-bold text-gray-900 mb-3">Pro-Grade Products</h3>
-              <p className="text-gray-700">ACBS offers high quality, salon-tested tools and supplies, from waxing supplies for professionals to hair salon supplies wholesale, ensuring consistent, flawless results.</p>
+              <p className="text-gray-700">ACBS offers high-quality, salon-tested tools and supplies for waxing, hair, nails, and spa services. Every product ensures consistent, flawless results for professionals seeking precision and reliability.</p>
             </div>
             <div className="text-center">
               <div className="relative w-32 h-32 mx-auto mb-4 rounded-lg overflow-hidden shadow-lg">
@@ -504,7 +504,7 @@ export default function AboutUsPage() {
                 />
               </div>
               <h3 className="text-xl font-bold text-gray-900 mb-3">Trusted Industry Experts</h3>
-              <p className="text-gray-700">Backed by years of experience, our products are selected by seasoned estheticians, makeup artists, and educators.</p>
+              <p className="text-gray-700">All products are chosen by experienced estheticians, makeup artists, and educators with industry expertise. They provide professional-grade tools, safety, and effectiveness for every salon and spa.</p>
             </div>
             <div className="text-center">
               <div className="relative w-32 h-32 mx-auto mb-4 rounded-lg overflow-hidden shadow-lg">
@@ -516,7 +516,7 @@ export default function AboutUsPage() {
                 />
               </div>
               <h3 className="text-xl font-bold text-gray-900 mb-3">Wide Selection</h3>
-              <p className="text-gray-700">From waxing supplies for professionals and spa equipment for salons to professional nail care products, brow lamination products wholesale, and esthetician spa tools, ACBS carries all the essentials pros need, all in one convenient location.</p>
+              <p className="text-gray-700">ACBS stocks spa equipment, nail care products, brow lamination tools, and waxing supplies for every professional need. Everything is in one location, supporting efficiency, quality results, and smooth operations.</p>
             </div>
             <div className="text-center">
               <div className="relative w-32 h-32 mx-auto mb-4 rounded-lg overflow-hidden shadow-lg">
@@ -528,7 +528,7 @@ export default function AboutUsPage() {
                 />
               </div>
               <h3 className="text-xl font-bold text-gray-900 mb-3">Business Support</h3>
-              <p className="text-gray-700">Our team understands the beauty industry and provides expert guidance, fast shipping, and ongoing support.</p>
+              <p className="text-gray-700">Our team provides expert guidance, fast shipping, and reliable support for your beauty business. We offer ongoing help, solutions, and personalized advice for successful operations.</p>
             </div>
           </div>
         </div>

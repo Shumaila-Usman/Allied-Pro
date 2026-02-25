@@ -73,3 +73,5 @@ async function updateAllProductImages() {
 // Run the script
 updateAllProductImages()
 
+
+

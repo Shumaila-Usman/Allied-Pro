@@ -103,3 +103,5 @@ async function verifyProductImageNames() {
 // Run the script
 verifyProductImageNames()
 
+
+

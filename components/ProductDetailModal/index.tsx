@@ -458,14 +458,184 @@ export default function ProductDetailModal({ product, isOpen, onClose }: Product
           <div className="space-y-6">
             {/* Product Description */}
             <div className="space-y-4">
-              <h2 className="text-xl font-bold text-gray-900">Description</h2>
-              <div className="space-y-3 text-gray-700 leading-relaxed">
-                <p>{product.description}</p>
-                <p>
-                  {product.name} is a premium product designed for professionals. It ensures quality and durability,
-                  making it an ideal choice for your business needs. This product has been carefully selected to meet
-                  the highest standards in the beauty and spa industry.
-                </p>
+              <h2 className="text-xl font-bold text-gray-900">Product Description</h2>
+              <div className="space-y-4 text-gray-700 leading-relaxed">
+                {(() => {
+                  const description = product.description || ''
+                  
+                  if (!description) {
+                    return <p className="text-gray-500 italic">No description available.</p>
+                  }
+                  
+                  // Helper function to format list items (comma-separated or "and" separated)
+                  const formatAsList = (text: string): string[] => {
+                    let items = text
+                      .split(/,|\s+and\s+|\s+&\s+/i)
+                      .map(item => item.trim())
+                      .filter(item => item.length > 0 && !item.match(/^(include|includes|are|is)$/i))
+                    
+                    items = items.map(item => item.replace(/\.\s*$/, '').trim())
+                    return items.filter(item => item.length > 0)
+                  }
+                  
+                  // Parse description to extract structured sections - ULTRA SIMPLE AND RELIABLE
+                  const parseDescription = (desc: string) => {
+                    const sections: { [key: string]: string | string[] } = {}
+                    
+                    if (!desc || desc.trim().length === 0) {
+                      return sections
+                    }
+                    
+                    const descLower = desc.toLowerCase()
+                    
+                    // 1. OVERVIEW - Everything before "Features" or first sentence
+                    const featuresPos = descLower.indexOf('features')
+                    if (featuresPos > 0) {
+                      sections.overview = desc.substring(0, featuresPos).trim().replace(/\.\s*$/, '')
+                    } else {
+                      const firstSentence = desc.split(/\.\s+/)[0]
+                      sections.overview = firstSentence ? firstSentence.trim() : desc
+                    }
+                    
+                    // 2. SPECIFICATIONS - After "Features" until action verb or "Benefits"
+                    if (featuresPos !== -1) {
+                      const afterFeatures = desc.substring(featuresPos + 8).trim() // +8 for "features"
+                      const benefitsPos = afterFeatures.toLowerCase().indexOf('benefits')
+                      const actionVerbPos = afterFeatures.search(/\b(provide|heat|use|apply|place|brush|dip|wear|slide|wrap|line|insert|cover|mix|roll|gently|soak|melt|fill|turn|maintain|cut|unfold|unroll|tear|fit|adjust|arrange|store|move|wipe|clean|dispose|glide|perform|expand|remove|leave|peel|follow|fold|organize)\s+/i)
+                      
+                      let endPos = afterFeatures.length
+                      if (benefitsPos !== -1 && benefitsPos < endPos) endPos = benefitsPos
+                      if (actionVerbPos !== -1 && actionVerbPos < endPos) endPos = actionVerbPos
+                      
+                      let specsText = afterFeatures.substring(0, endPos).trim()
+                      specsText = specsText.replace(/^[^a-z0-9]+/i, '').trim() // Remove leading non-alphanumeric
+                      specsText = specsText.replace(/\.\s*$/, '').trim()
+                      
+                      if (specsText && specsText.length > 3) {
+                        if (specsText.includes(',') || /\s+and\s+/i.test(specsText)) {
+                          sections.specifications = formatAsList(specsText)
+                        } else {
+                          sections.specifications = [specsText]
+                        }
+                      }
+                    }
+                    
+                    // 3. HOW TO USE - Sentence with action verb between Features and Benefits
+                    const benefitsPos2 = descLower.indexOf('benefits')
+                    const featuresPos2 = descLower.indexOf('features')
+                    
+                    if (featuresPos2 !== -1 || benefitsPos2 !== -1) {
+                      const start = featuresPos2 !== -1 ? featuresPos2 : 0
+                      const end = benefitsPos2 !== -1 ? benefitsPos2 : desc.length
+                      const middle = desc.substring(start, end)
+                      
+                      const actionVerbs = ['provide', 'heat', 'use', 'apply', 'place', 'brush', 'dip', 'wear', 'slide', 'wrap', 'line', 'insert', 'cover', 'mix', 'roll', 'gently', 'soak', 'melt', 'fill', 'turn', 'maintain', 'cut', 'unfold', 'unroll', 'tear', 'fit', 'adjust', 'arrange', 'store', 'move', 'wipe', 'clean', 'dispose', 'glide', 'perform', 'expand', 'remove', 'leave', 'peel', 'follow', 'fold', 'organize']
+                      
+                      for (const verb of actionVerbs) {
+                        const regex = new RegExp(`\\.\\s*${verb}\\s+[^.]*\\.?`, 'i')
+                        const match = middle.match(regex)
+                        if (match && match[0]) {
+                          let useText = match[0].replace(/^\.\s*/, '').trim()
+                          if (!useText.toLowerCase().includes('features')) {
+                            useText = useText.replace(/\.\s*$/, '').trim()
+                            if (useText && useText.length > 5) {
+                              sections.howToUse = useText
+                              break
+                            }
+                          }
+                        }
+                      }
+                    }
+                    
+                    // 4. BENEFITS - After "Benefits include" or "Benefits"
+                    const benefitsMatch = desc.match(/benefits?\s+(?:include\s+)?(.+?)(?:\.\s*$|$)/i)
+                    if (benefitsMatch && benefitsMatch[1]) {
+                      let benefitsText = benefitsMatch[1].trim().replace(/\.\s*$/, '')
+                      if (benefitsText && benefitsText.length > 3) {
+                        if (benefitsText.includes(',') || /\s+and\s+/i.test(benefitsText)) {
+                          sections.benefits = formatAsList(benefitsText)
+                        } else {
+                          sections.benefits = [benefitsText]
+                        }
+                      }
+                    }
+                    
+                    // 5. CTA - Last sentence with CTA keywords
+                    const sentences = desc.split(/\.\s+/).filter(s => s.trim().length > 0)
+                    if (sentences.length > 0) {
+                      const lastSentence = sentences[sentences.length - 1].trim()
+                      if (/complete\s+your|ideal\s+for|perfect\s+for|essential\s+for|must-have\s+for/i.test(lastSentence) && 
+                          !lastSentence.toLowerCase().includes('benefits')) {
+                        sections.cta = lastSentence.replace(/\.\s*$/, '')
+                      }
+                    }
+                    
+                    return sections
+                  }
+                  
+                  const sections = parseDescription(description)
+                  
+                  // Always show description content - FORCE DISPLAY ALL SECTIONS
+                  return (
+                    <div className="space-y-6">
+                      {/* Product Overview - ALWAYS SHOW */}
+                      <div>
+                        <h3 className="text-lg font-semibold text-gray-900 mb-2">Product Overview</h3>
+                        <p className="text-gray-700">
+                          {sections.overview ? (typeof sections.overview === 'string' ? sections.overview : sections.overview.join(' ')) : description.split(/\.\s+/)[0] || description}
+                        </p>
+                      </div>
+                      
+                      {/* Specifications - ALWAYS SHOW IF EXISTS */}
+                      {sections.specifications && sections.specifications.length > 0 && (
+                        <div>
+                          <h3 className="text-lg font-semibold text-gray-900 mb-2">Specifications</h3>
+                          {Array.isArray(sections.specifications) ? (
+                            <ul className="list-disc list-inside space-y-1 text-gray-700 ml-2">
+                              {sections.specifications.map((item, idx) => (
+                                <li key={idx}>{item}</li>
+                              ))}
+                            </ul>
+                          ) : (
+                            <p className="text-gray-700">{sections.specifications}</p>
+                          )}
+                        </div>
+                      )}
+                      
+                      {/* How to Use - ALWAYS SHOW IF EXISTS */}
+                      {sections.howToUse && (
+                        <div>
+                          <h3 className="text-lg font-semibold text-gray-900 mb-2">How to Use</h3>
+                          <p className="text-gray-700">{typeof sections.howToUse === 'string' ? sections.howToUse : sections.howToUse.join(' ')}</p>
+                        </div>
+                      )}
+                      
+                      {/* Benefits - ALWAYS SHOW IF EXISTS */}
+                      {sections.benefits && (Array.isArray(sections.benefits) ? sections.benefits.length > 0 : sections.benefits) && (
+                        <div>
+                          <h3 className="text-lg font-semibold text-gray-900 mb-2">Benefits</h3>
+                          {Array.isArray(sections.benefits) ? (
+                            <ul className="list-disc list-inside space-y-1 text-gray-700 ml-2">
+                              {sections.benefits.map((item, idx) => (
+                                <li key={idx}>{item}</li>
+                              ))}
+                            </ul>
+                          ) : (
+                            <p className="text-gray-700">{sections.benefits}</p>
+                          )}
+                        </div>
+                      )}
+                      
+                      {/* CTA - ALWAYS SHOW IF EXISTS */}
+                      {sections.cta && (
+                        <div>
+                          <h3 className="text-lg font-semibold text-gray-900 mb-2">CTA</h3>
+                          <p className="text-gray-700">{sections.cta}</p>
+                        </div>
+                      )}
+                    </div>
+                  )
+                })()}
               </div>
             </div>
 
