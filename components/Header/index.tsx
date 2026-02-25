@@ -9,6 +9,7 @@ import { getProductUrl } from '@/lib/category-mapping'
 
 interface Category {
   id: string
+  _id?: string | { toString(): string }
   name: string
   slug: string
   level: number
