@@ -70,7 +70,7 @@ export default function AboutUsPage() {
       <MainNav />
 
       {/* Hero Banner */}
-      <div className="relative w-full h-[400px] md:h-[450px] overflow-hidden" style={{ marginTop: `${topPadding}px` }}>
+      <div className="relative w-full h-[350px] md:h-[450px] overflow-hidden" style={{ marginTop: isMobile ? `${topPadding - 20}px` : `${topPadding}px` }}>
         {/* Blurred Background Image */}
         <div className="absolute inset-0">
           <Image
@@ -86,58 +86,48 @@ export default function AboutUsPage() {
         <div className="absolute inset-0 bg-gradient-to-r from-[#87CEEB] to-[#C8A2C8] opacity-90"></div>
         
         {/* Content */}
-        <div className="relative z-10 h-full flex flex-col items-center justify-center px-4 py-12">
+        <div className="relative z-10 h-full flex flex-col items-center justify-center px-4 py-6 md:py-12">
           {/* Proudly Serving Canada - Top Right */}
-          <div className="absolute top-6 right-6 md:top-8 md:right-8 flex items-center gap-2 text-white">
-            <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+          <div className="absolute top-3 right-3 md:top-8 md:right-8 flex items-center gap-2 text-white">
+            <svg className="w-5 h-5 md:w-6 md:h-6" fill="currentColor" viewBox="0 0 24 24">
               <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
             </svg>
-            <span className="text-sm md:text-base font-medium">Proudly Serving Canada</span>
-          </div>
-
-          {/* Canadian Maple Leaf - Above Title */}
-          <div className="mb-4 -ml-8 md:-ml-12">
-            <svg className="w-12 h-12 md:w-16 md:h-16 text-white" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 2c4.41 0 8 3.59 8 8s-3.59 8-8 8-8-3.59-8-8 3.59-8 8-8zm-1 4v2h2V8h-2zm0 4v2h2v-2h-2zm0 4v2h2v-2h-2z"/>
-            </svg>
+            <span className="text-xs md:text-base font-medium">Proudly Serving Canada</span>
           </div>
 
           {/* Main Title */}
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 text-center drop-shadow-lg">
+          <h1 className="text-2xl md:text-5xl lg:text-6xl font-bold text-white mb-2 md:mb-4 text-center drop-shadow-lg px-2">
             Allied Concept Beauty Supply
           </h1>
 
           {/* Tagline */}
-          <p className="text-base md:text-lg lg:text-xl text-white text-center max-w-4xl mx-auto mb-8 leading-relaxed">
+          <p className="text-sm md:text-lg lg:text-xl text-white text-center max-w-4xl mx-auto mb-4 md:mb-8 leading-relaxed px-2">
             Empowering Beauty Professionals with Premium Products, Expert Training & Ongoing Support.
           </p>
 
           {/* Three Icons */}
-          <div className="flex items-center justify-center gap-6 md:gap-8 mb-4">
+          <div className="flex items-center justify-center gap-3 md:gap-8 mb-2 md:mb-4">
             {/* Beaker with Leaf Icon - Premium Products */}
-            <div className="w-16 h-16 md:w-20 md:h-20 rounded-full border-2 border-white flex items-center justify-center bg-white/10 backdrop-blur-sm">
-              <svg className="w-8 h-8 md:w-10 md:h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className="w-12 h-12 md:w-20 md:h-20 rounded-full border-2 border-white flex items-center justify-center bg-white/10 backdrop-blur-sm">
+              <svg className="w-6 h-6 md:w-10 md:h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 0v4m0-4h4m-4 0H8" />
               </svg>
             </div>
 
-            {/* Book with Graduation Cap Icon - Expert Training */}
-            <div className="w-16 h-16 md:w-20 md:h-20 rounded-full border-2 border-white flex items-center justify-center bg-white/10 backdrop-blur-sm relative">
-              <svg className="w-8 h-8 md:w-10 md:h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            {/* Book Icon - Expert Training */}
+            <div className="w-12 h-12 md:w-20 md:h-20 rounded-full border-2 border-white flex items-center justify-center bg-white/10 backdrop-blur-sm">
+              <svg className="w-6 h-6 md:w-10 md:h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-              </svg>
-              <svg className="absolute -top-1 -right-1 w-4 h-4 md:w-5 md:h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 3L1 9l11 6 9-4.91V17h2V9L12 3z"/>
               </svg>
             </div>
 
             {/* Shield with Heart Icon - Ongoing Support */}
-            <div className="w-16 h-16 md:w-20 md:h-20 rounded-full border-2 border-white flex items-center justify-center bg-white/10 backdrop-blur-sm relative">
-              <svg className="w-8 h-8 md:w-10 md:h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className="w-12 h-12 md:w-20 md:h-20 rounded-full border-2 border-white flex items-center justify-center bg-white/10 backdrop-blur-sm relative">
+              <svg className="w-6 h-6 md:w-10 md:h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
               </svg>
-              <svg className="absolute w-4 h-4 md:w-5 md:h-5 text-white" fill="currentColor" viewBox="0 0 24 24" style={{ top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}>
+              <svg className="absolute w-3 h-3 md:w-5 md:h-5 text-white" fill="currentColor" viewBox="0 0 24 24" style={{ top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}>
                 <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
               </svg>
             </div>
@@ -150,13 +140,6 @@ export default function AboutUsPage() {
           >
             Contact Us
           </Link>
-
-          {/* Sparkle Icon - Bottom Right */}
-          <div className="absolute bottom-6 right-6 md:bottom-8 md:right-8">
-            <svg className="w-6 h-6 md:w-8 md:h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-            </svg>
-          </div>
         </div>
       </div>
 

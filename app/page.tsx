@@ -527,6 +527,7 @@ export default function Home() {
                     alt="SILK-B Professional Special Sale Event"
                     fill
                     className="object-cover group-hover:scale-105 transition-transform duration-300 relative z-10"
+                    style={{ objectPosition: isMobile ? 'center 70%' : 'center 50%' }}
                     priority
                     unoptimized
                   />
@@ -559,7 +560,7 @@ export default function Home() {
                     alt="Featured Brands"
                     fill
                     className="object-cover group-hover:scale-105 transition-transform duration-300 relative z-10"
-                    style={{ objectPosition: 'center 50%' }}
+                    style={{ objectPosition: isMobile ? 'center 70%' : 'center 50%' }}
                     priority
                     unoptimized
                   />
@@ -632,6 +633,13 @@ export default function Home() {
               <p className="text-gray-700 text-sm sm:text-base md:text-lg leading-relaxed">
                 Allied Concept of Beauty Supply supports beauty professionals and wellness businesses nationwide by offering premium wholesale product solutions. From salons seeking to buy salon supplies online to clinics sourcing spa equipment for salons, we provide reliable supply solutions tailored to industry needs.
               </p>
+              {/* Learn More Button - Desktop View (under paragraph) */}
+              <Link
+                href="/about-us"
+                className="hidden lg:inline-block mt-6 px-6 py-3 bg-gradient-to-r from-[#C8A2C8] to-[#87CEEB] text-white font-semibold rounded-lg hover:opacity-90 transition-opacity duration-300 shadow-lg hover:shadow-xl"
+              >
+                Learn More
+              </Link>
             </div>
 
             {/* Right Column - Icon Points */}
@@ -676,6 +684,15 @@ export default function Home() {
                 <h3 className="text-sm sm:text-base font-semibold text-gray-900">Coast-Coast Shipping</h3>
               </div>
             </div>
+          </div>
+          {/* Learn More Button - Mobile View (after cards) */}
+          <div className="lg:hidden text-center mt-8">
+            <Link
+              href="/about-us"
+              className="inline-block px-6 py-3 bg-gradient-to-r from-[#C8A2C8] to-[#87CEEB] text-white font-semibold rounded-lg hover:opacity-90 transition-opacity duration-300 shadow-lg hover:shadow-xl"
+            >
+              Learn More
+            </Link>
           </div>
         </div>
       </section>
@@ -894,7 +911,7 @@ export default function Home() {
                 Scale Your Salon with Allied Quality
               </h2>
               <p className="text-gray-600 text-base md:text-lg">
-                Partner with Allied Concept Beauty Supply for premium, professional-grade spa essentials in Canada. From advanced serums to luxury linens, provide your clients with the quality they deserve.
+                Partner with Allied Concept Beauty Supply for premium, professional-grade spa essentials in Canada. From advanced serums to salon equipments, provide your clients with the quality they deserve.
               </p>
               <div className="inline-block p-[2px] bg-gradient-to-r from-[#C8A2C8] to-[#87CEEB] rounded">
                 <Link
@@ -916,6 +933,7 @@ export default function Home() {
                 alt="Spa and beauty products"
                 fill
                 className="object-cover"
+                style={{ objectPosition: isMobile ? 'center 70%' : 'center 50%' }}
                 unoptimized
                 onError={(e) => {
                   // Fallback to a gradient background if image doesn't exist

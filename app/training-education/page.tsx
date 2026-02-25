@@ -70,10 +70,10 @@ export default function EducationalModulePage() {
       <MainNav />
 
       {/* Hero Banner */}
-      <div className="relative w-full h-[400px] bg-gradient-to-r from-[#C8A2C8] to-[#87CEEB] flex items-center justify-center" style={{ marginTop: `${topPadding}px` }}>
+      <div className="relative w-full h-[300px] md:h-[400px] bg-gradient-to-r from-[#C8A2C8] to-[#87CEEB] flex items-center justify-center" style={{ marginTop: isMobile ? `${topPadding - 20}px` : `${topPadding}px` }}>
         <div className="text-center text-white px-4">
-          <h1 className="text-5xl md:text-6xl font-bold mb-4">LEARN AND GROW</h1>
-          <p className="text-xl md:text-2xl max-w-3xl mx-auto">
+          <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold mb-3 md:mb-4">LEARN AND GROW</h1>
+          <p className="text-base md:text-xl lg:text-2xl max-w-3xl mx-auto">
             Take your skills to the next level!! Whether you're a beginner or a seasoned pro, let's unlock your best work yet.
           </p>
         </div>

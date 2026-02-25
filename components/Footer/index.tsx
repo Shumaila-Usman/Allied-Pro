@@ -112,7 +112,7 @@ export default function Footer() {
             {/* Stay Connected */}
             <h3 className="text-white font-bold text-base sm:text-lg mb-3 sm:mb-4">Stay Connected</h3>
             <div className="mb-4">
-              <p className="text-xs sm:text-sm mb-2">Subscribe to our newsletter</p>
+              <p className="text-xs sm:text-sm mb-2">Sign up for ACBS Emails</p>
               <div className="flex w-full max-w-sm mx-auto sm:mx-0">
                 <input
                   type="email"
