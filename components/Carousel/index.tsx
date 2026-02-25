@@ -3,6 +3,24 @@
 import { useState, useEffect } from 'react'
 import Image from 'next/image'
 
+// Hook to detect mobile view
+function useIsMobile() {
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 640)
+    }
+    
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
+
+  return isMobile
+}
+
 interface CarouselProps {
   slides: Array<{
     id: string
@@ -17,6 +35,8 @@ interface CarouselProps {
 }
 
 export default function Carousel({ slides, autoPlay = true, interval = 5000, hideFirstOnMobile = false }: CarouselProps) {
+  const isMobile = useIsMobile()
+  
   // Start from index 1 if first slide should be hidden on mobile
   const getInitialIndex = () => {
     if (hideFirstOnMobile && slides.length > 0 && slides[0].id === '1') {
@@ -79,7 +99,7 @@ export default function Carousel({ slides, autoPlay = true, interval = 5000, hid
   }
 
   return (
-    <div className="relative w-full max-w-5xl mx-auto h-[260px] sm:h-[320px] md:h-[380px] overflow-hidden bg-white rounded-2xl shadow-lg">
+    <div className="relative w-full max-w-5xl mx-auto h-[280px] sm:h-[440px] md:h-[500px] overflow-hidden bg-white rounded-2xl shadow-lg">
       {slides.map((slide, index) => {
         // Hide first slide on mobile if hideFirstOnMobile is true
         const isFirstSlide = index === 0 && slide.id === '1'
@@ -99,9 +119,12 @@ export default function Carousel({ slides, autoPlay = true, interval = 5000, hid
               fill
               className="object-cover w-full h-full"
               style={{ 
-                objectPosition: slide.objectPosition || (slide.image.includes('banner-4') ? 'center 0%' : 'center top')
+                objectPosition: isMobile 
+                  ? 'left center'
+                  : (slide.objectPosition || (slide.image.includes('banner-4') ? 'center 0%' : 'center top'))
               }}
               priority={index === 0}
+              unoptimized
             />
             {(slide.title || slide.subtitle) && (
               <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-30">
