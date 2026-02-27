@@ -240,9 +240,9 @@ export default function ContactPage() {
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             {/* Kennedy Location */}
-            <div>
+            <div className="flex flex-col">
               <h3 className="text-2xl font-bold text-gray-900 mb-4">Kennedy Location (Retail Only)</h3>
-              <div className="space-y-4 mb-6">
+              <div className="space-y-4 mb-6 flex-grow">
                 <div>
                   <h4 className="text-lg font-semibold text-gray-900 mb-2">Address</h4>
                   <a
@@ -280,9 +280,9 @@ export default function ContactPage() {
             </div>
 
             {/* Scarborough Location */}
-            <div>
+            <div className="flex flex-col">
               <h3 className="text-2xl font-bold text-gray-900 mb-4">Scarborough Location (Wholesale Only)</h3>
-              <div className="space-y-4 mb-6">
+              <div className="space-y-4 mb-6 flex-grow">
                 <div>
                   <h4 className="text-lg font-semibold text-gray-900 mb-2">Address</h4>
                   <a
@@ -297,6 +297,9 @@ export default function ContactPage() {
                 <div>
                   <h4 className="text-lg font-semibold text-gray-900 mb-2">Hours</h4>
                   <p className="text-gray-700 text-lg">Monday to Thursday: 9:00 AM – 5:00 PM</p>
+                </div>
+                <div>
+                  <h4 className="text-lg font-semibold text-gray-900 mb-2">Note</h4>
                   <p className="text-gray-700 text-lg">By Appointment Only</p>
                 </div>
               </div>
