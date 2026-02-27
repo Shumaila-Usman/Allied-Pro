@@ -143,12 +143,12 @@ export default function ContactPage() {
                 <div>
                   <h3 className="text-lg font-semibold text-gray-900 mb-2">Support</h3>
                   <a
-                    href="https://mail.google.com/mail/u/0/?fs=1&to=info@alliedbeautysupply.ca&tf=cm"
+                    href="https://mail.google.com/mail/u/0/?fs=1&to=alliedprosupplies@gmail.com&tf=cm"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-gray-700 hover:text-[#87CEEB] transition-colors duration-300 text-lg"
                   >
-                    info@alliedbeautysupply.ca
+                    alliedprosupplies@gmail.com
                   </a>
                 </div>
               </div>
