@@ -16,9 +16,9 @@ export default function Footer() {
               <Image
                 src="/logo-removebg-preview.png"
                 alt="ACBS - Allied Concept Beauty Supply"
-                width={150}
-                height={80}
-                className="object-contain h-auto w-auto bg-transparent max-w-[120px] sm:max-w-[150px] cursor-pointer hover:opacity-90 transition-opacity duration-300"
+                width={200}
+                height={110}
+                className="object-contain h-auto w-auto bg-transparent max-w-[180px] sm:max-w-[200px] cursor-pointer hover:opacity-90 transition-opacity duration-300"
                 style={{ backgroundColor: 'transparent' }}
                 onError={(e) => {
                   // Fallback: show logo with text matching the design
@@ -27,10 +27,10 @@ export default function Footer() {
                   if (parent) {
                     parent.innerHTML = `
                       <div class="flex flex-col items-center md:items-start cursor-pointer hover:opacity-90 transition-opacity duration-300">
-                        <div class="text-3xl font-bold mb-2 tracking-tight">
+                        <div class="text-4xl sm:text-5xl font-bold mb-2 tracking-tight">
                           <span style="background: linear-gradient(135deg, #00C8FF 0%, #6400C8 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">ACBS</span>
                         </div>
-                        <div class="text-xs text-gray-400 text-center md:text-left leading-tight font-medium uppercase tracking-wide">
+                        <div class="text-sm sm:text-base text-gray-400 text-center md:text-left leading-tight font-medium uppercase tracking-wide">
                           <div>ALLIED CONCEPT</div>
                           <div>BEAUTY SUPPLY</div>
                         </div>
@@ -40,9 +40,6 @@ export default function Footer() {
                 }}
               />
             </Link>
-            <p className="text-xs sm:text-sm">
-              ACBS is a leading distributor of modern beauty supplies and tools, offering wholesale pricing & support to salon, esthetic, and spa experts across Canada. We are committed to supporting beauty pros with ongoing support to ensure guaranteed results.
-            </p>
           </div>
 
           {/* Quick Links */}
