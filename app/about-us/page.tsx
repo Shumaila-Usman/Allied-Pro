@@ -95,15 +95,15 @@ export default function AboutUsPage() {
             <span className="text-xs md:text-base font-medium">Proudly Serving Canada</span>
           </div>
 
+          {/* Concept Group Presents */}
+          <h2 className="text-lg md:text-2xl lg:text-3xl font-semibold text-white text-center mb-2 md:mb-3 drop-shadow-md px-2">
+            Concept Group Presents
+          </h2>
+
           {/* Main Title */}
           <h1 className="text-2xl md:text-5xl lg:text-6xl font-bold text-white mb-2 md:mb-4 text-center drop-shadow-lg px-2">
             Allied Concept Beauty Supply
           </h1>
-
-          {/* Tagline */}
-          <p className="text-sm md:text-lg lg:text-xl text-white text-center max-w-4xl mx-auto mb-4 md:mb-8 leading-relaxed px-2">
-            Empowering Beauty Professionals with Premium Products, Expert Training & Ongoing Support.
-          </p>
 
           {/* Three Icons */}
           <div className="flex items-center justify-center gap-3 md:gap-8 mb-2 md:mb-4">
@@ -165,10 +165,10 @@ export default function AboutUsPage() {
               </h2>
               <div className="space-y-4">
                 <p className="text-gray-700 leading-relaxed text-lg">
-                  Allied Concept Beauty Supply was constructed by individuals with real experience in the beauty business. We have collaborated closely with salon owners, spa teams, and beauty experts, giving us a deep understanding of the daily challenges professionals face: finding the right supplier, mastering techniques, and meeting client demands.
+                  Allied Concept Beauty Supply, a division of Concept Group, is committed to equipping beauty professionals with premium products, reliable service, and trusted partnerships. We uphold the highest standards of quality, integrity, and operational excellence in the professional beauty industry.
                 </p>
                 <p className="text-gray-700 leading-relaxed text-lg">
-                  Our initial thought in starting this business was simple: beauty professionals needed quality, support, and truthful service, and a partner where they could source professional beauty supplies, buy salon supplies online, and access spa equipment for salons in Canada.
+                  In addition to serving retail customers, Allied Concept Beauty Supply proudly supports licensed professionals, clinics, and spas through our dedicated wholesale distribution program.
                 </p>
               </div>
             </div>
@@ -533,127 +533,6 @@ export default function AboutUsPage() {
           </div>
         </div>
 
-        {/* Founder Section */}
-        <div className="mb-20">
-          <div className="bg-gray-50 rounded-2xl p-8 md:p-12">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-              <div>
-                <h2 className="text-3xl font-bold mb-2 text-gray-900">Founder & CEO: Samira Farooq</h2>
-                <p className="text-xl text-gray-700 mb-6">30+ Years of Excellence in Aesthetics & Beauty
-                </p>
-                <blockquote className="text-lg italic text-gray-700 mb-6 border-l-4 border-[#87CEEB] pl-4">
-                "My mission is to provide beauty pros with the high-performance tools I wish I had when I started my career."  Samira Farooq
-
-                </blockquote>
-                <p className="text-gray-700 leading-relaxed mb-6">
-                Having more than thirty years of practical experience, Samira Farooq has transformed herself into a master aesthetician and the first-tier wholesale distributor. Her career is characterized by the strong belief in promoting industry standards in terms of education and sourcing products of high quality.
-
-                </p>
-                <ul className="space-y-3">
-                  <li className="flex items-start">
-                    <span className="text-[#87CEEB] mr-3 font-bold">●</span>
-                    <span className="text-gray-700"><strong>Expert Sourcing:</strong>  30 years of wisdom of creating a collection of high-end, salon-tested products.</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-[#87CEEB] mr-3 font-bold">●</span>
-                    <span className="text-gray-700"><strong>Education Focused:</strong>Committed to nurturing the future of the beauty professionals by highly training them.</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-[#87CEEB] mr-3 font-bold">●</span>
-                    <span className="text-gray-700"><strong>Professional Collaboration:</strong> Making ACBS an anchor of practitioners seeking excellence.
-                    </span>
-                  </li>
-                </ul>
-              </div>
-              <div className="relative w-full aspect-[3/4] rounded-lg overflow-hidden shadow-xl">
-                <Image
-                  src="/team/samira-farooq.jpg"
-                  alt="Samira Farooq"
-                  fill
-                  className="object-contain"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Natasha Section */}
-        <div className="mb-20">
-          <div className="bg-gray-50 rounded-2xl p-8 md:p-12">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-              <div className="relative w-full aspect-[3/4] rounded-lg overflow-hidden shadow-xl order-2 md:order-1">
-                <Image
-                  src="/team/natasha-kowalski.jpg"
-                  alt="Natasha Kowalski"
-                  fill
-                  className="object-contain"
-                />
-              </div>
-              <div className="order-1 md:order-2">
-                <h2 className="text-3xl font-bold mb-2 text-gray-900">Natasha Kowalski</h2>
-                <p className="text-xl text-gray-700 mb-6">Aesthetician & Operations Manager</p>
-                <p className="text-gray-700 leading-relaxed mb-6">
-                Natasha is a bridge person between clinical aesthetics and operational excellence, having 15 years of experience in the industry. With ten and more years experience working as a master aesthetician she is currently in charge of the smooth flow of products and assistance in delivery to ACBS clients.
-
-                </p>
-                <ul className="space-y-3">
-                  <li className="flex items-start">
-                    <span className="text-[#87CEEB] mr-3 font-bold">●</span>
-                    <span className="text-gray-700"><strong>Professional Logistics:</strong> Provides quality service to all their partners.</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-[#87CEEB] mr-3 font-bold">●</span>
-                    <span className="text-gray-700"><strong>The Pro Perspective:</strong> The Pro Perspective Uses her practical background to choose the most appropriate tools to the trade.</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-[#87CEEB] mr-3 font-bold">●</span>
-                    <span className="text-gray-700"><strong>Team Growth:</strong>  Devoted to the development of a team based empowering environment.</span>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Ammara Section */}
-        <div className="mb-20">
-          <div className="bg-gray-50 rounded-2xl p-8 md:p-12">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-              <div>
-                <h2 className="text-3xl font-bold mb-2 text-gray-900">Ammara Ferwa</h2>
-                <p className="text-xl text-gray-700 mb-6">Sales Specialist & Skincare Expert | BSc Biology</p>
-                <p className="text-gray-700 leading-relaxed mb-6">
-                Having a Bachelor of Science in Biology, Ammara is a person who was able to integrate the science behind skincare with high customer service. She uses her seven years experience to give technical and science-based product advice to the professionals.
-                </p>
-                <ul className="space-y-3">
-                  <li className="flex items-start">
-                    <span className="text-[#87CEEB] mr-3 font-bold">●</span>
-                    <span className="text-gray-700"><strong>Scientific Expertise:</strong> Applies her biology experience to describe the behavior of the products in the skin at a cellular level.
-                    </span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-[#87CEEB] mr-3 font-bold">●</span>
-                    <span className="text-gray-700"><strong>Expert Consulting:</strong> Seven years of experience in providing data-driven skincare solutions that are personalized.</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-[#87CEEB] mr-3 font-bold">●</span>
-                    <span className="text-gray-700"><strong>B2B Relationship Builder:</strong>  It is dedicated to making sales based on knowledgeable, self-assured client relationships and continuous support.
-                    </span>
-                  </li>
-                </ul>
-              </div>
-              <div className="relative w-full aspect-[3/4] rounded-lg overflow-hidden shadow-xl">
-                <Image
-                  src="/team/ammara-ferwa.jpg"
-                  alt="Ammara Ferwa"
-                  fill
-                  className="object-contain"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-
         {/* CTA Section */}
         <div className="mb-20">
           <div className="bg-gradient-to-r from-[#C8A2C8] to-[#87CEEB] rounded-2xl p-12 text-center text-white">
@@ -786,37 +665,6 @@ export default function AboutUsPage() {
                 We don't just supply products<br />
                 We empower beauty businesses.
               </p>
-            </div>
-          </div>
-        </div>
-
-        {/* Our Promise */}
-        <div className="mb-20 relative overflow-hidden rounded-2xl">
-          {/* Background with gradient */}
-          <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-purple-50 to-blue-100 opacity-50"></div>
-          
-          <div className="relative grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center p-8 lg:p-12">
-            {/* Left Section - Text Content */}
-            <div className="bg-white/80 backdrop-blur-sm rounded-xl p-6 lg:p-8 shadow-lg">
-              <h2 className="text-3xl lg:text-4xl font-bold mb-6 bg-gradient-to-r from-[#C8A2C8] to-[#87CEEB] bg-clip-text text-transparent">
-                Our Promise to You
-              </h2>
-              <p className="text-gray-700 leading-relaxed text-lg mb-6">
-                At Allied Concept Beauty Supply, we promise to keep things simple, honest, and professional. We are committed to helping beauty professionals feel confident in their work and proud of their businesses.
-              </p>
-              <p className="text-gray-900 font-bold text-xl lg:text-2xl">
-                We are not just here to sell products, we are here to support your success.
-              </p>
-            </div>
-            
-            {/* Right Section - Image */}
-            <div className="relative w-full h-[400px] lg:h-[500px] rounded-xl overflow-hidden shadow-xl">
-              <Image
-                src="/about-us/new-sec4.png"
-                alt="Our Promise to You"
-                fill
-                className="object-cover"
-              />
             </div>
           </div>
         </div>
