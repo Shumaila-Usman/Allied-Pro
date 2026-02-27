@@ -96,12 +96,12 @@ export default function Footer() {
               </li>
               <li>
                 <a
-                  href="https://mail.google.com/mail/u/0/?fs=1&to=info@alliedbeautysupply.ca&tf=cm"
+                  href="https://mail.google.com/mail/u/0/?fs=1&to=alliedprosupplies@gmail.com&tf=cm"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="hover:text-primary-400 transition-colors"
                 >
-                  Email: info@alliedbeautysupply.ca
+                  Email: alliedprosupplies@gmail.com
                 </a>
               </li>
             </ul>
