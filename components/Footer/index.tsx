@@ -161,8 +161,9 @@ export default function Footer() {
                 >
                   8339 Kennedy Rd #2628, Markham, ON L3R5T5
                 </a>
-                <p className="text-xs sm:text-sm text-gray-400">Monday to Sunday, 9:00 AM – 6:00 PM</p>
-                <p className="text-xs sm:text-sm text-gray-400">Walk-ins are welcome during business hours</p>
+                <p className="text-xs sm:text-sm text-gray-400">Monday to Friday: 10:00 AM – 8:00 PM</p>
+                <p className="text-xs sm:text-sm text-gray-400">Saturday: 9:00 AM – 4:00 PM</p>
+                <p className="text-xs sm:text-sm text-gray-400">Sunday: Closed</p>
               </div>
               <div>
                 <h4 className="text-white font-semibold text-xs sm:text-sm mb-2">Scarborough Location (Wholesale Only)</h4>
@@ -174,8 +175,8 @@ export default function Footer() {
                 >
                   200 Silver Star Blvd, Scarborough, ON M2H 3B4, Canada
                 </a>
-                <p className="text-xs sm:text-sm text-gray-400">Monday to Thursday, 9:00 AM – 5:00 PM</p>
-                <p className="text-xs sm:text-sm text-gray-400">Appointment Required (Call Before Visiting)</p>
+                <p className="text-xs sm:text-sm text-gray-400">Monday to Thursday: 9:00 AM – 5:00 PM</p>
+                <p className="text-xs sm:text-sm text-gray-400">By Appointment Only</p>
               </div>
             </div>
           </div>
