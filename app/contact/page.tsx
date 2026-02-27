@@ -256,7 +256,9 @@ export default function ContactPage() {
                 </div>
                 <div>
                   <h4 className="text-lg font-semibold text-gray-900 mb-2">Hours</h4>
-                  <p className="text-gray-700 text-lg">Monday to Sunday, 9:00 AM – 6:00 PM</p>
+                  <p className="text-gray-700 text-lg">Monday to Friday: 10:00 AM – 8:00 PM</p>
+                  <p className="text-gray-700 text-lg">Saturday: 9:00 AM – 4:00 PM</p>
+                  <p className="text-gray-700 text-lg">Sunday: Closed</p>
                 </div>
                 <div>
                   <h4 className="text-lg font-semibold text-gray-900 mb-2">Note</h4>
@@ -294,11 +296,8 @@ export default function ContactPage() {
                 </div>
                 <div>
                   <h4 className="text-lg font-semibold text-gray-900 mb-2">Hours</h4>
-                  <p className="text-gray-700 text-lg">Monday to Thursday, 9:00 AM – 5:00 PM</p>
-                </div>
-                <div>
-                  <h4 className="text-lg font-semibold text-gray-900 mb-2">Note</h4>
-                  <p className="text-gray-700 text-lg">Appointment Required (Call Before Visiting)</p>
+                  <p className="text-gray-700 text-lg">Monday to Thursday: 9:00 AM – 5:00 PM</p>
+                  <p className="text-gray-700 text-lg">By Appointment Only</p>
                 </div>
               </div>
               <div className="bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-200">
