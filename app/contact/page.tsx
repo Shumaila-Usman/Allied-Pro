@@ -113,7 +113,7 @@ export default function ContactPage() {
           <div className="mt-8">
             <h2 className="text-3xl font-bold text-gray-900 mb-6">Contact Allied Concept Beauty Supply</h2>
             <p className="text-gray-700 leading-relaxed text-lg mb-8">
-              Get in touch for inquiries about our extensive range of salon products and equipment available for beauty professionals in Markham, Ontario.
+              Get in touch for inquiries about our extensive range of salon products and equipment available for beauty professionals in Canada.
             </p>
 
             <div className="space-y-6">
