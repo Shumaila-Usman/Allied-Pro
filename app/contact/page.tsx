@@ -113,7 +113,7 @@ export default function ContactPage() {
           <div className="mt-8">
             <h2 className="text-3xl font-bold text-gray-900 mb-6">Contact Allied Concept Beauty Supply</h2>
             <p className="text-gray-700 leading-relaxed text-lg mb-8">
-              Get in touch for inquiries about our extensive range of salon products and equipment available for beauty professionals in Markham, Ontario.
+              Get in touch for inquiries about our extensive range of salon products and equipment available for beauty professionals in Canada.
             </p>
 
             <div className="space-y-6">
@@ -143,12 +143,12 @@ export default function ContactPage() {
                 <div>
                   <h3 className="text-lg font-semibold text-gray-900 mb-2">Support</h3>
                   <a
-                    href="https://mail.google.com/mail/u/0/?fs=1&to=info@alliedbeautysupply.ca&tf=cm"
+                    href="https://mail.google.com/mail/u/0/?fs=1&to=alliedprosupplies@gmail.com&tf=cm"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-gray-700 hover:text-[#87CEEB] transition-colors duration-300 text-lg"
                   >
-                    info@alliedbeautysupply.ca
+                    alliedprosupplies@gmail.com
                   </a>
                 </div>
               </div>
@@ -240,9 +240,9 @@ export default function ContactPage() {
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             {/* Kennedy Location */}
-            <div>
+            <div className="flex flex-col">
               <h3 className="text-2xl font-bold text-gray-900 mb-4">Kennedy Location (Retail Only)</h3>
-              <div className="space-y-4 mb-6">
+              <div className="space-y-4 mb-6 flex-grow">
                 <div>
                   <h4 className="text-lg font-semibold text-gray-900 mb-2">Address</h4>
                   <a
@@ -256,7 +256,9 @@ export default function ContactPage() {
                 </div>
                 <div>
                   <h4 className="text-lg font-semibold text-gray-900 mb-2">Hours</h4>
-                  <p className="text-gray-700 text-lg">Monday to Sunday, 9:00 AM – 6:00 PM</p>
+                  <p className="text-gray-700 text-lg">Monday to Friday: 10:00 AM – 8:00 PM</p>
+                  <p className="text-gray-700 text-lg">Saturday: 9:00 AM – 4:00 PM</p>
+                  <p className="text-gray-700 text-lg">Sunday: Closed</p>
                 </div>
                 <div>
                   <h4 className="text-lg font-semibold text-gray-900 mb-2">Note</h4>
@@ -278,9 +280,9 @@ export default function ContactPage() {
             </div>
 
             {/* Scarborough Location */}
-            <div>
+            <div className="flex flex-col">
               <h3 className="text-2xl font-bold text-gray-900 mb-4">Scarborough Location (Wholesale Only)</h3>
-              <div className="space-y-4 mb-6">
+              <div className="space-y-4 mb-6 flex-grow">
                 <div>
                   <h4 className="text-lg font-semibold text-gray-900 mb-2">Address</h4>
                   <a
@@ -294,11 +296,11 @@ export default function ContactPage() {
                 </div>
                 <div>
                   <h4 className="text-lg font-semibold text-gray-900 mb-2">Hours</h4>
-                  <p className="text-gray-700 text-lg">Monday to Thursday, 9:00 AM – 5:00 PM</p>
+                  <p className="text-gray-700 text-lg">Monday to Thursday: 9:00 AM – 5:00 PM</p>
                 </div>
                 <div>
                   <h4 className="text-lg font-semibold text-gray-900 mb-2">Note</h4>
-                  <p className="text-gray-700 text-lg">Appointment Required (Call Before Visiting)</p>
+                  <p className="text-gray-700 text-lg">By Appointment Only</p>
                 </div>
               </div>
               <div className="bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-200">

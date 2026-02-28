@@ -2,7 +2,6 @@
 
 import { useState, useEffect, useRef } from 'react'
 import { useScroll } from '@/contexts/ScrollContext'
-import TopBar from './TopBar'
 import MiddleBar from './MiddleBar'
 import Link from 'next/link'
 import { getProductUrl } from '@/lib/category-mapping'
@@ -96,7 +95,6 @@ export default function Header() {
           ? '-translate-y-full opacity-0 pointer-events-none' 
           : 'translate-y-0 opacity-100 pointer-events-auto'
       }`}>
-        <TopBar />
         <MiddleBar />
         {/* Black Row with Categories Dropdown - Mobile Only */}
         <div className="md:hidden bg-black w-full relative" ref={dropdownRef}>

@@ -29,16 +29,11 @@ const faqData: FAQItem[] = [
   },
   {
     id: '4',
-    question: 'How do I become a dealer?',
-    answer: 'To become a dealer, simply register for a dealer account on our website. You will need to provide your business information, including your business license and tax ID. Once approved, you will receive your unique Dealer ID via email, which you can use to access dealer pricing and exclusive products.',
-  },
-  {
-    id: '5',
     question: 'What payment methods do you accept?',
     answer: 'We accept all major credit cards, bank transfers, and purchase orders for qualified businesses. Payment terms may vary based on your account status and order history.',
   },
   {
-    id: '6',
+    id: '5',
     question: 'Do you offer training or educational resources?',
     answer: 'Yes! We offer comprehensive training programs for new professionals, including hands-on workshops, online courses, and educational modules. Our team of experienced professionals is dedicated to helping you master techniques and stay updated with industry best practices.',
   },
