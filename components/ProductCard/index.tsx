@@ -35,7 +35,7 @@ export default function ProductCard({ product }: ProductCardProps) {
       <div 
         className="relative aspect-square overflow-hidden"
         onMouseEnter={() => {
-          if (product.images.length > 1) {
+          if (product.images && product.images.length > 1) {
             setCurrentImageIndex(1)
           }
         }}
@@ -45,22 +45,24 @@ export default function ProductCard({ product }: ProductCardProps) {
           src={product.images?.[0] || '/products/placeholder.jpg'}
           alt={product.name}
           fill
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           className="object-cover transition-opacity duration-300"
-          style={{ opacity: currentImageIndex === 0 ? 1 : 0 }}
-          onError={(e) => {
-            e.currentTarget.src = '/products/placeholder.jpg'
+          style={{ 
+            opacity: currentImageIndex === 0 ? 1 : 0
           }}
+          unoptimized
         />
         {product.images && product.images.length > 1 && (
           <Image
             src={product.images[1]}
-            alt={product.name}
+            alt={`${product.name} - view 2`}
             fill
-            className="object-cover transition-opacity duration-300 absolute inset-0"
-            style={{ opacity: currentImageIndex === 1 ? 1 : 0 }}
-            onError={(e) => {
-              e.currentTarget.src = '/products/placeholder.jpg'
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            className="object-cover transition-opacity duration-300"
+            style={{ 
+              opacity: currentImageIndex === 1 ? 1 : 0
             }}
+            unoptimized
           />
         )}
         {/* Action buttons overlay - only for dealers */}

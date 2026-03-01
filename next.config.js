@@ -12,8 +12,14 @@ const nextConfig = {
         hostname: '**',
       },
     ],
-    unoptimized: false,
+    // Disable optimization for local images in production to avoid issues
+    unoptimized: process.env.NODE_ENV === 'production',
+    // Allow local images from public folder
+    dangerouslyAllowSVG: true,
+    contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },
+  // Ensure static files are properly served
+  // The public folder is automatically included in Next.js builds
 }
 
 module.exports = nextConfig
