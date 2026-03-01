@@ -33,7 +33,7 @@ export default function ProductCard({ product }: ProductCardProps) {
     >
       <div className="bg-white rounded-[8px] overflow-hidden h-full flex flex-col">
       <div 
-        className="relative aspect-square overflow-hidden"
+        className="relative aspect-square overflow-hidden bg-gray-100"
         onMouseEnter={() => {
           if (product.images && product.images.length > 1) {
             setCurrentImageIndex(1)
@@ -41,28 +41,30 @@ export default function ProductCard({ product }: ProductCardProps) {
         }}
         onMouseLeave={() => setCurrentImageIndex(0)}
       >
-        <Image
+        <img
           src={product.images?.[0] || '/products/placeholder.jpg'}
           alt={product.name}
-          fill
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          className="object-cover transition-opacity duration-300"
+          className="absolute inset-0 w-full h-full object-cover transition-opacity duration-300"
           style={{ 
             opacity: currentImageIndex === 0 ? 1 : 0
           }}
-          unoptimized
+          onError={(e) => {
+            const target = e.target as HTMLImageElement
+            target.src = '/products/placeholder.jpg'
+          }}
         />
         {product.images && product.images.length > 1 && (
-          <Image
+          <img
             src={product.images[1]}
             alt={`${product.name} - view 2`}
-            fill
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            className="object-cover transition-opacity duration-300"
+            className="absolute inset-0 w-full h-full object-cover transition-opacity duration-300"
             style={{ 
               opacity: currentImageIndex === 1 ? 1 : 0
             }}
-            unoptimized
+            onError={(e) => {
+              const target = e.target as HTMLImageElement
+              target.src = '/products/placeholder.jpg'
+            }}
           />
         )}
         {/* Action buttons overlay - only for dealers */}

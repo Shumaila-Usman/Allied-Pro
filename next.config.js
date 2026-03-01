@@ -13,7 +13,7 @@ const nextConfig = {
       },
     ],
     // Disable optimization for local images in production to avoid issues
-    unoptimized: process.env.NODE_ENV === 'production',
+    unoptimized: true,
     // Allow local images from public folder
     dangerouslyAllowSVG: true,
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
