@@ -119,9 +119,11 @@ export default function Header() {
           {categoriesDropdownOpen && (
             <div className="absolute top-full left-0 right-0 bg-black shadow-lg max-h-[70vh] overflow-y-auto z-50">
               <div className="px-4 py-4 space-y-1">
-                {/* Main Categories */}
+                {/* Main Categories - hide label on mobile */}
                 <div className="mb-4 pb-4 border-b border-gray-700">
-                  <h3 className="text-sm font-semibold text-gray-400 uppercase tracking-wide mb-3">Main Categories</h3>
+                  <h3 className="hidden md:block text-sm font-semibold text-gray-400 uppercase tracking-wide mb-3">
+                    Main Categories
+                  </h3>
                   {mainCategories.map((category) => {
                     // Use slug-based URL (getProductUrl handles the mapping correctly)
                     // This ensures compatibility with the API which expects slugs
