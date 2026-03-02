@@ -8,6 +8,7 @@ import Footer from '@/components/Footer'
 import ProductCard from '@/components/ProductCard'
 import { Product } from '@/types'
 import { Category } from '@/lib/products'
+import productsData from '@/data/products.json'
 
 // Extended Category interface to include level from API
 interface CategoryWithLevel extends Category {
@@ -22,6 +23,20 @@ interface ProductsResponse {
     total: number
     totalPages: number
   }
+}
+
+// Helper function to enrich products with images from products.json
+function enrichProductsWithImages(products: Product[]): Product[] {
+  return products.map(product => {
+    // Find matching product in products.json by name
+    const matchingProduct = productsData.find((p: any) => p.name === product.name)
+    if (matchingProduct && matchingProduct.images && matchingProduct.images.length > 0) {
+      // Use images from products.json
+      return { ...product, images: matchingProduct.images }
+    }
+    // Keep original images if no match found
+    return product
+  })
 }
 
 // Helper function to get category names for products
@@ -681,8 +696,10 @@ export default function ProductsPage() {
       })
       .then(async (data: ProductsResponse) => {
         console.log('🔴 Products fetched:', data.products?.length || 0, 'Total:', data.pagination?.total || 0)
-        // Enrich products with category names
-        const productsWithCategories = await enrichProductsWithCategories(data.products || [])
+        // Enrich products with images from products.json first
+        const productsWithImages = enrichProductsWithImages(data.products || [])
+        // Then enrich with category names
+        const productsWithCategories = await enrichProductsWithCategories(productsWithImages)
         setProducts(productsWithCategories)
         setPagination(data.pagination || pagination)
         setLoading(false)
