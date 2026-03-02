@@ -11,6 +11,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useAuth } from '@/contexts/AuthContext'
 import { Product } from '@/types'
+import productsData from '@/data/products.json'
 
 // Hero banner images - Only 3 banners (removed banner-1)
 const heroSlides = [
@@ -288,6 +289,9 @@ async function enrichProductsWithCategories(products: Product[]): Promise<Produc
   }
 }
 
+// Products from JSON file (used to ensure images on home page match data/products.json)
+const productsFromFile: Product[] = productsData as unknown as Product[]
+
 // Best Sellers Component
 function BestSellersSlider() {
   const [bestSellersProducts, setBestSellersProducts] = useState<Product[]>([])
@@ -325,6 +329,10 @@ function BestSellersSlider() {
           
           // Manually set categories for specific products
           const productsWithCategories = sortedProducts.map(product => {
+            // Ensure images match data/products.json
+            const matchFromFile = productsFromFile.find((p) => p.name === product.name)
+            const images = matchFromFile?.images && matchFromFile.images.length > 0 ? matchFromFile.images : product.images
+
             // Manually assign categories based on product names
             let category = ''
             if (product.name === 'Makeup Cotton / Cotton Pads') {
@@ -340,7 +348,7 @@ function BestSellersSlider() {
               category = 'EQUIPMENT'
             }
             
-            return { ...product, category }
+            return { ...product, category, images }
           })
           
           setBestSellersProducts(productsWithCategories)
@@ -471,6 +479,10 @@ export default function Home() {
           
           // Manually set categories for specific products
           const productsWithCategories = sortedProducts.map(product => {
+            // Ensure images match data/products.json
+            const matchFromFile = productsFromFile.find((p) => p.name === product.name)
+            const images = matchFromFile?.images && matchFromFile.images.length > 0 ? matchFromFile.images : product.images
+
             // Manually assign categories based on product names
             let category = ''
             if (product.name === 'Mixing Bowl Set' || product.name === 'Disposable Headbands') {
@@ -487,7 +499,7 @@ export default function Home() {
               category = 'SKINCARE'
             }
             
-            return { ...product, category }
+            return { ...product, category, images }
           })
           
           setFeaturedProducts(productsWithCategories)
