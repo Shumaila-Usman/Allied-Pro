@@ -1160,38 +1160,30 @@ export default function ProductsPage() {
                   ))}
                 </div>
 
-                {/* Pagination */}
+                {/* Pagination - numbered pages (1 2 3 4 5 ...) */}
                 {pagination.totalPages > 1 && (
-                  <div className="flex justify-center items-center gap-2">
-                    <button
-                      onClick={() => {
-                        const newPage = pagination.page - 1
-                        setPagination((prev) => ({ ...prev, page: newPage }))
-                        const params = new URLSearchParams(searchParams.toString())
-                        params.set('page', newPage.toString())
-                        router.push(`/products?${params.toString()}`, { scroll: false })
-                      }}
-                      disabled={pagination.page === 1}
-                      className="px-4 py-2 border border-gray-300 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-100 transition-colors"
-                    >
-                      Previous
-                    </button>
-                    <span className="px-4 py-2">
-                      Page {pagination.page} of {pagination.totalPages}
-                    </span>
-                    <button
-                      onClick={() => {
-                        const newPage = pagination.page + 1
-                        setPagination((prev) => ({ ...prev, page: newPage }))
-                        const params = new URLSearchParams(searchParams.toString())
-                        params.set('page', newPage.toString())
-                        router.push(`/products?${params.toString()}`, { scroll: false })
-                      }}
-                      disabled={pagination.page === pagination.totalPages}
-                      className="px-4 py-2 border border-gray-300 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-100 transition-colors"
-                    >
-                      Next
-                    </button>
+                  <div className="flex justify-center items-center gap-2 flex-wrap">
+                    {Array.from({ length: pagination.totalPages }, (_, index) => index + 1).map(
+                      (pageNumber) => (
+                        <button
+                          key={pageNumber}
+                          onClick={() => {
+                            if (pageNumber === pagination.page) return
+                            setPagination((prev) => ({ ...prev, page: pageNumber }))
+                            const params = new URLSearchParams(searchParams.toString())
+                            params.set('page', pageNumber.toString())
+                            router.push(`/products?${params.toString()}`, { scroll: false })
+                          }}
+                          className={`min-w-[2.25rem] px-3 py-1.5 rounded-lg text-sm border transition-colors ${
+                            pageNumber === pagination.page
+                              ? 'bg-gradient-to-r from-[#C8A2C8] to-[#87CEEB] text-white border-transparent'
+                              : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-100'
+                          }`}
+                        >
+                          {pageNumber}
+                        </button>
+                      )
+                    )}
                   </div>
                 )}
               </>

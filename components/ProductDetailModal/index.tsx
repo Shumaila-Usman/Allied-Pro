@@ -21,6 +21,18 @@ export default function ProductDetailModal({ product, isOpen, onClose }: Product
   const [quantity, setQuantity] = useState(1)
   const [breadcrumbs, setBreadcrumbs] = useState<string[]>([])
   const [categoryName, setCategoryName] = useState('')
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const checkMobile = () => {
+      if (typeof window !== 'undefined') {
+        setIsMobile(window.innerWidth < 768)
+      }
+    }
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
 
   useEffect(() => {
     if (product) {
@@ -639,8 +651,8 @@ export default function ProductDetailModal({ product, isOpen, onClose }: Product
               </div>
             </div>
 
-            {/* Pricing - Only for Dealers */}
-            {isDealer && (
+            {/* Pricing - Only for Dealers (hidden on mobile) */}
+            {!isMobile && isDealer && (
               <div className="space-y-2">
                 <div className="flex items-center gap-4">
                   <span className="text-3xl font-bold text-gray-900">${displayPrice.toFixed(2)}</span>
@@ -678,8 +690,8 @@ export default function ProductDetailModal({ product, isOpen, onClose }: Product
               </div>
             )}
 
-            {/* Quantity & Add to Cart - Only for Dealers */}
-            {isDealer && (
+            {/* Quantity & Add to Cart - Only for Dealers (hidden on mobile) */}
+            {!isMobile && isDealer && (
               <div className="space-y-4 pt-4 border-t">
                 <div className="flex items-center gap-4">
                   <label className="text-sm font-semibold text-gray-700">QTY</label>
