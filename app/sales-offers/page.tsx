@@ -6,6 +6,7 @@ import MainNav from '@/components/MainNav'
 import Footer from '@/components/Footer'
 import ProductCard from '@/components/ProductCard'
 import { Product } from '@/types'
+import productsData from '@/data/products.json'
 
 // Category definitions with exact product names to match
 const categories = [
@@ -90,6 +91,20 @@ export default function SalesOffersPage() {
       })
   }, [])
 
+  // Helper function to enrich products with images from products.json
+  const enrichProductsWithImages = (products: Product[]): Product[] => {
+    return products.map(product => {
+      // Find matching product in products.json by name
+      const matchingProduct = productsData.find((p: any) => p.name === product.name)
+      if (matchingProduct && matchingProduct.images && matchingProduct.images.length > 0) {
+        // Use images from products.json
+        return { ...product, images: matchingProduct.images }
+      }
+      // Keep original images if no match found
+      return product
+    })
+  }
+
   // Helper function to get root category name from product
   const getCategoryName = (product: Product): string => {
     if (!product.categoryId) {
@@ -159,7 +174,10 @@ export default function SalesOffersPage() {
           // If filtered products are less than 20, use all products
           const productsToUse = filteredProducts.length >= 20 ? filteredProducts : data.products
           
-          setProducts(productsToUse)
+          // Enrich products with images from products.json
+          const productsWithImages = enrichProductsWithImages(productsToUse)
+          
+          setProducts(productsWithImages)
           console.log('Products to display:', productsToUse.length)
         } else {
           console.log('No products array in response')
