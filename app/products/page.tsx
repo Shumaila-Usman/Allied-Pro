@@ -1160,11 +1160,37 @@ export default function ProductsPage() {
                   ))}
                 </div>
 
-                {/* Pagination - numbered pages (1 2 3 4 5 ...) */}
+                {/* Pagination - windowed pages with Prev / Next (e.g., Prev 1 2 3 Next, then 4 5 6, etc.) */}
                 {pagination.totalPages > 1 && (
                   <div className="flex justify-center items-center gap-2 flex-wrap">
-                    {Array.from({ length: pagination.totalPages }, (_, index) => index + 1).map(
-                      (pageNumber) => (
+                    {/* Previous button */}
+                    <button
+                      onClick={() => {
+                        if (pagination.page === 1) return
+                        const newPage = pagination.page - 1
+                        setPagination((prev) => ({ ...prev, page: newPage }))
+                        const params = new URLSearchParams(searchParams.toString())
+                        params.set('page', newPage.toString())
+                        router.push(`/products?${params.toString()}`, { scroll: false })
+                      }}
+                      disabled={pagination.page === 1}
+                      className="px-3 py-1.5 rounded-lg text-sm border border-gray-300 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-100 transition-colors"
+                    >
+                      Prev
+                    </button>
+
+                    {/* Windowed page numbers (groups of 3) */}
+                    {(() => {
+                      const windowSize = 3
+                      const windowIndex = Math.floor((pagination.page - 1) / windowSize)
+                      const startPage = windowIndex * windowSize + 1
+                      const endPage = Math.min(startPage + windowSize - 1, pagination.totalPages)
+                      const pages: number[] = []
+                      for (let p = startPage; p <= endPage; p++) {
+                        pages.push(p)
+                      }
+
+                      return pages.map((pageNumber) => (
                         <button
                           key={pageNumber}
                           onClick={() => {
@@ -1182,8 +1208,24 @@ export default function ProductsPage() {
                         >
                           {pageNumber}
                         </button>
-                      )
-                    )}
+                      ))
+                    })()}
+
+                    {/* Next button */}
+                    <button
+                      onClick={() => {
+                        if (pagination.page === pagination.totalPages) return
+                        const newPage = pagination.page + 1
+                        setPagination((prev) => ({ ...prev, page: newPage }))
+                        const params = new URLSearchParams(searchParams.toString())
+                        params.set('page', newPage.toString())
+                        router.push(`/products?${params.toString()}`, { scroll: false })
+                      }}
+                      disabled={pagination.page === pagination.totalPages}
+                      className="px-3 py-1.5 rounded-lg text-sm border border-gray-300 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-100 transition-colors"
+                    >
+                      Next
+                    </button>
                   </div>
                 )}
               </>
