@@ -1067,7 +1067,7 @@ export default function ProductsPage() {
                     {!selectedSubcategory 
                       ? 'Select a subcategory first' 
                       : (!getSelectedSubcategory())
-                        ? 'Loading...'
+                        ? 'Select a subcategory first'
                         : (!getSelectedSubcategory()?.secondSubcategories || getSelectedSubcategory()?.secondSubcategories?.length === 0)
                           ? 'No second subcategory'
                           : 'All Second Subcategories'}

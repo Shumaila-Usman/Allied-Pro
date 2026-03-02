@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import { useAuth } from '@/contexts/AuthContext'
 import { useCart } from '@/contexts/CartContext'
@@ -16,6 +16,18 @@ export default function ProductCard({ product }: ProductCardProps) {
   const { addToCart, addToWishlist, isInWishlist, removeFromWishlist } = useCart()
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const checkMobile = () => {
+      if (typeof window !== 'undefined') {
+        setIsMobile(window.innerWidth < 768)
+      }
+    }
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
 
   const handleCardClick = (e: React.MouseEvent) => {
     // Don't open modal if clicking on buttons or links
@@ -104,9 +116,11 @@ export default function ProductCard({ product }: ProductCardProps) {
           )}
         </div>
         <div className="p-4 flex flex-col flex-1">
-          <p className="text-sm text-gray-500 mb-1">{product.brand}</p>
+          {!isMobile && (
+            <p className="text-sm text-gray-500 mb-1">{product.brand}</p>
+          )}
           <h3 className="font-semibold text-gray-900 mb-2 line-clamp-2">{product.name}</h3>
-          {isDealer && (
+          {!isMobile && isDealer && (
             <div className="space-y-1">
               <p className="text-lg font-bold text-gray-900">
                 ${(product.cost && isDealer ? product.cost : product.price).toFixed(2)}
@@ -117,7 +131,7 @@ export default function ProductCard({ product }: ProductCardProps) {
             </div>
           )}
           <div className="mt-auto pt-3 flex items-center gap-3">
-            {isDealer && (
+            {!isMobile && isDealer && (
               <button
                 onClick={(e) => {
                   e.stopPropagation()
@@ -136,7 +150,9 @@ export default function ProductCard({ product }: ProductCardProps) {
                 e.stopPropagation()
                 setIsModalOpen(true)
               }}
-              className="flex-1 border border-gray-900 text-gray-900 px-4 py-2 rounded-lg text-sm font-medium hover:bg-gray-900 hover:text-white transition-colors duration-300 whitespace-nowrap text-center"
+              className={`${
+                isMobile ? 'w-full' : 'flex-1'
+              } border border-gray-900 text-gray-900 px-4 py-2 rounded-lg text-sm font-medium hover:bg-gray-900 hover:text-white transition-colors duration-300 whitespace-nowrap text-center`}
             >
               View Details
             </button>

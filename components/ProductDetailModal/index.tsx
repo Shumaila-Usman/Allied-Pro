@@ -711,7 +711,8 @@ export default function ProductDetailModal({ product, isOpen, onClose }: Product
             {/* Additional Info */}
             <div className="pt-4 border-t space-y-2 text-sm text-gray-600">
               <p>
-                <span className="font-semibold">SKU:</span> {product.sku || 'N/A'}
+                <span className="font-semibold">Item Code:</span>{' '}
+                {product.sku ? `ACBS-${product.sku.replace(/^SKU-/, '')}` : 'N/A'}
               </p>
               <p>
                 <span className="font-semibold">Category:</span> {breadcrumbs.join(' / ')}

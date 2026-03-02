@@ -82,7 +82,7 @@ export default function Footer() {
           </div>
 
           {/* Contact Service & Stay Connected */}
-          <div className="text-center sm:text-left -ml-2 sm:-ml-4 lg:-ml-6 mr-4 sm:mr-6 lg:mr-8">
+          <div className="text-center sm:text-left sm:-ml-4 lg:-ml-6 sm:mr-6 lg:mr-8">
             {/* Contact Service */}
             <h3 className="text-white font-bold text-base sm:text-lg mb-3 sm:mb-4">Contact Service</h3>
             <ul className="space-y-2 text-xs sm:text-sm mb-6">
@@ -114,9 +114,9 @@ export default function Footer() {
                 <input
                   type="email"
                   placeholder="Your email"
-                  className="flex-1 px-2 sm:px-3 py-1.5 sm:py-2 bg-gray-800 border border-gray-700 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-primary-400 text-white placeholder-gray-400 text-xs sm:text-sm"
+                  className="flex-1 px-2 sm:px-3 py-1.5 sm:py-2 bg-gray-800 border border-gray-700 rounded-lg sm:rounded-l-lg sm:rounded-r-none focus:outline-none focus:ring-2 focus:ring-primary-400 text-white placeholder-gray-400 text-xs sm:text-sm"
                 />
-                <button className="gradient-primary text-white px-3 sm:px-4 py-1.5 sm:py-2 rounded-r-lg hover:opacity-90 transition-opacity duration-300 whitespace-nowrap text-xs sm:text-sm">
+                <button className="gradient-primary text-white px-2 sm:px-2 py-1.5 sm:py-2 rounded-lg sm:rounded-l-none sm:rounded-r-lg hover:opacity-90 transition-opacity duration-300 whitespace-nowrap text-[11px]">
                   Subscribe
                 </button>
               </div>
