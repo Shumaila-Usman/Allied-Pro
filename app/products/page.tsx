@@ -1160,72 +1160,143 @@ export default function ProductsPage() {
                   ))}
                 </div>
 
-                {/* Pagination - windowed pages with Prev / Next (e.g., Prev 1 2 3 Next, then 4 5 6, etc.) */}
+                {/* Pagination - responsive, with ellipsis and jump select */}
                 {pagination.totalPages > 1 && (
-                  <div className="flex justify-center items-center gap-2 flex-wrap">
-                    {/* Previous button */}
-                    <button
-                      onClick={() => {
-                        if (pagination.page === 1) return
-                        const newPage = pagination.page - 1
-                        setPagination((prev) => ({ ...prev, page: newPage }))
-                        const params = new URLSearchParams(searchParams.toString())
-                        params.set('page', newPage.toString())
-                        router.push(`/products?${params.toString()}`, { scroll: false })
-                      }}
-                      disabled={pagination.page === 1}
-                      className="px-3 py-1.5 rounded-lg text-sm border border-gray-300 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-100 transition-colors"
-                    >
-                      Prev
-                    </button>
+                  <div className="flex flex-col items-center gap-3">
+                    {/* Numbered pagination with Prev / Next */}
+                    <div className="flex justify-center items-center gap-2 flex-wrap">
+                      {/* Previous button */}
+                      <button
+                        type="button"
+                        onClick={() => {
+                          const newPage = Math.max(1, pagination.page - 1)
+                          if (newPage === pagination.page) return
+                          setPagination((prev) => ({ ...prev, page: newPage }))
+                          const params = new URLSearchParams(searchParams.toString())
+                          params.set('page', newPage.toString())
+                          router.push(`/products?${params.toString()}`, { scroll: false })
+                        }}
+                        disabled={pagination.page === 1}
+                        aria-label="Go to previous page"
+                        className="px-3 py-1.5 rounded-lg text-sm border border-gray-300 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-100 transition-colors"
+                      >
+                        &lt;
+                      </button>
 
-                    {/* Windowed page numbers (groups of 3) */}
-                    {(() => {
-                      const windowSize = 3
-                      const windowIndex = Math.floor((pagination.page - 1) / windowSize)
-                      const startPage = windowIndex * windowSize + 1
-                      const endPage = Math.min(startPage + windowSize - 1, pagination.totalPages)
-                      const pages: number[] = []
-                      for (let p = startPage; p <= endPage; p++) {
-                        pages.push(p)
-                      }
+                      {(() => {
+                        const totalPages = pagination.totalPages
+                        const currentPage = pagination.page
+                        const isSimple = totalPages <= 10
+                        const delta = isMobile ? 1 : 2
+                        const items: (number | 'left-ellipsis' | 'right-ellipsis')[] = []
 
-                      return pages.map((pageNumber) => (
-                        <button
-                          key={pageNumber}
-                          onClick={() => {
-                            if (pageNumber === pagination.page) return
-                            setPagination((prev) => ({ ...prev, page: pageNumber }))
-                            const params = new URLSearchParams(searchParams.toString())
-                            params.set('page', pageNumber.toString())
-                            router.push(`/products?${params.toString()}`, { scroll: false })
-                          }}
-                          className={`min-w-[2.25rem] px-3 py-1.5 rounded-lg text-sm border transition-colors ${
-                            pageNumber === pagination.page
-                              ? 'bg-gradient-to-r from-[#C8A2C8] to-[#87CEEB] text-white border-transparent'
-                              : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-100'
-                          }`}
-                        >
-                          {pageNumber}
-                        </button>
-                      ))
-                    })()}
+                        if (isSimple) {
+                          for (let p = 1; p <= totalPages; p++) {
+                            items.push(p)
+                          }
+                        } else {
+                          const start = Math.max(2, currentPage - delta)
+                          const end = Math.min(totalPages - 1, currentPage + delta)
 
-                    {/* Next button */}
-                    <button
-                      onClick={() => {
-                        if (pagination.page === pagination.totalPages) return
-                        const newPage = pagination.page + 1
-                        setPagination((prev) => ({ ...prev, page: newPage }))
-                        const params = new URLSearchParams(searchParams.toString())
-                        params.set('page', newPage.toString())
-                        router.push(`/products?${params.toString()}`, { scroll: false })
-                      }}
-                      disabled={pagination.page === pagination.totalPages}
-                      className="px-3 py-1.5 rounded-lg text-sm border border-gray-300 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-100 transition-colors"
-                    >
-                      Next
-                    </button>
+                          items.push(1)
+
+                          if (start > 2) {
+                            items.push('left-ellipsis')
+                          }
+
+                          for (let p = start; p <= end; p++) {
+                            items.push(p)
+                          }
+
+                          if (end < totalPages - 1) {
+                            items.push('right-ellipsis')
+                          }
+
+                          items.push(totalPages)
+                        }
+
+                        return items.map((item, index) => {
+                          if (item === 'left-ellipsis' || item === 'right-ellipsis') {
+                            return (
+                              <span
+                                key={`${item}-${index}`}
+                                className="px-2 py-1 text-sm text-gray-400 select-none"
+                                aria-hidden="true"
+                              >
+                                …
+                              </span>
+                            )
+                          }
+
+                          const pageNumber = item
+                          return (
+                            <button
+                              key={pageNumber}
+                              type="button"
+                              onClick={() => {
+                                if (pageNumber === pagination.page) return
+                                setPagination((prev) => ({ ...prev, page: pageNumber }))
+                                const params = new URLSearchParams(searchParams.toString())
+                                params.set('page', pageNumber.toString())
+                                router.push(`/products?${params.toString()}`, { scroll: false })
+                              }}
+                              aria-current={pageNumber === pagination.page ? 'page' : undefined}
+                              className={`min-w-[2.25rem] px-3 py-1.5 rounded-lg text-sm border transition-colors ${
+                                pageNumber === pagination.page
+                                  ? 'bg-gradient-to-r from-[#C8A2C8] to-[#87CEEB] text-white border-transparent'
+                                  : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-100'
+                              }`}
+                            >
+                              {pageNumber}
+                            </button>
+                          )
+                        })
+                      })()}
+
+                      {/* Next button */}
+                      <button
+                        type="button"
+                        onClick={() => {
+                          const newPage = Math.min(pagination.totalPages, pagination.page + 1)
+                          if (newPage === pagination.page) return
+                          setPagination((prev) => ({ ...prev, page: newPage }))
+                          const params = new URLSearchParams(searchParams.toString())
+                          params.set('page', newPage.toString())
+                          router.push(`/products?${params.toString()}`, { scroll: false })
+                        }}
+                        disabled={pagination.page === pagination.totalPages}
+                        aria-label="Go to next page"
+                        className="px-3 py-1.5 rounded-lg text-sm border border-gray-300 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-100 transition-colors"
+                      >
+                        &gt;
+                      </button>
+                    </div>
+
+                    {/* Jump to page selector */}
+                    <div className="flex items-center gap-2 text-xs sm:text-sm text-gray-600">
+                      <span>Jump to page:</span>
+                      <select
+                        value={pagination.page}
+                        onChange={(e) => {
+                          const newPage = Number(e.target.value) || 1
+                          if (newPage === pagination.page) return
+                          setPagination((prev) => ({ ...prev, page: newPage }))
+                          const params = new URLSearchParams(searchParams.toString())
+                          params.set('page', newPage.toString())
+                          router.push(`/products?${params.toString()}`, { scroll: false })
+                        }}
+                        aria-label="Jump to page"
+                        className="border border-gray-300 rounded-lg px-2 py-1 bg-white focus:outline-none focus:ring-2 focus:ring-[#87CEEB]"
+                      >
+                        {Array.from({ length: pagination.totalPages }, (_, index) => index + 1).map(
+                          (pageNumber) => (
+                            <option key={pageNumber} value={pageNumber}>
+                              {pageNumber}
+                            </option>
+                          )
+                        )}
+                      </select>
+                    </div>
                   </div>
                 )}
               </>
